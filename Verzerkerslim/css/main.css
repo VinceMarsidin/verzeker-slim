@@ -1,0 +1,160 @@
+* {
+  box-sizing: border-box;
+}
+
+.page-hero {
+    background-color: var(--color-secondary);
+    color: #fff;
+    padding: 1rem 1rem;
+    box-shadow: 3px 3px 5px 5px rgba(90, 126, 173, 0.6);
+    text-align: center;
+}
+
+:root {
+    --color-primary: #dd8604;
+    --color-primary-hover: #111ed1;
+    --color-secondary: #3eadc0;
+}
+
+body {
+    margin: 0;
+    font-size: 28px;
+    font-family: system-ui;
+}
+
+#header {
+ padding: 1rem; 
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+}
+
+.nav .nav-link {
+    color: var(--color-primary-hover);
+    text-decoration: none;
+    padding: 10px;
+}
+.nav .nav-link:hover {
+    color: var(--color-primary);
+}
+
+.logo {
+    width: 300px;
+}
+
+#hero {
+    background: white;
+    color: black;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem;
+    box-shadow: 3px 3px 5px 5px rgba(90, 126, 173, 0.6);
+    text-align: center;
+}
+
+h1{
+    font-family: 'Cinzel Decorative', serif;
+    color: #dd8604;
+}
+
+#hero p {
+    line-height: 1.5rem;
+    max-width: 60rem;
+}
+
+.btn {
+    background-color: rgb(0, 0, 0);
+    box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+    color: white;
+    padding: 1rem;
+    text-decoration: none;
+    transition: all 0.2s ease-in;
+}
+.btn:hover {
+    background-color: var(--color-primary-hover);
+    transform: scale(115%);
+}
+
+#about {
+    display: flex;
+    color: black;
+    text-align: left;
+    line-height: 1.5rem;
+    background-color: white;
+    box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.6);
+}
+
+#about .col {
+    padding: 2.5rem;
+}
+
+.bekende {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 30%;
+  background-color: #d2ecfc;
+}
+
+.bekende-text {
+  flex: 1;
+}
+
+.bekende-text h2 {
+  color: #421ea6;
+  font-size: 40px;
+}
+
+.bekende-text h1 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.bekende-text p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.bekende-text button {
+  padding: 12px 25px;
+  background-color: #421ea6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.bekende-text button:hover {
+  background-color: #421ea6;
+}
+
+.assuria-image {
+  flex: 1;
+  text-align: right;
+}
+
+.assuria-image img {
+  width: 400px;
+  max-width: 100%;
+  border-radius: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #707ebd;
+    color: white;
+}
