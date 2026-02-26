@@ -24,6 +24,7 @@ body {
 }
 
 /*----------------------------------NAVIGATION BAR---------------------------------*/
+/* Style for die hele header */
 #header {
   color: #fff;
   /* position: fixed;                             */
@@ -60,6 +61,7 @@ body {
   transform: translateY(-2px);
 }
 
+/* Style van die foto */
 #header .logo {
     width: 100px;
 }
@@ -97,25 +99,42 @@ button:hover {
   background: #0066cc;
 }
 
+
+/*-------------------------------------VERZERINGEN------------------------------------*/ 
 .comparison {
-  display: flex;
-  justify-content: space-around;
-  padding: 2rem;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  width: 250px;
+  padding: 4rem 2rem;
   text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* Center the title */
+.comparison h2 {
+  margin-bottom: 3rem;
+}
+
+/* GRID LAYOUT */
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 2rem;
+}
+
+/* Make h2 take full width */
+.comparison h2 {
+  grid-column: 1 / -1; /* spans across both columns */
+}
+
+/* Card Styling */
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+/* EIND/BOTTOM PAGINA  */
 footer {
     text-align: center;
     padding: 20px;
-    background: #707ebd;
+    background: #004080;                 
+
     color: white;
 }
