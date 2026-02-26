@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif; /*APPLE FONT FAMILY*/
 }
 
 .page-hero {
@@ -17,9 +18,9 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+
+  margin: 0;  
+  padding-top: 80px; /* adjust to header height */
   line-height: 1.6;
 }
 
@@ -27,7 +28,7 @@ body {
 /* Style for die hele header */
 #header {
   color: #fff;
-  /* position: fixed;                             */
+  position: fixed;                           
   top: 0;
   left: 0;
   width: 100%;                               
@@ -44,6 +45,44 @@ body {
 #header .nav {
   display: flex;
   gap: 25px;
+}
+
+/* Hamburger button */
+#hamburger {
+  display: none;           /* hidden on desktop */
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsive nav for mobile screens */
+@media (max-width: 768px) {
+  #header .nav {
+    display: none;          /* hide by default */
+    flex-direction: column;
+    background: #004080;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    padding: 1rem;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  #header .nav.active {
+    display: flex;          /* show when hamburger clicked */
+  }
+
+  #hamburger {
+    display: block;         /* show hamburger on mobile */
+  }
+
+  #header .nav-link {
+    padding: 0.5rem 0;      /* vertical spacing for stacked links */
+  }
 }
 
 /* Style van je navbar aan de linkerkant */
@@ -67,6 +106,7 @@ body {
 }
 
 /*-------------------------------------HERO------------------------------------*/ 
+/* Style van verzerkingeen */
 .hero {
   position: relative;
   background: 
@@ -82,10 +122,12 @@ body {
   color: white;
 }
 
+/* Style van die h2 */
 .hero h2 {
   margin-top: 0;
 }
 
+/* Style van die knop */
 button {
   background: #004080;
   color: #fff;
@@ -106,7 +148,7 @@ button:hover {
   text-align: center;
 }
 
-/* Center the title */
+/* Center het titel */
 .comparison h2 {
   margin-bottom: 3rem;
 }
@@ -114,7 +156,7 @@ button:hover {
 /* GRID LAYOUT */
 .comparison {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-columns: repeat(2, 1fr);  /* Geeft 2 colums*/
   gap: 2rem;
 }
 
@@ -130,7 +172,66 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
-/* EIND/BOTTOM PAGINA  */
+
+@media (min-width: 768px) {
+  .comparison {
+  grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/*-------------------------------------FAQ------------------------------------*/ 
+/* Heel gedeelte */
+.faq {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Titel */
+.faq h2 {
+  margin-bottom: 2rem;
+}
+
+/* FAQ items */
+.faq-item {
+  margin-bottom: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Vraag box styling */
+.faq-question {
+  width: 100%;
+  background: #004080;
+  color: #fff;
+  padding: 1rem;
+  font-size: 1.1rem;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Style als je met je muis over die vraag */
+.faq-question:hover {
+  background: #0066cc;
+}
+
+/* Style van die antwoord box */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 1rem;
+}
+
+/* Style text in die box */
+.faq-answer p {
+  margin: 1rem 0;
+}
+
+/*-------------------------------------EIND/BOTTOM_VAN_DIE_PAGINA------------------------------------*/ 
 footer {
     text-align: center;
     padding: 20px;
