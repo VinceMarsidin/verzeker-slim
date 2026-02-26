@@ -22,6 +22,19 @@ body {
     font-family: system-ui;
 }
 
+.about {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    color: #fff;
+    height: 75vh;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    text-align: center;
+    box-shadow: 0 0px 30px rgba(255, 255, 255, 0.15);
+}
+
 #header {
  padding: 1rem; 
  display: flex;
@@ -95,9 +108,7 @@ h1{
     box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.6);
 }
 
-#about .col {
-    padding: 2.5rem;
-}
+
 
 .bekende {
   display: flex;
