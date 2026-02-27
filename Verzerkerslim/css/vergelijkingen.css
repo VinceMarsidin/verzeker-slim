@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif; /*APPLE FONT FAMILY*/
 }
 
 .page-hero {
@@ -17,33 +18,41 @@
 }
 
 body {
-    margin: 0;
-    font-size: 28px;
-    font-family: system-ui;
+
+  margin: 0;  
+  padding-top: 80px; /* adjust to header height */
+  line-height: 1.6;
 }
 
+/*----------------------------------NAVIGATION BAR---------------------------------*/
+/* Style for die hele header */
 #header {
- padding: 1rem; 
- display: flex;
- align-items: center;
- justify-content: space-between;
+  color: #fff;
+  position: fixed;                           
+  top: 0;
+  left: 0;
+  width: 100%;                               
+  background: #004080;                 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 0 15px rgba(10, 0, 0, 0.1); 
+  z-index: 1000;   
 }
 
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 0.1rem;
+/* Style van inks van die nav bar */
+#header .nav {
+  display: flex;
+  gap: 25px;
 }
 
-.nav .nav-link {
-    color: var(--color-primary-hover);
-    text-decoration: none;
-    padding: 10px;
-}
-.nav .nav-link:hover {
-    color: var(--color-primary);
-}
-
-.logo {
-    width: 300px;
+/* Hamburger button */
+#hamburger {
+  display: none;           /* hidden on desktop */
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
