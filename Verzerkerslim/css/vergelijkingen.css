@@ -1,58 +1,55 @@
-* {
-  box-sizing: border-box;
-  font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif; /*APPLE FONT FAMILY*/
+.comparison-header {
+  text-align: center;
+  margin: 2rem;
 }
 
-.page-hero {
-    background-color: var(--color-secondary);
-    color: #fff;
-    padding: 1rem 1rem;
-    box-shadow: 3px 3px 5px 5px rgba(90, 126, 173, 0.6);
-    text-align: center;
+.comparison-header input {
+  width: 80%;
+  max-width: 500px;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
 }
 
-:root {
-    --color-primary: #dd8604;
-    --color-primary-hover: #111ed1;
-    --color-secondary: #3eadc0;
+.companies {
+  margin-top: 10px;
 }
 
-body {
-
-  margin: 0;  
-  padding-top: 80px; /* adjust to header height */
-  line-height: 1.6;
-}
-
-/*----------------------------------NAVIGATION BAR---------------------------------*/
-/* Style for die hele header */
-#header {
-  color: #fff;
-  position: fixed;                           
-  top: 0;
-  left: 0;
-  width: 100%;                               
-  background: #004080;                 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  box-shadow: 0 0 15px rgba(10, 0, 0, 0.1); 
-  z-index: 1000;   
-}
-
-/* Style van inks van die nav bar */
-#header .nav {
-  display: flex;
-  gap: 25px;
-}
-
-/* Hamburger button */
-#hamburger {
-  display: none;           /* hidden on desktop */
-  font-size: 2rem;
-  background: none;
+.company-btn {
+  padding: 0.7rem 1.2rem;
+  margin: 5px;
   border: none;
   color: white;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.comparison-table {
+  max-width: 1100px;
+  margin: auto;
+  overflow-x: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background: #004080;
+  color: white;
+}
+
+.legend p {
+  font-size: 0.9rem;
+  margin-top: 5px;
+  text-align: left;
 }
