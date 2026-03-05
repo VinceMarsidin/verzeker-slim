@@ -1,0 +1,121 @@
+/* CONTACT HERO SECTION */
+.contact-hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+}
+
+.contact-hero h1 {
+  color: #004080;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* MAIN CONTAINER */
+.contact-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* Formulier iets breder dan info */
+  gap: 3rem;
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* GEMEENSCHAPPELIJKE STIJL VOOR BOXEN */
+.contact-form, .contact-info {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* FORMULIER ELEMENTEN */
+.contact-form h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-form input, 
+.contact-form select, 
+.contact-form textarea {
+  padding: 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+/* INTERACTIEVE FOCUS STATE */
+.contact-form input:focus, 
+.contact-form select:focus, 
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #004080;
+  box-shadow: 0 0 0 4px rgba(0, 64, 128, 0.1);
+  transform: translateY(-2px);
+}
+
+.contact-form button {
+  background: #004080;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.contact-form button:hover {
+  background: #0066cc;
+  transform: translateY(-2px);
+}
+
+.contact-form button:active {
+  transform: translateY(0);
+}
+
+/* STATUS MELDINGEN */
+#formResponse {
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* CONTACT INFO SECTIE */
+.contact-info h2 {
+  color: #004080;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info p {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+.contact-info strong {
+  color: #333;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 850px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+  }
+}
