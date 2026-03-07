@@ -6,8 +6,8 @@
 const companyUrls = {
     'assuria': 'https://www.assuria.sr/',
     'fatum': 'https://fatum-suriname.com/',
-    'self': 'https://www.selfreliance.sr/',
-    'par': 'https://www.parsasco./'
+    'self': 'https://self-reliance.sr/',
+    'par': 'https://www.parsasco.com/'
 };
 
 /**
