@@ -1,184 +1,240 @@
 * {
   box-sizing: border-box;
-  font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif; /*APPLE FONT FAMILY*/
+  font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  /*APPLE FONT FAMILY*/
 }
 
-.page-hero {
-    background-color: var(--color-secondary);
-    color: #fff;
-    padding: 1rem 1rem;
-    box-shadow: 3px 3px 5px 5px rgba(90, 126, 173, 0.6);
-    text-align: center;
-}
 
 :root {
-    --color-primary: #dd8604;
-    --color-primary-hover: #111ed1;
-    --color-secondary: #3eadc0;
+  --color-primary: #dd8604;
+  --color-primary-hover: #0066cc;
+  --color-secondary: #004080;
 }
 
 body {
-  margin: 0;  
-  padding-top: 130px; 
-  line-height: 1.6;
+  margin: 0;
+  padding-top: 80px;
+  overflow-x: hidden;
+  /* Voorkomt horizontale scroll */
 }
+
 
 /*----------------------------------NAVIGATION BAR---------------------------------*/
 /* Style for die hele header */
 #header {
   color: #fff;
-  position: fixed;                           
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;                               
-  background: #004080;                 
+  width: 100%;
+  background: var(--color-secondary);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  box-shadow: 0 0 15px rgba(10, 0, 0, 0.1); 
-  z-index: 1000;   
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
-/* Style van inks van die nav bar */
+#header .logo {
+  width: 80px;
+  /* Iets kleiner voor mobiel */
+}
+
+/* Mobiel Menu (Standaard) */
 #header .nav {
   display: flex;
-  gap: 25px;
+  flex-direction: column;
+  background: var(--color-secondary);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  /* Verberg door hoogte op 0 te zetten */
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+  padding: 0;
 }
 
-/* Hamburger button */
+/* Als menu actief is op mobiel */
+#header .nav.active {
+  max-height: 300px;
+  /* Genoeg ruimte voor alle links */
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#header .nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 12px 2rem;
+  width: 100%;
+  display: block;
+  transition: 0.3s;
+}
+
 #hamburger {
-  display: none;           /* hidden on desktop */
-  font-size: 2rem;
+  display: block;
+  /* Altijd aan op mobiel */
+  font-size: 1.8rem;
   background: none;
   border: none;
   color: white;
   cursor: pointer;
 }
 
-/* Responsive nav for mobile screens */
-@media (max-width: 768px) {
-  #header .nav {
-    display: none;          /* hide by default */
-    flex-direction: column;
-    background: #004080;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
-    padding: 1rem;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-
-  #header .nav.active {
-    display: flex;          /* show when hamburger clicked */
+/* DESKTOP AANPASSINGEN */
+@media (min-width: 769px) {
+  body {
+    padding-top: 90px;
   }
 
   #hamburger {
-    display: block;         /* show hamburger on mobile */
+    display: none;
+  }
+
+  #header .nav {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    max-height: none;
+    width: auto;
+    padding: 0;
+    gap: 15px;
   }
 
   #header .nav-link {
-    padding: 0.5rem 0;      /* vertical spacing for stacked links */
+    padding: 8px 15px;
+    border-radius: 6px;
+  }
+
+  #header .nav-link:hover {
+    background: var(--color-primary-hover);
+    color: white
   }
 }
 
-/* Style van je navbar aan de linkerkant */
-#header .nav-link {
+/*-------------------------------------HERO------------------------------------*/
+.hero {
+  /* Donkerblauw verloop naar transparanter blauw over de foto */
+  background: linear-gradient(135deg, rgba(0, 64, 128, 0.9) 0%, rgba(62, 173, 192, 0.5) 100%),
+    url("/img/About-foto.jpg");
+  background-size: cover;
+  background-position: center;
+  /* Parallax effect */
+  padding: 8rem 1.5rem;
   color: white;
-  text-decoration: none;
-  padding: 8px 15px;
-  border-radius: 6px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+  animation: fadeInUp 1s ease-out;
+}
+
+/*-------------------------------------VERZERINGEN------------------------------------*/
+.comparison {
+  padding: 5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.comparison h2 {
+  grid-column: 1 / -1;
+  /* Dit zorgt dat de titel over beide kolommen spant */
+  text-align: center;
+  width: 100%;
+}
+
+.card {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  /* Iets ronder voor moderne look */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* Icoon container */
+.card-icon {
+  background: rgba(62, 173, 192, 0.1);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  color: var(--color-secondary);
   transition: 0.3s;
 }
 
-/* Animatie als je op die nav hover met je muis */
-#header .nav-link:hover {
-  color: var(--color-primary);
-  transform: translateY(-2px);
+.card-icon i {
+  width: 40px;
+  height: 40px;
 }
 
-/* Style van die foto */
-#header .logo {
-    width: 100px;
+.card h3 {
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
 }
 
-/*-------------------------------------HERO------------------------------------*/ 
-/* Style van verzerkingeen */
-.hero {
-  position: relative;
-  background: 
-    linear-gradient(rgba(0, 64, 128, 0.7), rgba(0, 64, 128, 0.7)),
-    url("/img/About-foto.jpg"); 
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  text-align: center;
-  padding: 6rem 2rem;
-  color: white;
+.card p {
+  color: #666;
+  margin-bottom: 2rem;
+  flex-grow: 1;
 }
 
-/* Style van die h2 */
-.hero h2 {
-  margin-top: 0;
-}
-
-/* Style van die knop 
-button {
-  background: #004080;
+.card button {
+  background-color: var(--color-secondary);
   color: #fff;
   border: none;
-  padding: 0.7rem 1.2rem;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-button:hover {
-  background: #0066cc;
-} */
-
-
-/*-------------------------------------VERZERINGEN------------------------------------*/ 
-.comparison {
-  padding: 4rem 2rem;
-  text-align: center;
-}
-
-/* Center het titel */
-.comparison h2 {
-  margin-bottom: 3rem;
-}
-
-/* GRID LAYOUT */
-.comparison {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);  /* Geeft 2 colums*/
-  gap: 2rem;
-}
-
-/* Make h2 take full width */
-.comparison h2 {
-  grid-column: 1 / -1; /* spans across both columns */
-}
-
-/* Card Styling */
-.card {
-  background: white;
-  padding: 2rem;
+  padding: 14px 30px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 700;
   border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
 }
 
-@media (min-width: 768px) {
+.card button:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+}
+
+@media (min-width: 769px) {
   .comparison {
-  grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/*-------------------------------------FAQ------------------------------------*/ 
+
+/*-------------------------------------FAQ------------------------------------*/
 /* Heel gedeelte */
 .faq {
   padding: 4rem 2rem;
@@ -230,11 +286,24 @@ button:hover {
   margin: 1rem 0;
 }
 
-/*-------------------------------------EIND/BOTTOM_VAN_DIE_PAGINA------------------------------------*/ 
+/*-------------------------------------EIND/BOTTOM_VAN_DIE_PAGINA------------------------------------*/
 footer {
-    text-align: center;
-    padding: 20px;
-    background: #004080;                 
+  text-align: center;
+  padding: 40px;
+  background: var(--color-secondary);
+  color: white;
+  margin-top: 5rem;
+}
 
-    color: white;
+/*-------------------------------------ANIMATIES------------------------------------*/
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
