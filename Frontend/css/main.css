@@ -152,19 +152,19 @@ body {
   margin: 0 auto;
 }
 
+/* Kies jouw gewenste verzekering! */
 .comparison h2 {
   grid-column: 1 / -1;
-  /* Dit zorgt dat de titel over beide kolommen spant */
   text-align: center;
   width: 100%;
 }
 
 .card {
+  border-top: 8px solid var(--color-primary);
+  border-radius: 25px;
   background: white;
   padding: 3rem 2rem;
-  border-radius: 20px;
-  /* Iets ronder voor moderne look */
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -223,8 +223,8 @@ body {
 }
 
 .card button:hover {
-  background-color: var(--color-primary-hover);
-  box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+  background: var(--color-primary-hover);
+  transform: scale(1.02);
 }
 
 @media (min-width: 769px) {
