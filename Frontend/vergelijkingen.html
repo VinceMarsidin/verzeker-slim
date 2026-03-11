@@ -4,91 +4,95 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vergelijkingen | VerzekerSlim</title>
+  <title>Vergelijken | VerzekerSlim</title>
+  <link rel="icon" type="image/svg+xml" href="/img/Favicon.svg">
   <link rel="stylesheet" href="/css/main.css" />
   <link rel="stylesheet" href="/css/vergelijkingen.css">
 </head>
 
 <body>
-
-
-  <!--TOP HEADER HEADER FOR NAV BAR-->
   <header id="header">
     <img src="/img/logo.png" class="logo" alt="Logo" />
-    <!--NAVIGATION BAR-->
     <nav class="nav" id="nav-links">
       <a class="nav-link" href="/index.html">Home</a>
       <a class="nav-link" href="/vergelijkingen.html">Vergelijkingen</a>
       <a class="nav-link" href="/contact.html">Contact</a>
       <a class="nav-link" href="/help.html">Help</a>
     </nav>
-    <!-- Hamburger Button -->
     <button id="hamburger" aria-label="Menu">&#9776;</button>
   </header>
 
-
   <main>
-    <section class="comparison-header">
+    <section class="comparison-hero">
       <h1>Verzekeringen Vergelijken</h1>
+      <p>Selecteer een categorie en vind de beste dekking voor uw situatie in Suriname.</p>
 
       <div class="category-selector">
-        <label for="typeSelect">Kies type verzekering:</label>
         <select id="typeSelect" onchange="veranderCategorie(this.value)">
-          <option value="motor">Motorrijtuigverzekering</option>
-          <option value="reis">Reisverzekering</option>
-          <option value="woon">Woonverzekering</option>
-          <option value="leven">Levensverzekering</option>
+          <option value="motor">🚗 Motorrijtuigverzekering</option>
+          <option value="reis">✈️ Reisverzekering</option>
+          <option value="woon">🏠 Woonverzekering</option>
+          <option value="leven">🛡️ Levensverzekering</option>
         </select>
       </div>
-
-      <div class="companies">
-        <p>Markeer een maatschappij:</p>
-        <button class="company-btn" data-company="assuria" style="background: green;">Assuria</button>
-        <button class="company-btn" data-company="fatum" style="background: orange;">Fatum</button>
-        <button class="company-btn" data-company="self" style="background: gold; color: black;">Self Reliance</button>
-        <button class="company-btn" data-company="par" style="background: red;">Parsasco</button>
-      </div>
-
-      <div id="visit-website-container" style="margin-top: 25px; display: none;">
-        <a id="external-link" href="#" target="_blank" class="visit-btn"
-          style="display: inline-block; padding: 10px 20px; background: #004080; color: white; text-decoration: none; border-radius: 5px;">
-          Bezoek de officiële website van <span id="company-name-display"></span> →
-        </a>
-      </div>
     </section>
 
-    <section class="comparison-table">
-      <h2 id="table-title">Vergelijking - Suriname</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Dekking</th>
-              <th id="th-assuria">Assuria</th>
-              <th id="th-fatum">Fatum</th>
-              <th id="th-self">Self Reliance</th>
-              <th id="th-par">Parsasco</th>
-            </tr>
-          </thead>
-          <tbody id="table-body">
-          </tbody>
-        </table>
-      </div>
-    </section>
+    <section class="comparison-container">
 
-    <section class="premium-calculator">
-      <div class="calc-card">
-        <h2>Snelle WA Premie Indicatie</h2>
-        <p>Wat is de huidige dagwaarde van uw voertuig?</p>
-        <div class="calc-input-group">
-          <span>SRD</span>
-          <input type="number" id="carValue" placeholder="Bijv. 150000">
-          <button id="calc-btn">Bereken</button>
+      <div class="content-card filters-card">
+        <h3>Filter op Maatschappij</h3>
+        <div class="companies">
+          <button class="company-btn btn-assuria" data-company="assuria">Assuria</button>
+          <button class="company-btn btn-fatum" data-company="fatum">Fatum</button>
+          <button class="company-btn btn-self" data-company="self">Self Reliance</button>
+          <button class="company-btn btn-par" data-company="par">Parsasco</button>
         </div>
-        <div id="calc-result"></div>
-      </div>
-    </section>
 
+        <div id="visit-website-container" style="display: none;">
+          <a id="external-link" href="#" target="_blank" class="visit-btn">
+            Bezoek website van <span id="company-name-display"></span> →
+          </a>
+        </div>
+      </div>
+
+      <div class="content-card table-card">
+        <h2 id="table-title">Vergelijkingsoverzicht</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-sticky">Dekking</th>
+                <th id="th-assuria">Assuria</th>
+                <th id="th-fatum">Fatum</th>
+                <th id="th-self">Self Reliance</th>
+                <th id="th-par">Parsasco</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="content-card calc-card">
+        <div class="calc-header">
+          <h2><span class="accent-icon">💰</span> WA Premie Indicatie</h2>
+          <p>Bereken direct een schatting van uw jaarpremie op basis van de dagwaarde.</p>
+        </div>
+        <div class="calc-body">
+          <div class="calc-input-group">
+            <label>Dagwaarde Voertuig (SRD)</label>
+            <div class="input-with-symbol">
+              <span class="currency-label">SRD</span>
+              <input type="number" id="carValue" placeholder="Bijv. 150000">
+            </div>
+            <button id="calc-btn">Bereken Nu</button>
+          </div>
+          <div id="calc-result"></div>
+        </div>
+      </div>
+
+    </section>
   </main>
 
   <footer>
