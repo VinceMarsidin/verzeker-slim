@@ -16,7 +16,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         submitBtn.disabled = true;
         submitBtn.innerText = "Bezig met verzenden...";
 
-        const response = await fetch('/api/submit-contact', { 
+        const response = await fetch('/api/contact/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
@@ -28,7 +28,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         if (response.ok) {
             responseDiv.style.background = '#d4edda';
             responseDiv.style.color = '#155724';
-            responseDiv.innerText = "Bedankt! Je bericht is succesvol verzonden.";
+            responseDiv.innerText = result.message || "Bedankt! Je bericht is succesvol verzonden.";
             document.getElementById('contactForm').reset();
         } else {
             throw new Error(result.error || "Fout bij verzenden");
@@ -38,7 +38,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         responseDiv.style.display = 'block';
         responseDiv.style.background = '#f8d7da';
         responseDiv.style.color = '#721c24';
-        responseDiv.innerText = "Oeps! Er ging iets mis. Probeer het later opnieuw.";
+        responseDiv.innerText = error.message || "Oeps! Er ging iets mis. Probeer het later opnieuw.";
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Verstuur bericht";

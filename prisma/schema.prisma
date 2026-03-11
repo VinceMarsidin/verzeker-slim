@@ -12,10 +12,20 @@ datasource db {
 
 model Verzekering {
   id            Int     @id @default(autoincrement())
-  categorie     String  // motor, reis, woon, leven
+  categorie     String  
   dekking_naam  String
   assuria       String
   fatum         String
   self_reliance String
   parsasco      String
+}
+
+model ContactBericht {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?              
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
 }

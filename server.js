@@ -3,38 +3,33 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import insuranceRoutes from './Backend/src/routes/insuranceRoutes.js';
-import db from './Backend/src/config/db.js'; // Importeer db hier ook
+import contactRoutes from './Backend/src/routes/contactRoutes.js';
 
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// TEST ROUTE DIRECT IN SERVER.JS
-app.post('/api/submit-contact', (req, res) => {
-    const { name, email, phone, subject, message } = req.body;
-    
-    const sql = `INSERT INTO contact_berichten (naam, email, telefoon, onderwerp, bericht) VALUES (?, ?, ?, ?, ?)`;
-    db.run(sql, [name, email, phone, subject, message], function(err) {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.status(200).json({ success: true, message: "Opgeslagen!" });
-    });
-});
-
-// De rest van je routes
+// Routers
 app.use('/api', insuranceRoutes);
+app.use('/api/contact', contactRoutes);
 
-// Static files ALTIJD als laatste
+// Statische bestanden (Frontend)
 app.use(express.static(path.join(__dirname, 'Frontend')));
 
+// Route voor de hoofdpagina
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'Frontend', 'index.html'));
 });
 
+// Start de server
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`✅ Routers geladen: Insurance & Contact`);
+    console.log(`📂 Database: dev.db is nu actief voor alle functies.`);
 });
+
+
