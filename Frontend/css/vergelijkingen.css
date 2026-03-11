@@ -64,6 +64,8 @@ s .comparison-hero h1 {
 
 /* FILTERS & BUTTONS */
 .filters-card h3 {
+  border-left: 5px solid var(--color-primary);
+  padding-left: 15px;
   margin-bottom: 1.5rem;
   color: var(--color-secondary);
   font-size: 1.1rem;
