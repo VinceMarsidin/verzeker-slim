@@ -1,12 +1,7 @@
-# Verzeker-Slim
-Folder Structure
-css/
-main.css
-products.css
-js/
-blog.js
-main.js
-index.html
-blog.html
-contact.html
-products.html
+Command
+
+npm install                        Installeert alle software-pakketten.
+npx prisma generate                Bereidt de Prisma-functies 
+npx prisma migrate dev             Maakt de database-tabellen aan (dev.db).
+npx prisma db seed                 Vult de tabellen met je start-data (Assuria, etc.).
+npm run dev/node server.js         Start je applicatie.

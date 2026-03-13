@@ -1,121 +1,159 @@
 /* CONTACT HERO SECTION */
 .contact-hero {
   text-align: center;
-  padding: 3rem 2rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #eee;
+  padding: 5rem 2rem 8rem;
+  /* Extra padding onderaan voor de overlap */
+  background: linear-gradient(135deg, #004080 0%, #002b56 100%);
+  color: white;
 }
 
 .contact-hero h1 {
-  color: #004080;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
 }
 
-/* MAIN CONTAINER */
+.contact-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* MAIN CONTAINER MET OVERLAP */
 .contact-container {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr; /* Formulier iets breder dan info */
-  gap: 3rem;
-  padding: 4rem 2rem;
-  max-width: 1100px;
-  margin: auto;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2.5rem;
+  padding: 0 2rem 4rem;
+  max-width: 1200px;
+  margin: -4rem auto 0;
+  /* De boxen zweven nu over de blauwe hero */
+  position: relative;
+  z-index: 10;
 }
 
-/* GEMEENSCHAPPELIJKE STIJL VOOR BOXEN */
-.contact-form, .contact-info {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+/* KAART STYLING */
+.contact-form,
+.contact-info {
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* FORMULIER ELEMENTEN */
-.contact-form h2 {
-  margin-bottom: 1.5rem;
-  color: #333;
+.contact-form h2,
+.contact-info h2 {
+  color: #004080;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  border-left: 5px solid #ff8c00;
+  /* Oranje accentstreep naast de titel */
+  padding-left: 15px;
 }
 
+/* FORMULIER INPUTS */
 .contact-form form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
-.contact-form input, 
-.contact-form select, 
+.contact-form input,
+.contact-form select,
 .contact-form textarea {
-  padding: 0.9rem;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid #eef0f2;
+  background-color: #fcfdfe;
   font-size: 1rem;
-  font-family: inherit;
   transition: all 0.3s ease;
 }
 
-/* INTERACTIEVE FOCUS STATE */
-.contact-form input:focus, 
-.contact-form select:focus, 
+.contact-form input:focus,
+.contact-form select:focus,
 .contact-form textarea:focus {
   outline: none;
   border-color: #004080;
-  box-shadow: 0 0 0 4px rgba(0, 64, 128, 0.1);
-  transform: translateY(-2px);
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 64, 128, 0.05);
 }
 
-.contact-form button {
-  background: #004080;
+/* DE ORANJE KNOP */
+#submitBtn {
+  background: #ff8c00;
   color: white;
-  padding: 1rem;
+  padding: 1.2rem;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 10px;
+  font-weight: 700;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.3);
 }
 
-.contact-form button:hover {
-  background: #0066cc;
-  transform: translateY(-2px);
+#submitBtn:hover {
+  background: #e67e00;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(255, 140, 0, 0.4);
 }
 
-.contact-form button:active {
-  transform: translateY(0);
-}
-
-/* STATUS MELDINGEN */
-#formResponse {
-  padding: 1rem;
-  border-radius: 8px;
-  font-weight: 500;
-  text-align: center;
-}
-
-/* CONTACT INFO SECTIE */
-.contact-info h2 {
-  color: #004080;
-  margin-bottom: 1.5rem;
-}
-
-.contact-info p {
-  margin-bottom: 1.2rem;
+/* AFBEELDING ONDER CONTACT INFO */
+.contact-image-wrapper {
+  margin-top: 3rem;
   display: flex;
-  flex-direction: column;
-  line-height: 1.6;
+  justify-content: center;
+}
+
+.contact-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+  /* Animatie voor levendigheid */
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* CONTACT INFO DETAILS */
+.contact-info p {
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+  color: #444;
 }
 
 .contact-info strong {
-  color: #333;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: #004080;
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
 }
 
 /* RESPONSIVE DESIGN */
-@media (max-width: 850px) {
+@media (max-width: 900px) {
   .contact-container {
     grid-template-columns: 1fr;
-    padding: 2rem 1rem;
+    margin-top: -2rem;
+    padding: 0 1rem 3rem;
+  }
+
+  .contact-hero {
+    padding: 4rem 1rem 6rem;
   }
 }
