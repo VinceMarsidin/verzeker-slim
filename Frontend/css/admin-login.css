@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* 1. RESET OVERRIDES (Belangrijk om main.css te neutraliseren) */
+body {
+    padding-top: 0 !important;
+    /* Verwijdert de 80px ruimte bovenaan */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Voorkomt onnodig scrollen */
+}
+
+footer {
+    margin-top: 0 !important;
+    /* Verwijdert die witte bar van 5rem */
+    padding: 20px !important;
+    /* Maakt de footer wat compacter voor de login */
+}
+
+/* 2. LAYOUT */
+#header {
+    position: relative;
+    /* Niet meer 'fixed' op deze pagina voor een betere flow */
+}
+
+.login-split-container {
+    display: flex;
+    flex: 1;
+    /* Neemt alle ruimte tussen header en footer in */
+    width: 100%;
+}
+
+/* LINKERKANT STYLING */
+.login-left {
+    flex: 1;
+    /* MIX IT UP: Een modern linear verloop */
+    background-image: linear-gradient(135deg, var(--color-secondary) 0%, #0066cc 100%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 3rem;
+    position: relative;
+    z-index: 1;
+    /* Zorgt dat content boven eventuele patronen blijft */
+}
+
+.brand-wrapper {
+    text-align: center;
+    z-index: 2;
+}
+
+.brand-wrapper h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.brand-wrapper p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* RECHTERKANT STYLING */
+.login-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 2rem;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 380px;
+}
+
+.login-box h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+/* FORM STYLING */
+.input-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+}
+
+.login-submit-btn {
+    width: 100%;
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 1rem;
+}
+
+.login-submit-btn:hover {
+    filter: brightness(1.2);
+}
+
+.login-footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.login-footer a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.error-text {
+    display: none;
+    /* Wordt getoond via JS */
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 12px;
+    background-color: #fff7ed;
+    /* Zeer lichte oranje achtergrond */
+    color: #9a3412;
+    /* Diepe roestbruin/oranje tekst */
+    border: 1px solid #ffedd5;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Kleine animatie voor een zachte verschijning */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .login-left {
+        display: none;
+    }
+}

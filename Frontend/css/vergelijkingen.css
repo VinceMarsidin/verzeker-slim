@@ -1,17 +1,4 @@
-:root {
-  --color-primary: #ff8c00;
-  /* VerzekerSlim Oranje */
-
-  --dark-blue: #002b56;
-  --white: #ffffff;
-  --text-main: #334155;
-}
-
-body {
-  background-color: #f4f7fa;
-}
-
-/*----------------------------------HEADER_SECTIE---------------------------------*/
+/*----------------------------------VERGELIJKINGEN_)HERO---------------------------------*/
 .comparison-hero {
   text-align: center;
   padding: 5rem 1rem 10rem;
@@ -19,19 +6,21 @@ body {
   color: white;
 }
 
-s .comparison-hero h1 {
+/* VERGELIJKINGEN HERO TITEL */
+.comparison-hero h1 {
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 1rem;
 }
 
+/* VERGELIJKINGEN HERO DISCRIPTION */
 .comparison-hero p {
   font-size: 1.2rem;
   opacity: 0.9;
   margin-bottom: 2.5rem;
 }
 
-/* CATEGORY SELECTOR */
+/*----------------------------------CATEGORY_SELECTOR---------------------------------*/
 .category-selector select {
   padding: 15px 30px;
   font-size: 1.1rem;
@@ -45,7 +34,6 @@ s .comparison-hero h1 {
   transition: 0.3s ease;
 }
 
-/* CONTAINER & CARDS */
 .comparison-container {
   max-width: 1200px;
   margin: -6rem auto 4rem;
@@ -119,7 +107,12 @@ s .comparison-hero h1 {
   transition: 0.3s;
 }
 
-/* TABLE STYLING */
+.visit-btn:hover {
+  background: var(--color-primary-hover);
+  transform: scale(1.02);
+}
+
+/*----------------------------------TABEL_STYLING---------------------------------*/
 .table-card h2 {
   color: var(--color-secondary);
   margin-bottom: 2rem;
@@ -198,7 +191,7 @@ td:first-child {
 .currency-label {
   padding: 0 15px;
   background: #f1f5f9;
-  color: var(--text-main);
+  color: #334155;
   font-weight: 700;
 }
 
@@ -224,7 +217,7 @@ td:first-child {
   transition: 0.3s;
 }
 
-s #calc-btn:hover {
+#calc-btn:hover {
   background: #e67e00;
   transform: translateY(-3px);
   box-shadow: 0 12px 25px rgba(255, 140, 0, 0.4);
@@ -237,11 +230,9 @@ s #calc-btn:hover {
   border-radius: 12px;
   border-left: 5px solid var(--color-primary);
   font-weight: 500;
-  color: var(--dark-blue);
+  color: #002b56;
 }
 
-
-/*-------------------------------------HIGHLIGHT EFFECT------------------------------------*/
 .highlight-col {
   background-color: rgba(255, 140, 0, 0.07) !important;
   border-left: 2px solid var(--color-primary) !important;
@@ -249,6 +240,7 @@ s #calc-btn:hover {
   color: var(--color-secondary) !important;
 }
 
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .comparison-hero h1 {
     font-size: 2.2rem;

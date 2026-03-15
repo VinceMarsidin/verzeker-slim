@@ -20,7 +20,7 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
 
-// Statische bestanden (Frontend)
+// Statisch (Frontend)
 app.use(express.static(path.join(__dirname, 'Frontend')));
 
 // Route voor de hoofdpagina

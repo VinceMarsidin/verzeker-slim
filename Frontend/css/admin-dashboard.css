@@ -2,10 +2,71 @@
 
 body {
     background-color: #f8fafc;
-    /* Lichtgrijze achtergrond */
     font-family: 'Inter', sans-serif;
     color: #1e293b;
     margin: 0;
+    position: relative;
+    overflow-x: hidden;
+    /* Voorkomt scrollbalken door de illustraties */
+}
+
+
+/* De linker-illustratie */
+body::before {
+    content: '';
+    position: fixed;
+    /* Blijft staan als je scrollt */
+    left: -50px;
+    /* Een beetje uit de kant */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Verticaal gecentreerd */
+    width: 250px;
+    /* Pas dit aan naar je afbeelding */
+    height: 600px;
+    /* Pas dit aan naar je afbeelding */
+    background-image: url('/img/adminv1.svg');
+    /* Zorg dat dit bestand bestaat! */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    /* Plaatst de afbeelding ACHTER de content */
+    opacity: 0.6;
+    /* Een beetje doorzichtig, zodat het niet te druk wordt */
+}
+
+/* De rechter-illustratie */
+body::after {
+    content: '';
+    position: fixed;
+    /* Blijft staan als je scrollt */
+    right: -50px;
+    /* Een beetje uit de kant */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Verticaal gecentreerd */
+    width: 250px;
+    /* Pas dit aan naar je afbeelding */
+    height: 600px;
+    /* Pas dit aan naar je afbeelding */
+    background-image: url('/img/adminv2.svg');
+    /* Zorg dat dit bestand bestaat! */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    /* Plaatst de afbeelding ACHTER de content */
+    opacity: 0.6;
+    /* Een beetje doorzichtig, zodat het niet te druk wordt */
+}
+
+/* --- RESPONSIVE DESIGN: Verberg op kleine schermen --- */
+@media (max-width: 1500px) {
+
+    /* Als het scherm kleiner is dan 1500px (tabel + illu's), verbergen we de illu's */
+    body::before,
+    body::after {
+        display: none;
+    }
 }
 
 .admin-container {

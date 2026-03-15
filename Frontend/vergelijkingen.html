@@ -11,18 +11,20 @@
 </head>
 
 <body>
+  <!--NAVIGATION BAR-->
   <header id="header">
     <img src="/img/logo.png" class="logo" alt="Logo" />
     <nav class="nav" id="nav-links">
       <a class="nav-link" href="/index.html">Home</a>
       <a class="nav-link" href="/vergelijkingen.html">Vergelijkingen</a>
       <a class="nav-link" href="/contact.html">Contact</a>
-      <a class="nav-link" href="/help.html">Help</a>
     </nav>
+    <!-- Hamburger Button -->
     <button id="hamburger" aria-label="Menu">&#9776;</button>
   </header>
 
   <main>
+    <!-- VERGELIJKINGEN HERO -->
     <section class="comparison-hero">
       <h1>Verzekeringen Vergelijken</h1>
       <p>Selecteer een categorie en vind de beste dekking voor uw situatie in Suriname.</p>
@@ -37,8 +39,9 @@
       </div>
     </section>
 
+    <!-- VERGELIJKINGEN CONTAINER -->
     <section class="comparison-container">
-
+      <!-- FILTER OP MAATSCHAPPIJ -->
       <div class="content-card filters-card">
         <h3>Filter op Maatschappij</h3>
         <div class="companies">
@@ -47,14 +50,14 @@
           <button class="company-btn btn-self" data-company="self">Self Reliance</button>
           <button class="company-btn btn-par" data-company="par">Parsasco</button>
         </div>
-
+        <!-- BEZOEK WEBSITE -->
         <div id="visit-website-container" style="display: none;">
           <a id="external-link" href="#" target="_blank" class="visit-btn">
             Bezoek website van <span id="company-name-display"></span> →
           </a>
         </div>
       </div>
-
+      <!-- VERGELIJKINGS_TABEL -->
       <div class="content-card table-card">
         <h2 id="table-title">Vergelijkingsoverzicht</h2>
         <div class="table-wrapper">
@@ -73,7 +76,7 @@
           </table>
         </div>
       </div>
-
+      <!-- WA PREMIE INDICATIE -->
       <div class="content-card calc-card">
         <div class="calc-header">
           <h2><span class="accent-icon">💰</span> WA Premie Indicatie</h2>

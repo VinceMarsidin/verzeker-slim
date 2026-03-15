@@ -3,31 +3,66 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Login | VerzekerSlim</title>
+    <link rel="icon" type="image/svg+xml" href="/img/Favicon.svg">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/vergelijkingen.css">
+    <link rel="stylesheet" href="/css/admin-login.css">
 </head>
 
+<header id="header">
+    <img src="/img/logo.png" class="logo" alt="Logo" />
+    <!--NAVIGATION BAR-->
+    <nav class="nav" id="nav-links">
+        <a class="nav-link" href="/index.html">Home</a>
+        <a class="nav-link" href="/vergelijkingen.html">Vergelijkingen</a>
+        <a class="nav-link" href="/contact.html">Contact</a>
+    </nav>
+    <!-- Hamburger Button -->
+    <button id="hamburger" aria-label="Menu">&#9776;</button>
+</header>
+
+<!--  -->
+
 <body>
-    <main class="comparison-container" style="margin-top: 5rem;">
-        <div class="content-card" style="max-width: 400px; margin: 0 auto;">
-            <h2 style="text-align: center; color: var(--color-secondary);">Admin Toegang</h2>
-            <form id="loginForm" style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
-                <div class="calc-input-group" style="align-items: flex-start;">
-                    <label>Gebruikersnaam</label>
-                    <input type="text" id="username" placeholder="Je gebruikersnaam" required
-                        style="width: 100%; border: 2px solid #e2e8f0; padding: 12px; border-radius: 10px;">
-                </div>
-                <div class="calc-input-group" style="align-items: flex-start;">
-                    <label>Wachtwoord</label>
-                    <input type="password" id="password" placeholder="••••••••" required
-                        style="width: 100%; border: 2px solid #e2e8f0; padding: 12px; border-radius: 10px;">
-                </div>
-                <button type="submit" id="calc-btn">Inloggen</button>
-                <p id="error-message" style="color: red; display: none; text-align: center;">Ongeldige login!</p>
-            </form>
+    <div class="login-split-container">
+        <div class="login-left">
+            <div class="brand-wrapper">
+                <h1>VerzekerSlim</h1>
+                <p>Beheer de toekomst van Surinaamse verzekeringen.</p>
+            </div>
         </div>
-    </main>
+
+        <div class="login-right">
+            <div class="login-box">
+                <h2>Admin Toegang</h2>
+                <p class="subtitle">Log in om het dashboard te beheren</p>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Gebruikersnaam</label>
+                        <input type="text" id="username" placeholder="Gebruikersnaam" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Wachtwoord</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="login-submit-btn">Inloggen</button>
+                    <p id="error-message" class="error-text">Oeps! Die gegevens kloppen niet.</p>
+                </form>
+
+                <div class="login-footer">
+                    <a href="/index.html">← Terug naar website</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 VerzekerSlim</p>
+    </footer>
 
     <script src="/js/admin-auth.js"></script>
 </body>

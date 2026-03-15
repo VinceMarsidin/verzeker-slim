@@ -1,18 +1,19 @@
-/* CONTACT HERO SECTION */
+/*----------------------------------CONTACT_HERO---------------------------------*/
 .contact-hero {
   text-align: center;
   padding: 5rem 2rem 8rem;
-  /* Extra padding onderaan voor de overlap */
   background: linear-gradient(135deg, #004080 0%, #002b56 100%);
   color: white;
 }
 
+/* Neem contact met ons op */
 .contact-hero h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
   font-weight: 800;
 }
 
+/* Heb je meer vragen over verzekeringen? Wij helpen je graag verder. */
 .contact-hero p {
   font-size: 1.2rem;
   opacity: 0.9;
@@ -20,7 +21,7 @@
   margin: 0 auto;
 }
 
-/* MAIN CONTAINER MET OVERLAP */
+/*----------------------------------CONTACT_CONTAINER---------------------------------*/
 .contact-container {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -28,12 +29,11 @@
   padding: 0 2rem 4rem;
   max-width: 1200px;
   margin: -4rem auto 0;
-  /* De boxen zweven nu over de blauwe hero */
   position: relative;
   z-index: 10;
 }
 
-/* KAART STYLING */
+/*----------------------------------CONTACT_FORM---------------------------------*/
 .contact-form,
 .contact-info {
   background: #ffffff;
@@ -49,11 +49,9 @@
   font-size: 1.8rem;
   margin-bottom: 2rem;
   border-left: 5px solid #ff8c00;
-  /* Oranje accentstreep naast de titel */
   padding-left: 15px;
 }
 
-/* FORMULIER INPUTS */
 .contact-form form {
   display: flex;
   flex-direction: column;
@@ -71,6 +69,7 @@
   transition: all 0.3s ease;
 }
 
+/* Als je met je muis over die input box gaat */
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
@@ -80,7 +79,7 @@
   box-shadow: 0 5px 15px rgba(0, 64, 128, 0.05);
 }
 
-/* DE ORANJE KNOP */
+/* Verstuur bericht */
 #submitBtn {
   background: #ff8c00;
   color: white;
@@ -95,13 +94,27 @@
   box-shadow: 0 8px 20px rgba(255, 140, 0, 0.3);
 }
 
+/* Als je met je muis over die verstuurt knop gaat */
 #submitBtn:hover {
   background: #e67e00;
   transform: translateY(-3px);
   box-shadow: 0 12px 25px rgba(255, 140, 0, 0.4);
 }
 
-/* AFBEELDING ONDER CONTACT INFO */
+/*----------------------------------CONTACT_INFO_DETAILS---------------------------------*/
+.contact-info p {
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+.contact-info strong {
+  color: #004080;
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+
 .contact-image-wrapper {
   margin-top: 3rem;
   display: flex;
@@ -113,10 +126,10 @@
   max-width: 280px;
   height: auto;
   filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
-  /* Animatie voor levendigheid */
   animation: floating 3s ease-in-out infinite;
 }
 
+/* De afbeelding die zweeft */
 @keyframes floating {
   0% {
     transform: translateY(0px);
@@ -131,21 +144,7 @@
   }
 }
 
-/* CONTACT INFO DETAILS */
-.contact-info p {
-  margin-bottom: 1.5rem;
-  font-size: 1.05rem;
-  color: #444;
-}
-
-.contact-info strong {
-  color: #004080;
-  display: block;
-  font-size: 0.85rem;
-  margin-bottom: 0.3rem;
-}
-
-/* RESPONSIVE DESIGN */
+/* Responsive */
 @media (max-width: 900px) {
   .contact-container {
     grid-template-columns: 1fr;
