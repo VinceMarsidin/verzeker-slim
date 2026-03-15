@@ -33,8 +33,6 @@ app.get('/', (req, res) => {
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
-    // console.log(`✅ Routers geladen: Insurance & Contact`);
-    // console.log(`📂 Database: dev.db is nu actief voor alle functies.`);
 });
 
 
