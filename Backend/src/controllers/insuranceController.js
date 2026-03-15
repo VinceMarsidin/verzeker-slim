@@ -9,6 +9,9 @@ export const getInsuranceByType = (req, res) => {
     });
 };
 
+
+
+
 // Controller voor de premie berekening
 export const calculatePremium = (req, res) => {
     const { dagwaarde } = req.body;

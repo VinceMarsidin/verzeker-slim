@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login | VerzekerSlim</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/vergelijkingen.css">
+</head>
+
+<body>
+    <main class="comparison-container" style="margin-top: 5rem;">
+        <div class="content-card" style="max-width: 400px; margin: 0 auto;">
+            <h2 style="text-align: center; color: var(--color-secondary);">Admin Toegang</h2>
+            <form id="loginForm" style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
+                <div class="calc-input-group" style="align-items: flex-start;">
+                    <label>Gebruikersnaam</label>
+                    <input type="text" id="username" placeholder="Je gebruikersnaam" required
+                        style="width: 100%; border: 2px solid #e2e8f0; padding: 12px; border-radius: 10px;">
+                </div>
+                <div class="calc-input-group" style="align-items: flex-start;">
+                    <label>Wachtwoord</label>
+                    <input type="password" id="password" placeholder="••••••••" required
+                        style="width: 100%; border: 2px solid #e2e8f0; padding: 12px; border-radius: 10px;">
+                </div>
+                <button type="submit" id="calc-btn">Inloggen</button>
+                <p id="error-message" style="color: red; display: none; text-align: center;">Ongeldige login!</p>
+            </form>
+        </div>
+    </main>
+
+    <script src="/js/admin-auth.js"></script>
+</body>
+
+</html>

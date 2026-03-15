@@ -4,6 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import insuranceRoutes from './Backend/src/routes/insuranceRoutes.js';
 import contactRoutes from './Backend/src/routes/contactRoutes.js';
+import authRouter from './Backend/src/routes/authRouter.js';
+import adminRouter from './Backend/src/routes/adminRouter.js';
 
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -15,6 +17,8 @@ app.use(express.json());
 // Routers
 app.use('/api', insuranceRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/auth', authRouter);
+app.use('/api/admin', adminRouter);
 
 // Statische bestanden (Frontend)
 app.use(express.static(path.join(__dirname, 'Frontend')));
@@ -24,12 +28,13 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'Frontend', 'index.html'));
 });
 
+
 // Start de server
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`✅ Routers geladen: Insurance & Contact`);
-    console.log(`📂 Database: dev.db is nu actief voor alle functies.`);
+    // console.log(`✅ Routers geladen: Insurance & Contact`);
+    // console.log(`📂 Database: dev.db is nu actief voor alle functies.`);
 });
 
 

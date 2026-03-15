@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS Dashboard | VerzekerSlim</title>
+    <link rel="icon" type="image/svg+xml" href="/img/Favicon.svg">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/admins.css">
+</head>
+
+<header id="header">
+    <img src="/img/logo.png" class="logo" alt="Logo" />
+    <!--NAVIGATION BAR-->
+    <nav class="nav" id="nav-links">
+        <a class="nav-link" href="/index.html">Home</a>
+        <a class="nav-link" href="/vergelijkingen.html">Vergelijkingen</a>
+        <a class="nav-link" href="/contact.html">Contact</a>
+        <a class="nav-link" href="/help.html">Help</a>
+    </nav>
+    <!-- Hamburger Button -->
+    <button id="hamburger" aria-label="Menu">&#9776;</button>
+</header>
+
+
+<body>
+    <main class="admin-container">
+        <div class="header-actions">
+            <h1>Dashboard Beheer</h1>
+            <a href="#" id="logoutBtn" class="logout-btn">Uitloggen</a>
+        </div>
+
+        <div class="table-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Categorie</th>
+                        <th>Dekking</th>
+                        <th>Assuria</th>
+                        <th>Fatum</th>
+                        <th>Self Reliance</th>
+                        <th>Parsasco</th>
+                        <th>Actie</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+    </main>
+    <script src="/js/admin-cms.js"></script>
+    <script src="/js/main.js"></script>
+
+    <footer>
+        <p>© 2026 VerzekerSlim</p>
+    </footer>
+</body>
+
+</html>
