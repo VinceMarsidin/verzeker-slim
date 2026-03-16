@@ -1,3 +1,4 @@
+// Backend/src/controllers/authController.js
 import pkg from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -24,6 +25,7 @@ export const login = async (req, res) => {
             return res.status(401).json({ error: "Ongeldige gegevens" });
         }
 
+        // --- DIT GEDEELTE MOET ERIN ---
         // Maak het token aan
         const token = jwt.sign(
             { id: admin.id, username: admin.username },
@@ -31,10 +33,12 @@ export const login = async (req, res) => {
             { expiresIn: '12h' }
         );
 
+        // STUUR HET ANTWOORD TERUG (Hierdoor stopt 'pending')
         return res.json({
             success: true,
             token: token
         });
+        // ------------------------------
 
     } catch (err) {
         console.error("Database fout:", err);

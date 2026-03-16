@@ -1,117 +1,103 @@
-/* RESET & BASIS */
-.admin-body {
-    display: flex;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-color: #f8fafc;
+    font-family: 'Inter', sans-serif;
+    color: #1e293b;
     margin: 0;
-    background-color: #f4f7f9;
-    min-height: 100vh;
-    padding-top: 0 !important;
-    /* Override van main.css padding */
+    position: relative;
+    overflow-x: hidden;
+    /* Voorkomt scrollbalken door de illustraties */
 }
 
-/* SIDEBAR STYLING */
-.sidebar {
-    width: 260px;
-    background-color: var(--color-secondary);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    position: sticky;
-    top: 0;
+
+/* De linker-illustratie */
+body::before {
+    content: '';
+    position: fixed;
+    /* Blijft staan als je scrollt */
+    left: -50px;
+    /* Een beetje uit de kant */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Verticaal gecentreerd */
+    width: 250px;
+    /* Pas dit aan naar je afbeelding */
+    height: 600px;
+    /* Pas dit aan naar je afbeelding */
+    background-image: url('/img/adminv1.svg');
+    /* Zorg dat dit bestand bestaat! */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    /* Plaatst de afbeelding ACHTER de content */
+    opacity: 0.6;
+    /* Een beetje doorzichtig, zodat het niet te druk wordt */
 }
 
-.sidebar-header {
-    padding: 2rem 1.5rem;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* De rechter-illustratie */
+body::after {
+    content: '';
+    position: fixed;
+    /* Blijft staan als je scrollt */
+    right: -50px;
+    /* Een beetje uit de kant */
+    top: 50%;
+    transform: translateY(-50%);
+    /* Verticaal gecentreerd */
+    width: 250px;
+    /* Pas dit aan naar je afbeelding */
+    height: 600px;
+    /* Pas dit aan naar je afbeelding */
+    background-image: url('/img/adminv2.svg');
+    /* Zorg dat dit bestand bestaat! */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    /* Plaatst de afbeelding ACHTER de content */
+    opacity: 0.6;
+    /* Een beetje doorzichtig, zodat het niet te druk wordt */
 }
 
-.sidebar-logo {
-    width: 60px;
-    filter: brightness(0) invert(1);
-    margin-bottom: 10px;
+/* --- RESPONSIVE DESIGN: Verberg op kleine schermen --- */
+@media (max-width: 1500px) {
+
+    /* Als het scherm kleiner is dan 1500px (tabel + illu's), verbergen we de illu's */
+    body::before,
+    body::after {
+        display: none;
+    }
 }
 
-.sidebar-nav {
-    flex: 1;
-    padding: 1rem 0;
+.admin-container {
+    max-width: 1300px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
 }
 
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    transition: 0.3s;
-    gap: 15px;
-}
-
-.nav-item i {
-    width: 20px;
-}
-
-.nav-item:hover,
-.nav-item.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-}
-
-.nav-item.active {
-    border-left: 4px solid var(--color-primary);
-}
-
-/* CONTENT AREA */
-.content-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.top-bar {
-    background: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.admin-section {
-    display: none;
-    /* Standaard alles verbergen */
-    padding: 2rem;
-}
-
-.admin-section.active {
-    display: block;
-    /* Alleen actieve tonen */
-}
-
-.section-header {
+/* Header styling */
+.header-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
-.btn-add {
-    background-color: var(--color-primary);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
+.header-actions h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
 }
 
-/* TABEL ALGEMENE STYLING */
-.table-container {
-    background: white;
-    padding: 1rem;
+/* De Kaart (Card) waar de tabel in zit */
+.table-card {
+    background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
     overflow-x: auto;
+    /* Zorgt dat tabel op kleine schermen scrollbaar is */
 }
 
 .admin-table {
@@ -121,178 +107,102 @@
 }
 
 .admin-table th {
-    background-color: #f8fafc;
-    color: #64748b;
-    padding: 12px 15px;
-    font-size: 0.85rem;
+    background-color: #f1f5f9;
+    padding: 16px 24px;
+    font-size: 12px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 2px solid #edf2f7;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .admin-table td {
-    padding: 15px;
-    border-bottom: 1px solid #edf2f7;
-    color: #1e293b;
-    vertical-align: middle;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 15px;
 }
 
-.table-logo {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: #f1f5f9;
-    padding: 4px;
+.admin-table tr:last-child td {
+    border-bottom: none;
 }
 
-/* ACTIE KNOPPEN */
-.actions {
-    display: flex;
-    gap: 10px;
+.admin-table tr:hover {
+    background-color: #f8fafc;
 }
 
-.btn-edit,
-.btn-delete {
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn-edit {
-    background-color: #e2e8f0;
-    color: #475569;
-}
-
-.btn-edit:hover {
-    background-color: #cbd5e1;
-    color: #1e293b;
-}
-
-.btn-delete {
-    background-color: #fee2e2;
-    color: #ef4444;
-}
-
-.btn-delete:hover {
-    background-color: #fecaca;
-}
-
-/* 1111 */
-/* MODAL BASIS */
-.modal {
-    display: none;
-    /* Standaard onzichtbaar */
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Donkere achtergrond */
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    animation: slideDown 0.3s ease;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.close-btn {
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #64748b;
-}
-
-/* FORM ELEMENTEN BINNEN MODAL */
-.form-group {
-    margin-bottom: 1.2rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
+/* Categorie Badge */
+.badge {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: 600;
-    font-size: 0.9rem;
-    color: #475569;
 }
 
-.form-group input {
+/* Input velden styling */
+.edit-input {
     width: 100%;
+    min-width: 120px;
     padding: 10px;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
 }
 
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 2rem;
+.edit-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.btn-secondary {
-    background: #e2e8f0;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.btn-primary {
-    background: var(--color-secondary);
+/* Knoppen */
+.save-btn {
+    background-color: #2563eb;
+    /* Blauw */
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
-@keyframes slideDown {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+.save-btn:hover {
+    background-color: #1d4ed8;
 }
 
-/* BADGES VOOR ROLLEN */
-.badge {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
+.logout-btn {
+    background-color: #ffffff;
+    color: #ef4444;
+    /* Rood */
+    border: 1px solid #fecaca;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
 }
 
-.badge-admin {
-    background-color: #fee2e2;
-    /* Licht rood */
-    color: #dc2626;
+.logout-btn:hover {
+    background-color: #fef2f2;
 }
 
-.badge-editor {
-    background-color: #e0f2fe;
-    /* Licht blauw */
-    color: #0284c7;
+/* Status Classes voor JavaScript */
+.is-loading {
+    background-color: #f59e0b !important;
 }
+
+/* Oranje */
+.is-success {
+    background-color: #10b981 !important;
+}
+
+/* Groen */
+.is-error {
+    background-color: #ef4444 !important;
+}
+
+/* Rood */
