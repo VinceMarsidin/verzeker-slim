@@ -10,21 +10,30 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+// Dit is je nieuwe, genormaliseerde schema
+
+model Maatschappij {
+  id            Int           @id @default(autoincrement())
+  naam          String        @unique
+  logoUrl       String?
+  contactEmail  String?
+  premies       Verzekering[] // Relatie: Een maatschappij heeft meerdere premies
+}
+
 model Verzekering {
-  id            Int     @id @default(autoincrement())
-  categorie     String  
-  dekking_naam  String
-  assuria       String
-  fatum         String
-  self_reliance String
-  parsasco      String
+  id             Int          @id @default(autoincrement())
+  categorie      String       // bijv. "Auto", "Brand"
+  type           String       // VOEG DIT TOE (of gebruik dekking_naam)
+  premie_bedrag  Float        // Verander String naar Float
+  maatschappijId Int
+  maatschappij   Maatschappij @relation(fields: [maatschappijId], references: [id])
 }
 
 model ContactBericht {
   id        Int      @id @default(autoincrement())
   name      String
   email     String
-  phone     String?              
+  phone     String?
   subject   String
   message   String
   createdAt DateTime @default(now())
@@ -33,5 +42,5 @@ model ContactBericht {
 model Admin {
   id       Int    @id @default(autoincrement())
   username String @unique
-  password String 
+  password String
 }

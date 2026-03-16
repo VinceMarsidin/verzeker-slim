@@ -8,52 +8,262 @@
     <link rel="icon" type="image/svg+xml" href="/img/Favicon.svg">
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<header id="header">
+<!-- <header id="header">
     <img src="/img/logo.png" class="logo" alt="Logo" />
-    <!--NAVIGATION BAR-->
+    NAVIGATION BAR
     <nav class="nav" id="nav-links">
         <a class="nav-link" href="/index.html">Home</a>
         <a class="nav-link" href="/vergelijkingen.html">Vergelijkingen</a>
         <a class="nav-link" href="/contact.html">Contact</a>
     </nav>
-    <!-- Hamburger Button -->
+    Hamburger Button
     <button id="hamburger" aria-label="Menu">&#9776;</button>
-</header>
+</header> -->
 
 
-<body>
-    <main class="admin-container">
-        <div class="header-actions">
-            <h1>Dashboard Beheer</h1>
-            <a href="#" id="logoutBtn" class="logout-btn">Uitloggen</a>
+<body class="admin-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <!-- <img src="/img/logo.png" alt="Logo" class="sidebar-logo"> -->
+            <h3>VerzekerSlim</h3>
         </div>
 
-        <div class="table-card">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Categorie</th>
-                        <th>Dekking</th>
-                        <th>Assuria</th>
-                        <th>Fatum</th>
-                        <th>Self Reliance</th>
-                        <th>Parsasco</th>
-                        <th>Actie</th>
-                    </tr>
-                </thead>
-                <tbody id="adminTableBody"></tbody>
-            </table>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" onclick="showSection(event, 'section-premies')">
+                <i class="fas fa-money-bill-wave"></i> Premies
+            </a>
+            <a href="#" class="nav-item" onclick="showSection(event, 'section-maatschappijen')">
+                <i class="fas fa-building"></i> Maatschappijen
+            </a>
+            <a href="#" class="nav-item" onclick="showSection(event, 'section-users')">
+                <i class="fas fa-user-shield"></i> Admin Users
+            </a>
+            <a href="#" class="nav-item" onclick="showSection(event, 'section-contact')">
+                <i class="fas fa-envelope"></i> Contact Berichten
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/admin-login.html" class="nav-item logout">
+                <i class="fas fa-sign-out-alt"></i> Uitloggen
+            </a>
         </div>
+    </aside>
+
+    <main class="content-area">
+        <header class="top-bar">
+            <h2 id="current-section-title">Premies Beheren</h2>
+            <div class="user-info">Admin: <strong>Beheerder</strong></div>
+        </header>
+
+        <!-- Premies -->
+        <section id="section-premies" class="admin-section active">
+            <div class="section-header">
+                <h3>Overzicht Premies</h3>
+                <button class="btn-add" onclick="openPremieModal()"><i class="fas fa-plus"></i> Nieuwe Premie</button>
+            </div>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Maatschappij</th>
+                            <th>Type</th>
+                            <th>Premie</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody id="premies-list">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Maatschappij -->
+        <section id="section-maatschappijen" class="admin-section">
+            <div class="section-header">
+                <h3>Overzicht Maatschappijen</h3>
+                <button class="btn-add" onclick="openModal()"><i class="fas fa-plus"></i> Nieuwe Maatschappij</button>
+            </div>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Logo</th>
+                            <th>Maatschappij Naam</th>
+                            <th>Contact info</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody id="maatschappijen-list">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- User/Admin -->
+        <section id="section-users" class="admin-section">
+            <div class="section-header">
+                <h3>Systeembeheerders</h3>
+                <button class="btn-add" onclick="openUserModal()"><i class="fas fa-user-plus"></i> Nieuwe Admin</button>
+            </div>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Gebruikersnaam</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admins-list"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="section-contact" class="admin-section">
+            <div class="section-header">
+                <h3>Binnengekomen Contactaanvragen</h3>
+            </div>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Afzender</th>
+                            <th>Onderwerp</th>
+                            <th>Bericht</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contact-list">
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
-    <script src="/js/admin-cms.js"></script>
-    <script src="/js/main.js"></script>
 
-    <footer>
-        <p>© 2026 VerzekerSlim</p>
-    </footer>
+    <!-- Premie Modal -->
+    <div id="modal-premie" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nieuwe Premie Toevoegen</h3>
+                <span class="close-btn" onclick="closePremieModal()">&times;</span>
+            </div>
+            <form id="form-premie">
+                <div class="form-group">
+                    <label for="p-maatschappij">Verzekeringsmaatschappij</label>
+                    <select id="p-maatschappij" class="form-control" required>
+                        <option value="">-- Kies een maatschappij --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="p-categorie">Hoofdcategorie</label>
+                    <select id="p-categorie" required>
+                        <option value="motor">🚗 Motorrijtuigverzekering</option>
+                        <option value="reis">✈️ Reisverzekering</option>
+                        <option value="woon">🏠 Woonverzekering</option>
+                        <option value="leven">🛡️ Levensverzekering</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="p-type">Specifieke Dekking (bijv. WA of Casco)</label>
+                    <input type="text" id="p-type" placeholder="Bijv: WA of Casco" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="p-bedrag">Maandelijkse Premie (SRD/USD)</label>
+                    <input type="number" id="p-bedrag" step="0.01" placeholder="0.00" required>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closePremieModal()">Annuleren</button>
+                    <button type="submit" class="btn-primary">Premie Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Maatschappij Modal -->
+    <div id="modal-maatschappij" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Nieuwe Maatschappij Toevoegen</h3>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="form-maatschappij">
+                <div class="form-group">
+                    <label for="m-naam">Naam Maatschappij</label>
+                    <input type="text" id="m-naam" placeholder="Bijv. Assuria" required>
+                </div>
+                <div class="form-group">
+                    <label for="m-logo">Logo URL</label>
+                    <input type="text" id="m-logo" placeholder="/img/logos/naam.png">
+                </div>
+                <div class="form-group">
+                    <label for="m-contact">Contact Email</label>
+                    <input type="email" id="m-contact" placeholder="info@bedrijf.sr" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Annuleren</button>
+                    <button type="submit" class="btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- User/Admin Modal -->
+    <div id="modal-user" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Toevoegen</h3>
+                <span class="close-btn" onclick="closeUserModal()">&times;</span>
+            </div>
+            <form id="form-user">
+                <div class="form-group">
+                    <label>Gebruikersnaam</label>
+                    <input type="text" id="u-username" required>
+                </div>
+                <div class="form-group">
+                    <label>Wachtwoord</label>
+                    <input type="password" id="u-password" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn-primary">Aanmaken</button>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="u-role">Rol</label>
+                    <select id="u-role">                                                                    Later als we Editor
+                        <option value="admin">Super Admin (Alle rechten)</option>
+                        <option value="editor">Editor (Alleen premies/maatschappijen)</option>
+                    </select>
+                </div> -->
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="modal-view-contact" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Contact Bericht Details</h3>
+                <span class="close-btn" onclick="closeContactModal()">&times;</span>
+            </div>
+            <div id="contact-detail-content" style="padding: 20px; line-height: 1.6;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeContactModal()">Sluiten</button>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="/js/main.js"></script> -->
+    <script src="/js/admin-cms.js"></script>
 </body>
 
 </html>
