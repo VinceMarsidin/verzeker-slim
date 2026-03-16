@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 
 <head>
   <meta charset="UTF-8" />
@@ -44,7 +44,7 @@
       <!-- FILTER OP MAATSCHAPPIJ -->
       <div class="content-card filters-card">
         <h3>Filter op Maatschappij</h3>
-        <div class="companies">
+        <div class="companies" id="company-filter-group">
           <button class="company-btn btn-assuria" data-company="assuria">Assuria</button>
           <button class="company-btn btn-fatum" data-company="fatum">Fatum</button>
           <button class="company-btn btn-self" data-company="self">Self Reliance</button>
@@ -63,12 +63,8 @@
         <div class="table-wrapper">
           <table>
             <thead>
-              <tr>
+              <tr id="table-header-row">
                 <th class="col-sticky">Dekking</th>
-                <th id="th-assuria">Assuria</th>
-                <th id="th-fatum">Fatum</th>
-                <th id="th-self">Self Reliance</th>
-                <th id="th-par">Parsasco</th>
               </tr>
             </thead>
             <tbody id="table-body">

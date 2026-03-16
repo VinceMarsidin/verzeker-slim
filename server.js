@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import insuranceRoutes from './Backend/src/routes/insuranceRoutes.js';
-import contactRoutes from './Backend/src/routes/contactRoutes.js';
+import contactRouter from './Backend/src/routes/contactRouter.js';
 import authRouter from './Backend/src/routes/authRouter.js';
 import adminRouter from './Backend/src/routes/adminRouter.js';
 
@@ -16,9 +16,11 @@ app.use(express.json());
 
 // Routers
 app.use('/api', insuranceRoutes);
-app.use('/api/contact', contactRoutes);
+app.use('/api/contact', contactRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/vergelijking', insuranceRoutes);
+
 
 // Statisch (Frontend)
 app.use(express.static(path.join(__dirname, 'Frontend')));
