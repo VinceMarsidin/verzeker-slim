@@ -118,11 +118,21 @@ function setupInteractions() {
     }
 }
 
+// Vergelijk nu knop DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const geselecteerdType = urlParams.get('type') || 'motor';
+
     laadVerzekeringen(geselecteerdType);
-    setupInteractions();
+
+    const selector = document.querySelector('.category-selector select');
+    if (selector) {
+        selector.value = geselecteerdType;
+    }
+
+    if (typeof setupInteractions === 'function') {
+        setupInteractions();
+    }
 });
 
 
