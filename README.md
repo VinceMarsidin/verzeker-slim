@@ -39,7 +39,7 @@ Initialisatie
 |------------------------------------- Projectstructuur (Architectuur)----------------------------------------|
 Het project is opgedeeld in een duidelijke scheiding tussen de backend logica en de frontend interface.
 
-Plaintext
+```
 Backend/src/
 ├── controllers
 |   ├── adminController.js
@@ -94,7 +94,7 @@ prisma/
 ├── package.json
 ├── README.md
 └── server.js
-
+```
 
 
 
