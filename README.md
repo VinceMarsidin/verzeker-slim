@@ -16,7 +16,8 @@ CMS Login: http://localhost:3000/admin-login.html
 
 
 
-|---------------------------------------- Installatie & Commando's----------------------------------------|
+|------------------------------------------------ Installatie & Commando's------------------------------------------------|
+
 Mocht de applicatie op een nieuw systeem worden opgezet, gebruik dan de volgende commando's:
 
 Initialisatie
@@ -35,7 +36,8 @@ JWT_SECRET="jouw_geheime_sleutel"
 
 
 
-|----------------------------------------Beheer----------------------------------------|
+|-------------------------------------------------------Beheer-------------------------------------------------------------|
+
 - node createAdmin.js: Script om handmatig een administrator-gebruiker aan te maken in de database.
 (Wij hebben al een admin account aangemaakt met de volgende gegevens: Email: [Admin] Wachtwoord: [Test1234])
 
@@ -43,7 +45,8 @@ JWT_SECRET="jouw_geheime_sleutel"
 
 
 
-|------------------------------------- Projectstructuur (Architectuur)----------------------------------------|
+|---------------------------------------------Projectstructuur (Architectuur)-----------------------------------------------|
+
 Het project is opgedeeld in een duidelijke scheiding tussen de backend logica en de frontend interface.
 
 ```
@@ -105,7 +108,8 @@ prisma/
 
 
 
-|---------------------------------------- Veiligheid & Technologie----------------------------------------|
+|-------------------------------------------Veiligheid & Technologie---------------------------------------------|
+
 Wachtwoordbeveiliging: Gebruik van bcrypt voor het veilig hashen van administrator-wachtwoorden.
 
 Autorisatie: Beveiliging van de CMS-routes via jsonwebtoken (JWT) en custom middleware.
@@ -118,7 +122,7 @@ Database: SQLite in combinatie met Prisma 6 voor een robuuste en type-safe data-
 
 
 
-|----------------------------------------Extra informatie----------------------------------------|
+|----------------------------------------------Extra informatie-------------------------------------------------|
 Command used tijdens bouw van het project:
 - npm init -y                                         Initialiseert een nieuw Node.js project.
 - npm install express                                 Installeert Express.js.
