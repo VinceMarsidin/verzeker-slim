@@ -26,6 +26,13 @@ Initialisatie
 
 - npx prisma migrate dev: Synchroniseert het schema en maakt de database-tabellen aan in dev.db.
 
+Als .env niet aanwezig is, maak deze dan aan en voeg de volgende variabelen toe:
+
+```
+DATABASE_URL="file:./dev.db"
+JWT_SECRET="jouw_geheime_sleutel"
+```
+
 
 
 |----------------------------------------Beheer----------------------------------------|
@@ -106,6 +113,7 @@ Autorisatie: Beveiliging van de CMS-routes via jsonwebtoken (JWT) en custom midd
 CORS: Geconfigureerd om veilige cross-origin requests toe te staan.
 
 Database: SQLite in combinatie met Prisma 6 voor een robuuste en type-safe data-afhandeling.
+
 
 
 
