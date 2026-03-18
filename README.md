@@ -108,7 +108,7 @@ prisma/
 
 
 
-|-------------------------------------------Veiligheid & Technologie---------------------------------------------|
+|-------------------------------------------Veiligheid & Technologie--------------------------------------------------|
 
 Wachtwoordbeveiliging: Gebruik van bcrypt voor het veilig hashen van administrator-wachtwoorden.
 
@@ -122,7 +122,9 @@ Database: SQLite in combinatie met Prisma 6 voor een robuuste en type-safe data-
 
 
 
-|----------------------------------------------Extra informatie-------------------------------------------------|
+|-------------------------------------------------Extra informatie------------------------------------------------------|
+
+
 Command used tijdens bouw van het project:
 - npm init -y                                         Initialiseert een nieuw Node.js project.
 - npm install express                                 Installeert Express.js.
