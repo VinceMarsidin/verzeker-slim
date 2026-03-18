@@ -1,8 +1,8 @@
 const companyUrls = {
     'assuria': 'https://www.assuria.sr/',
     'fatum': 'https://fatum-suriname.com/',
-    'self reliance': 'https://self-reliance.sr/',
-    'parsasco': 'https://www.parsasco.com/'
+    'self': 'https://self-reliance.sr/',
+    'par': 'https://www.parsasco.com/'
 };
 
 let actieveMaatschappijen = [];

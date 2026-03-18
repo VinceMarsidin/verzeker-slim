@@ -20,20 +20,20 @@ CMS Login: http://localhost:3000/admin-login.html
 
 Mocht de applicatie op een nieuw systeem worden opgezet, gebruik dan de volgende commando's:
 
-Initialisatie
-- npm i: Installeert alle vereiste packages uit package.json (Express, Prisma, JWT, Bcrypt, CORS, Dotenv).
+Initialisatie:
 
-- npx prisma generate: Bereidt de Prisma-client functies voor op basis van het schema.
+1. npm i                                     Installeert alle vereiste packages uit package.json (Express, Prisma, JWT, Bcrypt, CORS, Dotenv).
 
-- npx prisma migrate dev: Synchroniseert het schema en maakt de database-tabellen aan in dev.db.
+2. npx prisma migrate dev                    Synchroniseert het schema en maakt de database-tabellen aan in dev.db.
 
-Als .env niet aanwezig is, maak deze dan aan en voeg de volgende variabelen toe:
+3. Als .env file niet aanwezig is, maak deze dan aan op de main folder en voeg de volgende variabelen toe:
 
 ```
 DATABASE_URL="file:./dev.db"
 JWT_SECRET="jouw_geheime_sleutel"
 ```
 
+4. node server.js:                           Start de server.
 
 
 |-------------------------------------------------------Beheer-------------------------------------------------------------|
