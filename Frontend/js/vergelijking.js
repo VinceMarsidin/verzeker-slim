@@ -1,8 +1,8 @@
 const companyUrls = {
     'assuria': 'https://www.assuria.sr/',
     'fatum': 'https://fatum-suriname.com/',
-    'self': 'https://self-reliance.sr/',
-    'par': 'https://www.parsasco.com/'
+    'self reliance': 'https://self-reliance.sr/',
+    'parsasco': 'https://www.parsasco.com/'
 };
 
 let actieveMaatschappijen = [];
@@ -49,7 +49,7 @@ async function laadVerzekeringen(type) {
             });
         }
         if (item.maatschappijId) {
-            gegroepeerd[dekking][item.maatschappijId] = `SRD ${item.premie_bedrag.toLocaleString()}`;
+            gegroepeerd[dekking][item.maatschappijId] = item.premie_bedrag;
         }
     });
 

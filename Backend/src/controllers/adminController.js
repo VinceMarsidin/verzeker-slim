@@ -47,7 +47,7 @@ export const createInsurance = async (req, res) => {
             data: {
                 type: type,
                 categorie: categorie,
-                premie_bedrag: parseFloat(premie_bedrag),
+                premie_bedrag: String(premie_bedrag),
                 maatschappijId: parseInt(maatschappijId)
             }
         });
@@ -61,7 +61,6 @@ export const createInsurance = async (req, res) => {
 // DEZE FUNCTIE MOET BESTAAN VOOR DE .PUT ROUTE
 export const updateInsurance = async (req, res) => {
     try {
-        // Haal de ID uit de URL parameters in plaats van req.body
         const { id } = req.params;
         const { type, categorie, premie_bedrag, maatschappijId } = req.body;
 
@@ -70,7 +69,7 @@ export const updateInsurance = async (req, res) => {
             data: {
                 type: type,
                 categorie: categorie,
-                premie_bedrag: parseFloat(premie_bedrag),
+                premie_bedrag: String(premie_bedrag),
                 maatschappijId: parseInt(maatschappijId)
             }
         });

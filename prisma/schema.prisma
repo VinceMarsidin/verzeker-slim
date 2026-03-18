@@ -17,14 +17,14 @@ model Maatschappij {
   naam          String        @unique
   logoUrl       String?
   contactEmail  String?
-  premies       Verzekering[] // Relatie: Een maatschappij heeft meerdere premies
+  premies       Verzekering[] 
 }
 
 model Verzekering {
   id             Int          @id @default(autoincrement())
-  categorie      String       // bijv. "Auto", "Brand"
-  type           String       // VOEG DIT TOE (of gebruik dekking_naam)
-  premie_bedrag  Float        // Verander String naar Float
+  categorie      String       
+  type           String       
+  premie_bedrag  String        
   maatschappijId Int
   maatschappij   Maatschappij @relation(fields: [maatschappijId], references: [id])
 }

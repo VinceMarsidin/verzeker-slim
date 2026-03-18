@@ -111,7 +111,7 @@ async function laadPremiesTabel() {
                 <tr>
                     <td>${maatschappijNaam}</td>
                     <td>${p.type}</td>
-                    <td>SRD ${p.premie_bedrag}</td>
+                    <td>${p.premie_bedrag}</td>
                     <td class="actions">
                         <button class="btn-edit" onclick="editP(${p.id})"><i class="fas fa-edit"></i></button>
                         <button class="btn-delete" onclick="deleteP(${p.id})"><i class="fas fa-trash"></i></button>
@@ -221,7 +221,6 @@ formPremie.addEventListener('submit', async (e) => {
     const token = localStorage.getItem('adminToken');
 
     // We halen de waardes op en zetten ze direct om naar de juiste types
-    const bedragInput = document.getElementById('p-bedrag').value;
     const maatschappijInput = document.getElementById('p-maatschappij').value;
 
     // We pakken de geselecteerde waarde uit de dropdown (bijv. "Brand" of "WA")
@@ -234,10 +233,9 @@ formPremie.addEventListener('submit', async (e) => {
         // 'p-type' is het nieuwe tekstveld dat je hebt toegevoegd (bijv: WA, Casco)
         type: document.getElementById('p-type').value,
 
-        // Voor de zekerheid als je database nog op de oude naam checkt
         dekking_naam: document.getElementById('p-type').value,
 
-        premie_bedrag: parseFloat(document.getElementById('p-bedrag').value),
+        premie_bedrag: document.getElementById('p-bedrag').value,
         maatschappijId: parseInt(document.getElementById('p-maatschappij').value)
     };
 
