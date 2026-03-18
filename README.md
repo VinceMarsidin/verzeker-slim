@@ -26,7 +26,7 @@ Initialisatie:
 
 2. npx prisma migrate dev                    Synchroniseert het schema en maakt de database-tabellen aan in dev.db.
 
-3. Als .env file niet aanwezig is, maak deze dan aan op de main folder en voeg de volgende variabelen toe:
+3. Als .env file niet aanwezig is, maak deze dan aan op de main folderen voeg de volgende variabelen toe:
 
 ```
 DATABASE_URL="file:./dev.db"
