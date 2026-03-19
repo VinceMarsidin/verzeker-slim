@@ -42,6 +42,6 @@ export const calculatePremium = (req, res) => {
 
     res.json({
         premie: premie.toFixed(2),
-        uitleg: "Berekend op 2.5% WA tarief"
+        uitleg: "Berekend op 2.5% WAM tarief"
     });
 };
