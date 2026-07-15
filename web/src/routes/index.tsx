@@ -151,49 +151,48 @@ function HomePage() {
       </header>
 
       {/* Hero */}
-      <section className="relative overflow-hidden px-8 pt-16 text-center min-h-[700px] md:min-h-[760px]">
-        <img
-          src="/About-foto.jpg"
-          alt="VerzekerSlim achtergrond"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-slate-950/25" />
+      <section className="px-8 pt-16 text-center">
+        <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-[1.15] tracking-[-0.5px] text-[#0d3b66] md:text-5xl">
+          Een{' '}
+          <span className="font-serif italic text-[#2e9e63]">slimme</span>{' '}
+          aanpak van verzekeren.
+        </h1>
+        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-[#55677c]">
+          Vergelijk premies van Assuria, Fatum, Self Reliance en Parsasco in
+          Suriname. Onafhankelijk, gratis en zonder wachttijden.
+        </p>
 
-        <div className="relative mx-auto flex h-full max-w-3xl flex-col items-center justify-center py-20">
-          <h1 className="text-4xl font-bold leading-[1.15] tracking-[-0.5px] text-white md:text-5xl">
-            Een{' '}
-            <span className="font-serif italic text-[#7ee3af]">slimme</span>{' '}
-            aanpak van verzekeren.
-          </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-200">
-            Vergelijk premies van Assuria, Fatum, Self Reliance en Parsasco in
-            Suriname. Onafhankelijk, gratis en zonder wachttijden.
-          </p>
-
-          <p className="mt-10 text-sm font-semibold uppercase tracking-wider text-slate-300">
-            Waarmee kunnen we je helpen?
-          </p>
-          <div className="mx-auto mt-5 flex max-w-3xl flex-wrap items-center justify-center gap-x-10 gap-y-5">
-            {quickSelect.map(({ icon: Icon, label }) => (
-              <a
-                key={label}
-                href="#"
-                className="group flex items-center gap-2 rounded-full bg-white/10 px-4 py-3 text-base font-semibold text-white transition hover:bg-white/20"
-              >
-                <Icon className="h-5 w-5 text-[#e0983e]" />
-                {label}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
-            ))}
-          </div>
-
-          <a
-            href="#"
-            className="mt-10 inline-flex items-center gap-2 rounded-[10px] bg-[#e0983e] px-8 py-4 text-base font-bold text-white shadow-[0_12px_24px_rgba(224,152,62,0.32)] hover:bg-[#c77f2b]"
-          >
-            Vergelijk nu gratis <ArrowRight className="h-[18px] w-[18px]" />
-          </a>
+        <div className="relative mx-auto mt-10 w-full overflow-hidden rounded-3xl shadow-[0_30px_60px_-10px_rgba(13,59,102,0.18)]">
+          <img
+            src="/About-foto.jpg"
+            alt="VerzekerSlim"
+            className="block w-full h-[600px]"
+          />
         </div>
+
+        <p className="mt-10 text-sm font-semibold uppercase tracking-wider text-[#6c7f92]">
+          Waarmee kunnen we je helpen?
+        </p>
+        <div className="mx-auto mt-5 flex max-w-3xl flex-wrap items-center justify-center gap-x-10 gap-y-5">
+          {quickSelect.map(({ icon: Icon, label }) => (
+            <a
+              key={label}
+              href="#"
+              className="group flex items-center gap-2 text-base font-semibold text-[#0d3b66] hover:text-[#1f6fb2]"
+            >
+              <Icon className="h-5 w-5 text-[#e0983e]" />
+              {label}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          ))}
+        </div>
+
+        <a
+          href="#"
+          className="mt-10 inline-flex items-center gap-2 rounded-[10px] bg-[#e0983e] px-8 py-4 text-base font-bold text-white shadow-[0_12px_24px_rgba(224,152,62,0.32)] hover:bg-[#c77f2b]"
+        >
+          Vergelijk nu gratis <ArrowRight className="h-[18px] w-[18px]" />
+        </a>
       </section>
 
       {/* Trust row */}
@@ -373,11 +372,11 @@ function HomePage() {
               Vergelijk nu gratis <ArrowRight className="h-[18px] w-[18px]" />
             </a>
           </div>
-          <div className="w-full max-w-xs overflow-hidden rounded-2xl md:w-64">
+          <div className="w-full overflow-hidden rounded-2xl">
             <img
-              src="/contact-illustration.svg"
+              src="/About-foto.jpg"
               alt="VerzekerSlim"
-              className="block w-full"
+              className="block w-full h-[500px]"
             />
           </div>
         </div>
