@@ -1,3 +1,7 @@
 allowBuilds:
+<<<<<<< HEAD
+  esbuild: false
+=======
   esbuild: true
+>>>>>>> cc2a67d3c5030d7da28b41325b85a8ba35c3b690
   sharp: false
