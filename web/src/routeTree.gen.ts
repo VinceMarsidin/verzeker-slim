@@ -9,12 +9,60 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPremiesIndexRouteImport } from './routes/api/premies/index'
+import { Route as ApiMaatschappijenIndexRouteImport } from './routes/api/maatschappijen/index'
+import { Route as ApiContactIndexRouteImport } from './routes/api/contact/index'
+import { Route as ApiPremiesIdRouteImport } from './routes/api/premies/$id'
+import { Route as ApiMaatschappijenIdRouteImport } from './routes/api/maatschappijen/$id'
+import { Route as ApiContactIdRouteImport } from './routes/api/contact/$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPremiesIndexRoute = ApiPremiesIndexRouteImport.update({
+  id: '/api/premies/',
+  path: '/api/premies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMaatschappijenIndexRoute = ApiMaatschappijenIndexRouteImport.update({
+  id: '/api/maatschappijen/',
+  path: '/api/maatschappijen/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactIndexRoute = ApiContactIndexRouteImport.update({
+  id: '/api/contact/',
+  path: '/api/contact/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPremiesIdRoute = ApiPremiesIdRouteImport.update({
+  id: '/api/premies/$id',
+  path: '/api/premies/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMaatschappijenIdRoute = ApiMaatschappijenIdRouteImport.update({
+  id: '/api/maatschappijen/$id',
+  path: '/api/maatschappijen/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactIdRoute = ApiContactIdRouteImport.update({
+  id: '/api/contact/$id',
+  path: '/api/contact/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -25,37 +73,156 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/contact/$id': typeof ApiContactIdRoute
+  '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
+  '/api/premies/$id': typeof ApiPremiesIdRoute
+  '/api/contact/': typeof ApiContactIndexRoute
+  '/api/maatschappijen/': typeof ApiMaatschappijenIndexRoute
+  '/api/premies/': typeof ApiPremiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/contact/$id': typeof ApiContactIdRoute
+  '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
+  '/api/premies/$id': typeof ApiPremiesIdRoute
+  '/api/contact': typeof ApiContactIndexRoute
+  '/api/maatschappijen': typeof ApiMaatschappijenIndexRoute
+  '/api/premies': typeof ApiPremiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/contact/$id': typeof ApiContactIdRoute
+  '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
+  '/api/premies/$id': typeof ApiPremiesIdRoute
+  '/api/contact/': typeof ApiContactIndexRoute
+  '/api/maatschappijen/': typeof ApiMaatschappijenIndexRoute
+  '/api/premies/': typeof ApiPremiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/api/auth/$'
+    | '/api/contact/$id'
+    | '/api/maatschappijen/$id'
+    | '/api/premies/$id'
+    | '/api/contact/'
+    | '/api/maatschappijen/'
+    | '/api/premies/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$'
-  id: '__root__' | '/' | '/api/auth/$'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/api/auth/$'
+    | '/api/contact/$id'
+    | '/api/maatschappijen/$id'
+    | '/api/premies/$id'
+    | '/api/contact'
+    | '/api/maatschappijen'
+    | '/api/premies'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/api/auth/$'
+    | '/api/contact/$id'
+    | '/api/maatschappijen/$id'
+    | '/api/premies/$id'
+    | '/api/contact/'
+    | '/api/maatschappijen/'
+    | '/api/premies/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  LoginRoute: typeof LoginRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiContactIdRoute: typeof ApiContactIdRoute
+  ApiMaatschappijenIdRoute: typeof ApiMaatschappijenIdRoute
+  ApiPremiesIdRoute: typeof ApiPremiesIdRoute
+  ApiContactIndexRoute: typeof ApiContactIndexRoute
+  ApiMaatschappijenIndexRoute: typeof ApiMaatschappijenIndexRoute
+  ApiPremiesIndexRoute: typeof ApiPremiesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/premies/': {
+      id: '/api/premies/'
+      path: '/api/premies'
+      fullPath: '/api/premies/'
+      preLoaderRoute: typeof ApiPremiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/maatschappijen/': {
+      id: '/api/maatschappijen/'
+      path: '/api/maatschappijen'
+      fullPath: '/api/maatschappijen/'
+      preLoaderRoute: typeof ApiMaatschappijenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contact/': {
+      id: '/api/contact/'
+      path: '/api/contact'
+      fullPath: '/api/contact/'
+      preLoaderRoute: typeof ApiContactIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/premies/$id': {
+      id: '/api/premies/$id'
+      path: '/api/premies/$id'
+      fullPath: '/api/premies/$id'
+      preLoaderRoute: typeof ApiPremiesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/maatschappijen/$id': {
+      id: '/api/maatschappijen/$id'
+      path: '/api/maatschappijen/$id'
+      fullPath: '/api/maatschappijen/$id'
+      preLoaderRoute: typeof ApiMaatschappijenIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contact/$id': {
+      id: '/api/contact/$id'
+      path: '/api/contact/$id'
+      fullPath: '/api/contact/$id'
+      preLoaderRoute: typeof ApiContactIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
@@ -70,7 +237,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
+  LoginRoute: LoginRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiContactIdRoute: ApiContactIdRoute,
+  ApiMaatschappijenIdRoute: ApiMaatschappijenIdRoute,
+  ApiPremiesIdRoute: ApiPremiesIdRoute,
+  ApiContactIndexRoute: ApiContactIndexRoute,
+  ApiMaatschappijenIndexRoute: ApiMaatschappijenIndexRoute,
+  ApiPremiesIndexRoute: ApiPremiesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
