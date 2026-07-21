@@ -100,6 +100,7 @@ Na deployment is de applicatie toegankelijk via een publieke URL.</p>
 ```env id="0drt9b"
 PORT=3000
 DATABASE_URL="file:./dev.db"
+JWT_SECRET=supergeheim_verander_dit_later
 ```
 
 Uitleg:
