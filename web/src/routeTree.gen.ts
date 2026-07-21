@@ -9,12 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminCoompaniesRouteImport } from './routes/admin/coompanies'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const VergelijkingenRoute = VergelijkingenRouteImport.update({
+  id: '/vergelijkingen',
+  path: '/vergelijkingen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCoompaniesRoute = AdminCoompaniesRouteImport.update({
+  id: '/admin/coompanies',
+  path: '/admin/coompanies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -25,37 +49,100 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/vergelijkingen': typeof VergelijkingenRoute
+  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/users': typeof AdminUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/vergelijkingen': typeof VergelijkingenRoute
+  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/users': typeof AdminUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/vergelijkingen': typeof VergelijkingenRoute
+  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/users': typeof AdminUsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/vergelijkingen'
+    | '/admin/coompanies'
+    | '/admin/dashboard'
+    | '/admin/users'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$'
-  id: '__root__' | '/' | '/api/auth/$'
+  to:
+    | '/'
+    | '/vergelijkingen'
+    | '/admin/coompanies'
+    | '/admin/dashboard'
+    | '/admin/users'
+    | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/vergelijkingen'
+    | '/admin/coompanies'
+    | '/admin/dashboard'
+    | '/admin/users'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  VergelijkingenRoute: typeof VergelijkingenRoute
+  AdminCoompaniesRoute: typeof AdminCoompaniesRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vergelijkingen': {
+      id: '/vergelijkingen'
+      path: '/vergelijkingen'
+      fullPath: '/vergelijkingen'
+      preLoaderRoute: typeof VergelijkingenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/coompanies': {
+      id: '/admin/coompanies'
+      path: '/admin/coompanies'
+      fullPath: '/admin/coompanies'
+      preLoaderRoute: typeof AdminCoompaniesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
@@ -70,17 +157,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  VergelijkingenRoute: VergelijkingenRoute,
+  AdminCoompaniesRoute: AdminCoompaniesRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminUsersRoute: AdminUsersRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

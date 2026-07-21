@@ -1,0 +1,68 @@
+import * as React from 'react'
+import { cn } from '#/lib/utils'
+
+interface TabsContextValue {
+  value: string
+  setValue: (v: string) => void
+}
+const TabsContext = React.createContext<TabsContextValue | null>(null)
+
+export function Tabs({
+  value,
+  onValueChange,
+  className,
+  children,
+}: {
+  value: string
+  onValueChange: (v: string) => void
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <TabsContext.Provider value={{ value, setValue: onValueChange }}>
+      <div className={className}>{children}</div>
+    </TabsContext.Provider>
+  )
+}
+
+export function TabsList({ className, children }: { className?: string; children: React.ReactNode }) {
+  return (
+    <div
+      className={cn(
+        'inline-flex items-center gap-1 rounded-xl border border-[#e3ebf5] bg-[#f8fafd] p-1',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
+export function TabsTrigger({
+  value,
+  children,
+  className,
+}: {
+  value: string
+  children: React.ReactNode
+  className?: string
+}) {
+  const ctx = React.useContext(TabsContext)
+  if (!ctx) throw new Error('TabsTrigger must be used within Tabs')
+  const active = ctx.value === value
+  return (
+    <button
+      type="button"
+      onClick={() => ctx.setValue(value)}
+      className={cn(
+        'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
+        active
+          ? 'bg-white text-[#0d3b66] shadow-[0_2px_8px_rgba(13,59,102,0.10)]'
+          : 'text-[#55677c] hover:text-[#0d3b66]',
+        className,
+      )}
+    >
+      {children}
+    </button>
+  )
+}
