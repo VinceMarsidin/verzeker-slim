@@ -6,14 +6,14 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --ink: #16283B;
-  --ink-soft: #3C5165;
-  --paper: #F1EEE4;
-  --paper-raised: #FBF9F3;
-  --stamp: #B9862E;
-  --stamp-dark: #8C6621;
-  --trust: #2E6B5D;
-  --line: #DAD4C3;
+  --ink: #0D3B66;
+  --ink-soft: #55677C;
+  --paper: #F8FAFD;
+  --paper-raised: #FFFFFF;
+  --stamp: #E0983E;
+  --stamp-dark: #C77F2B;
+  --trust: #2E9E63;
+  --line: #E3EBF5;
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
