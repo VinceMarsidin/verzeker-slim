@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PremieCalculatorRouteImport } from './routes/premie-calculator'
 import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as AdminCoompaniesRouteImport } from './routes/admin/coompanies'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
@@ -26,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PremieCalculatorRoute = PremieCalculatorRouteImport.update({
+  id: '/premie-calculator',
+  path: '/premie-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VergelijkingenRoute = VergelijkingenRouteImport.update({
@@ -62,6 +68,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof VergelijkingenRouteWithChildren
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof VergelijkingenRouteWithChildren
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof VergelijkingenRouteWithChildren
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contact'
+    | '/premie-calculator'
     | '/vergelijkingen'
     | '/admin/coompanies'
     | '/admin/dashboard'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contact'
+    | '/premie-calculator'
     | '/vergelijkingen'
     | '/admin/coompanies'
     | '/admin/dashboard'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contact'
+    | '/premie-calculator'
     | '/vergelijkingen'
     | '/admin/coompanies'
     | '/admin/dashboard'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
+  PremieCalculatorRoute: typeof PremieCalculatorRoute
   VergelijkingenRoute: typeof VergelijkingenRouteWithChildren
   AdminCoompaniesRoute: typeof AdminCoompaniesRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
@@ -147,6 +160,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/premie-calculator': {
+      id: '/premie-calculator'
+      path: '/premie-calculator'
+      fullPath: '/premie-calculator'
+      preLoaderRoute: typeof PremieCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vergelijkingen': {
@@ -209,6 +229,7 @@ const VergelijkingenRouteWithChildren = VergelijkingenRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
+  PremieCalculatorRoute: PremieCalculatorRoute,
   VergelijkingenRoute: VergelijkingenRouteWithChildren,
   AdminCoompaniesRoute: AdminCoompaniesRoute,
   AdminDashboardRoute: AdminDashboardRoute,
