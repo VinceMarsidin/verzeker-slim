@@ -83,21 +83,6 @@ const faqs = [
 function HomePage() {
   return (
     <div className="bg-paper text-ink">
-      {/* Header */}
-      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-paper/95 px-8 py-4 backdrop-blur-md">
-        <span className="font-slab text-lg font-bold">
-          Verzeker<span className="text-stamp-dark">Slim</span>
-        </span>
-        <nav className="flex items-center gap-8 text-sm font-medium">
-          <Link to="/">Home</Link>
-          <Link to="/vergelijkingen">Vergelijkingen</Link>
-          <Link to="/contact">Contact</Link>
-          <Button asChild size="sm" className="bg-stamp-dark hover:bg-stamp-dark/90">
-            <Link to="/vergelijkingen">Vergelijk nu</Link>
-          </Button>
-        </nav>
-      </header>
-
       {/* Hero */}
       <section className="grid grid-cols-1 items-center gap-12 px-8 py-18 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-24">
         <div>
@@ -232,40 +217,6 @@ function HomePage() {
           </Button>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-line bg-ink px-8 py-14 text-paper/70">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 md:grid-cols-4">
-          <span className="font-slab text-lg font-bold text-paper">VerzekerSlim</span>
-          <div>
-            <p className="text-sm font-semibold text-paper">Producten</p>
-            <ul className="mt-3 space-y-2 text-sm">
-              {categorieen.map((c) => (
-                <li key={c.naam}>
-                  <Link to="/vergelijkingen/$type" params={{ type: c.slug }} className="hover:text-paper">
-                    {c.naam}verzekering
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-paper">Bedrijf</p>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li><Link to="/contact" className="hover:text-paper">Contact</Link></li>
-            </ul>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-paper">Contact</p>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li>info@verzekerslim.sr</li>
-            </ul>
-          </div>
-        </div>
-        <p className="mx-auto mt-12 max-w-5xl text-xs text-paper/50">
-          &copy; 2026 VerzekerSlim. Alle rechten voorbehouden.
-        </p>
-      </footer>
     </div>
   )
 }
