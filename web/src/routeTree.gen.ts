@@ -9,26 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminUsersRouteImport } from './routes/admin/users'
-import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as AdminCoompaniesRouteImport } from './routes/admin/coompanies'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as VergelijkingenTypeRouteImport } from './routes/vergelijkingen.$type'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const VergelijkingenRoute = VergelijkingenRouteImport.update({
-  id: '/vergelijkingen',
-  path: '/vergelijkingen',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: '/admin/users',
-  path: '/admin/users',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VergelijkingenRoute = VergelijkingenRouteImport.update({
+  id: '/vergelijkingen',
+  path: '/vergelijkingen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCoompaniesRoute = AdminCoompaniesRouteImport.update({
+  id: '/admin/coompanies',
+  path: '/admin/coompanies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -36,10 +43,15 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
   path: '/admin/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminCoompaniesRoute = AdminCoompaniesRouteImport.update({
-  id: '/admin/coompanies',
-  path: '/admin/coompanies',
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
   getParentRoute: () => rootRouteImport,
+} as any)
+const VergelijkingenTypeRoute = VergelijkingenTypeRouteImport.update({
+  id: '/$type',
+  path: '/$type',
+  getParentRoute: () => VergelijkingenRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -49,59 +61,72 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/vergelijkingen': typeof VergelijkingenRoute
+  '/contact': typeof ContactRoute
+  '/vergelijkingen': typeof VergelijkingenRouteWithChildren
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
+  '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/vergelijkingen': typeof VergelijkingenRoute
+  '/contact': typeof ContactRoute
+  '/vergelijkingen': typeof VergelijkingenRouteWithChildren
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
+  '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/vergelijkingen': typeof VergelijkingenRoute
+  '/contact': typeof ContactRoute
+  '/vergelijkingen': typeof VergelijkingenRouteWithChildren
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
+  '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contact'
     | '/vergelijkingen'
     | '/admin/coompanies'
     | '/admin/dashboard'
     | '/admin/users'
+    | '/vergelijkingen/$type'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/contact'
     | '/vergelijkingen'
     | '/admin/coompanies'
     | '/admin/dashboard'
     | '/admin/users'
+    | '/vergelijkingen/$type'
     | '/api/auth/$'
   id:
     | '__root__'
     | '/'
+    | '/contact'
     | '/vergelijkingen'
     | '/admin/coompanies'
     | '/admin/dashboard'
     | '/admin/users'
+    | '/vergelijkingen/$type'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  VergelijkingenRoute: typeof VergelijkingenRoute
+  ContactRoute: typeof ContactRoute
+  VergelijkingenRoute: typeof VergelijkingenRouteWithChildren
   AdminCoompaniesRoute: typeof AdminCoompaniesRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -110,13 +135,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/vergelijkingen': {
-      id: '/vergelijkingen'
-      path: '/vergelijkingen'
-      fullPath: '/vergelijkingen'
-      preLoaderRoute: typeof VergelijkingenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -124,11 +142,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/users': {
-      id: '/admin/users'
-      path: '/admin/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vergelijkingen': {
+      id: '/vergelijkingen'
+      path: '/vergelijkingen'
+      fullPath: '/vergelijkingen'
+      preLoaderRoute: typeof VergelijkingenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/coompanies': {
+      id: '/admin/coompanies'
+      path: '/admin/coompanies'
+      fullPath: '/admin/coompanies'
+      preLoaderRoute: typeof AdminCoompaniesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/dashboard': {
@@ -138,12 +170,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/coompanies': {
-      id: '/admin/coompanies'
-      path: '/admin/coompanies'
-      fullPath: '/admin/coompanies'
-      preLoaderRoute: typeof AdminCoompaniesRouteImport
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/vergelijkingen/$type': {
+      id: '/vergelijkingen/$type'
+      path: '/$type'
+      fullPath: '/vergelijkingen/$type'
+      preLoaderRoute: typeof VergelijkingenTypeRouteImport
+      parentRoute: typeof VergelijkingenRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -155,9 +194,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface VergelijkingenRouteChildren {
+  VergelijkingenTypeRoute: typeof VergelijkingenTypeRoute
+}
+
+const VergelijkingenRouteChildren: VergelijkingenRouteChildren = {
+  VergelijkingenTypeRoute: VergelijkingenTypeRoute,
+}
+
+const VergelijkingenRouteWithChildren = VergelijkingenRoute._addFileChildren(
+  VergelijkingenRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  VergelijkingenRoute: VergelijkingenRoute,
+  ContactRoute: ContactRoute,
+  VergelijkingenRoute: VergelijkingenRouteWithChildren,
   AdminCoompaniesRoute: AdminCoompaniesRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminUsersRoute: AdminUsersRoute,
@@ -166,3 +218,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
