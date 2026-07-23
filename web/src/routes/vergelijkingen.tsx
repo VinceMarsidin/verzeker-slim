@@ -12,11 +12,11 @@ import {
   BadgeCheck,
   ArrowRight,
 } from 'lucide-react'
-import { Button } from '#/components/ui/button'
-import { Badge } from '#/components/ui/badge'
-import { Select } from '#/components/ui/select'
-import { Tabs, TabsList, TabsTrigger } from '#/components/ui/tabs'
-import { Card, CardTitle } from '#/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Select } from '@/components/ui/select'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card, CardTitle } from '@/components/ui/card'
 
 export const Route = createFileRoute('/vergelijkingen')({
   component: VergelijkingenPage,
@@ -209,68 +209,48 @@ function VergelijkingenPage() {
   const cheapest = quotes[0]
 
   return (
-    <div className="min-h-screen bg-white text-[#142c42] antialiased">
-      {/* Header (consistent met homepage) */}
-      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-[#e3ebf5] bg-white/95 px-8 py-4 backdrop-blur-md">
-        <img src="/logo.png" alt="VerzekerSlim" className="h-9" />
-        <nav className="flex items-center gap-9">
-          <a href="/" className="text-sm font-medium hover:text-[#1f6fb2]">
-            Home
-          </a>
-          <a href="/vergelijkingen" className="text-sm font-semibold text-[#1f6fb2]">
-            Vergelijkingen
-          </a>
-          <a href="#" className="text-sm font-medium hover:text-[#1f6fb2]">
-            Contact
-          </a>
-          <a href="#" className="text-sm font-medium hover:text-[#1f6fb2]">
-            Inloggen
-          </a>
-        </nav>
-      </header>
-
+    <div className="min-h-screen bg-paper text-ink antialiased">
       {/* Hero */}
       <section className="relative overflow-hidden px-8 pb-20 pt-14">
         <div className="mx-auto max-w-5xl text-center">
-          <Badge variant="outline" className="mx-auto mb-5 w-fit">
+          <Badge variant="outline" className="mx-auto mb-5 w-fit border-line text-ink-soft">
             <MapPin className="h-3.5 w-3.5" /> {activeRegion.flag} {activeRegion.label}
           </Badge>
-          <h1 className="mx-auto max-w-2xl text-4xl font-bold leading-[1.15] tracking-[-0.5px] text-[#0d3b66] md:text-5xl">
-            Vergelijk verzekeringen in{' '}
-            <span className="font-serif italic text-[#2e9e63]">de Caribean</span>.
+          <h1 className="mx-auto max-w-2xl font-slab text-4xl font-bold leading-[1.15] text-ink md:text-5xl">
+            Vergelijk verzekeringen in <span className="text-trust">de Caraïben</span>.
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-[#55677c]">
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
             Kies je land en je type verzekering. Wij zetten de premies van de
             grootste maatschappijen direct naast elkaar — onafhankelijk en
             gratis.
           </p>
         </div>
 
-        <div className="relative mx-auto mt-10 w-full max-w-5xl overflow-hidden rounded-3xl shadow-[0_30px_60px_-10px_rgba(13,59,102,0.18)]">
+        <div className="relative mx-auto mt-10 w-full max-w-5xl overflow-hidden rounded-[4px] border border-line">
           <img
             src={heroImages[type]}
             alt="VerzekerSlim vergelijking"
             className="block h-[320px] w-full object-cover md:h-[420px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a2540]/70 via-[#0a2540]/10 to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4 text-white">
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+          <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4 text-paper">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-white/80">
+              <p className="font-mono text-xs font-semibold uppercase tracking-wider text-paper/80">
                 {insuranceTypes.find((t) => t.value === type)?.label} in{' '}
                 {activeRegion.label}
               </p>
-              <p className="mt-1 text-2xl font-bold">
+              <p className="mt-1 font-slab text-2xl font-bold">
                 {quotes.length} aanbieders vergeleken
               </p>
             </div>
             {cheapest && (
-              <div className="rounded-xl bg-white/95 px-5 py-3 text-[#0d3b66] shadow-lg">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#6c7f92]">
+              <div className="rounded-[4px] bg-paper-raised/95 px-5 py-3 text-ink shadow-lg">
+                <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
                   Vanaf
                 </p>
-                <p className="text-xl font-bold">
+                <p className="font-mono text-xl font-bold">
                   {cheapest.currency} {cheapest.monthlyPremium}
-                  <span className="text-sm font-medium text-[#6c7f92]"> /mnd</span>
+                  <span className="text-sm font-medium text-ink-soft"> /mnd</span>
                 </p>
               </div>
             )}
@@ -280,10 +260,10 @@ function VergelijkingenPage() {
 
       {/* Filters */}
       <section className="mx-auto -mt-8 max-w-5xl px-8">
-        <Card className="p-6 md:p-8">
+        <Card className="border-line bg-paper-raised p-6 md:p-8">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_auto]">
             <div>
-              <p className="mb-3 text-sm font-semibold text-[#0d3b66]">
+              <p className="mb-3 text-sm font-semibold text-ink">
                 Type verzekering
               </p>
               <Tabs value={type} onValueChange={(v) => setType(v as InsuranceType)}>
@@ -300,7 +280,7 @@ function VergelijkingenPage() {
 
             <div className="grid grid-cols-2 gap-4 md:w-[420px]">
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#0d3b66]">
+                <label className="mb-2 block text-sm font-semibold text-ink">
                   Regio
                 </label>
                 <Select
@@ -317,7 +297,7 @@ function VergelijkingenPage() {
                 </Select>
               </div>
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#0d3b66]">
+                <label className="mb-2 block text-sm font-semibold text-ink">
                   Sorteer op
                 </label>
                 <Select
@@ -339,7 +319,7 @@ function VergelijkingenPage() {
       {/* Results */}
       <section className="mx-auto mt-12 max-w-5xl px-8">
         {quotes.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[#dbe4ef] p-16 text-center text-[#55677c]">
+          <div className="rounded-[4px] border border-dashed border-line p-16 text-center text-ink-soft">
             Nog geen aanbieders beschikbaar voor deze combinatie. Probeer een
             andere regio of verzekeringssoort.
           </div>
@@ -348,10 +328,10 @@ function VergelijkingenPage() {
             {quotes.map((q) => (
               <Card
                 key={q.insurer}
-                className="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between"
+                className="flex flex-col gap-6 border-line bg-paper-raised p-6 md:flex-row md:items-center md:justify-between"
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#eef4fb] text-lg font-bold text-[#1f6fb2]">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border border-line bg-paper font-mono text-lg font-bold text-stamp-dark">
                     {q.logoInitial}
                   </div>
                   <div>
@@ -371,15 +351,15 @@ function VergelijkingenPage() {
                         </Badge>
                       )}
                     </div>
-                    <div className="mt-1.5 flex items-center gap-1 text-sm text-[#55677c]">
-                      <Star className="h-3.5 w-3.5 fill-[#e0983e] text-[#e0983e]" />
+                    <div className="mt-1.5 flex items-center gap-1 text-sm text-ink-soft">
+                      <Star className="h-3.5 w-3.5 fill-stamp-dark text-stamp-dark" />
                       {q.rating.toFixed(1)}
-                      <span className="mx-2 text-[#dbe4ef]">•</span>
+                      <span className="mx-2 text-line">•</span>
                       Eigen risico {q.currency} {q.deductible}
                     </div>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {q.coverage.map((c) => (
-                        <Badge key={c} variant="outline">
+                        <Badge key={c} variant="outline" className="border-line text-ink-soft">
                           {c}
                         </Badge>
                       ))}
@@ -389,15 +369,15 @@ function VergelijkingenPage() {
 
                 <div className="flex items-center justify-between gap-6 md:justify-end">
                   <div className="text-right">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#6c7f92]">
+                    <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
                       Premie
                     </p>
-                    <p className="text-2xl font-bold text-[#0d3b66]">
+                    <p className="font-mono text-2xl font-bold text-ink">
                       {q.currency} {q.monthlyPremium}
-                      <span className="text-sm font-medium text-[#6c7f92]">/mnd</span>
+                      <span className="text-sm font-medium text-ink-soft">/mnd</span>
                     </p>
                   </div>
-                  <Button size="lg">
+                  <Button size="lg" className="bg-stamp-dark hover:bg-stamp-dark/90">
                     Kies deze <ArrowRight className="h-4 w-4" />
                   </Button>
                 </div>
@@ -406,7 +386,7 @@ function VergelijkingenPage() {
           </div>
         )}
 
-        <div className="mt-6 flex items-center justify-center gap-2 text-sm text-[#6c7f92]">
+        <div className="mt-6 flex items-center justify-center gap-2 text-sm text-ink-soft">
           <ArrowUpDown className="h-4 w-4" />
           Prijzen zijn indicatief en worden na jouw gegevens definitief
           bevestigd door de verzekeraar.
@@ -415,8 +395,8 @@ function VergelijkingenPage() {
 
       {/* Trust strip with stock photo */}
       <section className="mx-auto my-24 max-w-5xl px-8">
-        <div className="flex flex-col items-center gap-10 rounded-3xl border border-[#e3ebf5] bg-[#f8fafd] p-10 md:flex-row md:p-14">
-          <div className="w-full overflow-hidden rounded-2xl md:w-2/5">
+        <div className="flex flex-col items-center gap-10 rounded-[4px] border border-line bg-paper-raised p-10 md:flex-row md:p-14">
+          <div className="w-full overflow-hidden rounded-[4px] border border-line md:w-2/5">
             <img
               src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=900&q=80&auto=format&fit=crop"
               alt="Caribisch eiland"
@@ -424,10 +404,10 @@ function VergelijkingenPage() {
             />
           </div>
           <div className="flex-1 text-center md:text-left">
-            <h2 className="text-2xl font-bold tracking-[-0.5px] text-[#0d3b66]">
+            <h2 className="font-slab text-2xl font-bold text-ink">
               Eén platform, meerdere eilanden.
             </h2>
-            <p className="mt-3 text-[#55677c]">
+            <p className="mt-3 text-ink-soft">
               Of je nu in Paramaribo, Willemstad of Port of Spain woont —
               VerzekerSlim brengt de lokale verzekeraars overzichtelijk bij
               elkaar, zodat je nooit te veel betaalt.
@@ -435,15 +415,6 @@ function VergelijkingenPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer (kort, consistent met homepage) */}
-      <footer className="border-t border-[#e3ebf5] bg-[#0a2540] px-8 py-14 text-[#b6c4d4]">
-        <div className="mx-auto max-w-5xl text-center text-sm">
-          © {new Date().getFullYear()} VerzekerSlim. Onafhankelijk vergelijken,
-          zonder verrassingen.
-        </div>
-      </footer>
     </div>
   )
 }
-
