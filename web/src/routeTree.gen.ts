@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as PublicRouteImport } from './routes/_public'
+import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
+import { Route as PublicContactRouteImport } from './routes/_public.contact'
 import { Route as ApiPremiesIndexRouteImport } from './routes/api/premies/index'
 import { Route as ApiMaatschappijenIndexRouteImport } from './routes/api/maatschappijen/index'
 import { Route as ApiContactIndexRouteImport } from './routes/api/contact/index'
@@ -30,10 +33,24 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicVergelijkingenRoute = PublicVergelijkingenRouteImport.update({
+  id: '/vergelijkingen',
+  path: '/vergelijkingen',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => PublicRoute,
 } as any)
 const ApiPremiesIndexRoute = ApiPremiesIndexRouteImport.update({
   id: '/api/premies/',
@@ -72,9 +89,11 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof PublicIndexRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/contact': typeof PublicContactRoute
+  '/vergelijkingen': typeof PublicVergelijkingenRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -84,9 +103,11 @@ export interface FileRoutesByFullPath {
   '/api/premies/': typeof ApiPremiesIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/contact': typeof PublicContactRoute
+  '/vergelijkingen': typeof PublicVergelijkingenRoute
+  '/': typeof PublicIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -97,9 +118,12 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_public': typeof PublicRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/_public/contact': typeof PublicContactRoute
+  '/_public/vergelijkingen': typeof PublicVergelijkingenRoute
+  '/_public/': typeof PublicIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -114,6 +138,8 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/login'
+    | '/contact'
+    | '/vergelijkingen'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -123,9 +149,11 @@ export interface FileRouteTypes {
     | '/api/premies/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/dashboard'
     | '/login'
+    | '/contact'
+    | '/vergelijkingen'
+    | '/'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -135,9 +163,12 @@ export interface FileRouteTypes {
     | '/api/premies'
   id:
     | '__root__'
-    | '/'
+    | '/_public'
     | '/dashboard'
     | '/login'
+    | '/_public/contact'
+    | '/_public/vergelijkingen'
+    | '/_public/'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -148,7 +179,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  PublicRoute: typeof PublicRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -176,12 +207,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/vergelijkingen': {
+      id: '/_public/vergelijkingen'
+      path: '/vergelijkingen'
+      fullPath: '/vergelijkingen'
+      preLoaderRoute: typeof PublicVergelijkingenRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
+      parentRoute: typeof PublicRoute
     }
     '/api/premies/': {
       id: '/api/premies/'
@@ -235,8 +287,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface PublicRouteChildren {
+  PublicContactRoute: typeof PublicContactRoute
+  PublicVergelijkingenRoute: typeof PublicVergelijkingenRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicContactRoute: PublicContactRoute,
+  PublicVergelijkingenRoute: PublicVergelijkingenRoute,
+  PublicIndexRoute: PublicIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  PublicRoute: PublicRouteWithChildren,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
