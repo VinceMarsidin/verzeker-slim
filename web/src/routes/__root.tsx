@@ -7,6 +7,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+import { Footer } from '#/components/site/footer'
 
 import appCss from '../styles.css?url'
 
@@ -27,7 +28,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'VerzekerSlim',
       },
     ],
     links: [
@@ -42,12 +43,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="nl">
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        {/* flex-col + min-h-screen zorgt dat de footer onderaan blijft
+            plakken, ook op pagina's met weinig inhoud (bijv. login) */}
+        <div className="flex min-h-screen flex-col">
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </div>
+
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -65,3 +72,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     </html>
   )
 }
+
+
