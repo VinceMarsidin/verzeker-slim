@@ -4,13 +4,8 @@ import { eq } from 'drizzle-orm'
 import { db } from '#/db'
 import { verzekeringen } from '#/db/schema'
 import { requireAdmin } from '#/lib/require-admin'
-
-interface PremieInput {
-  categorie: string
-  type: string
-  premieBedrag: string
-  maatschappijId: number
-}
+import { premieInputSchema } from '#/lib/schemas/premie'
+import { validateBody } from '#/lib/validate-body'
 
 export const Route = createFileRoute('/api/premies/$id')({
   server: {
@@ -34,7 +29,11 @@ export const Route = createFileRoute('/api/premies/$id')({
         const guard = await requireAdmin(request)
         if (guard instanceof Response) return guard
 
-        const body = (await request.json()) as PremieInput
+        const { data: body, error } = await validateBody(
+          request,
+          premieInputSchema,
+        )
+        if (error) return error
 
         const [updated] = await db
           .update(verzekeringen)
@@ -42,7 +41,7 @@ export const Route = createFileRoute('/api/premies/$id')({
             categorie: body.categorie,
             type: body.type,
             premieBedrag: body.premieBedrag,
-            maatschappijId: Number(body.maatschappijId),
+            maatschappijId: body.maatschappijId,
           })
           .where(eq(verzekeringen.id, Number(params.id)))
           .returning()
