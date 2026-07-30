@@ -14,7 +14,7 @@ export const Route = createFileRoute('/dashboard')({
 // TODO: zet terug op false voordat dit naar productie gaat.
 // Schakelt de auth-guard uit zodat je zonder inloggen aan het
 // dashboard-design kunt werken.
-const DISABLE_AUTH_GUARD_FOR_DESIGN = true
+const DISABLE_AUTH_GUARD_FOR_DESIGN = false
 
 function DashboardPage() {
   const { data: session, isPending } = authClient.useSession()
