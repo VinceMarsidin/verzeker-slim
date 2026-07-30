@@ -9,23 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as PublicRouteImport } from './routes/_public'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
-import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
-import { Route as ApiPremiesIndexRouteImport } from './routes/api/premies/index'
-import { Route as ApiMaatschappijenIndexRouteImport } from './routes/api/maatschappijen/index'
-import { Route as ApiContactIndexRouteImport } from './routes/api/contact/index'
-import { Route as ApiPremiesIdRouteImport } from './routes/api/premies/$id'
-import { Route as ApiMaatschappijenIdRouteImport } from './routes/api/maatschappijen/$id'
-import { Route as ApiContactIdRouteImport } from './routes/api/contact/$id'
+import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiContactIndexRouteImport } from './routes/api/contact/index'
+import { Route as ApiContactIdRouteImport } from './routes/api/contact/$id'
+import { Route as ApiMaatschappijenIndexRouteImport } from './routes/api/maatschappijen/index'
+import { Route as ApiMaatschappijenIdRouteImport } from './routes/api/maatschappijen/$id'
+import { Route as ApiPremiesIndexRouteImport } from './routes/api/premies/index'
+import { Route as ApiPremiesIdRouteImport } from './routes/api/premies/$id'
 
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -33,8 +32,9 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PublicRoute = PublicRouteImport.update({
-  id: '/_public',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicIndexRoute = PublicIndexRouteImport.update({
@@ -42,24 +42,19 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRoute,
 } as any)
-const PublicVergelijkingenRoute = PublicVergelijkingenRouteImport.update({
-  id: '/vergelijkingen',
-  path: '/vergelijkingen',
-  getParentRoute: () => PublicRoute,
-} as any)
 const PublicContactRoute = PublicContactRouteImport.update({
   id: '/contact',
   path: '/contact',
   getParentRoute: () => PublicRoute,
 } as any)
-const ApiPremiesIndexRoute = ApiPremiesIndexRouteImport.update({
-  id: '/api/premies/',
-  path: '/api/premies/',
-  getParentRoute: () => rootRouteImport,
+const PublicVergelijkingenRoute = PublicVergelijkingenRouteImport.update({
+  id: '/vergelijkingen',
+  path: '/vergelijkingen',
+  getParentRoute: () => PublicRoute,
 } as any)
-const ApiMaatschappijenIndexRoute = ApiMaatschappijenIndexRouteImport.update({
-  id: '/api/maatschappijen/',
-  path: '/api/maatschappijen/',
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiContactIndexRoute = ApiContactIndexRouteImport.update({
@@ -67,9 +62,14 @@ const ApiContactIndexRoute = ApiContactIndexRouteImport.update({
   path: '/api/contact/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPremiesIdRoute = ApiPremiesIdRouteImport.update({
-  id: '/api/premies/$id',
-  path: '/api/premies/$id',
+const ApiContactIdRoute = ApiContactIdRouteImport.update({
+  id: '/api/contact/$id',
+  path: '/api/contact/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMaatschappijenIndexRoute = ApiMaatschappijenIndexRouteImport.update({
+  id: '/api/maatschappijen/',
+  path: '/api/maatschappijen/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiMaatschappijenIdRoute = ApiMaatschappijenIdRouteImport.update({
@@ -77,14 +77,14 @@ const ApiMaatschappijenIdRoute = ApiMaatschappijenIdRouteImport.update({
   path: '/api/maatschappijen/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiContactIdRoute = ApiContactIdRouteImport.update({
-  id: '/api/contact/$id',
-  path: '/api/contact/$id',
+const ApiPremiesIndexRoute = ApiPremiesIndexRouteImport.update({
+  id: '/api/premies/',
+  path: '/api/premies/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
+const ApiPremiesIdRoute = ApiPremiesIdRouteImport.update({
+  id: '/api/premies/$id',
+  path: '/api/premies/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -193,11 +193,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -207,11 +207,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_public': {
-      id: '/_public'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof PublicRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/': {
@@ -221,13 +221,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
     }
-    '/_public/vergelijkingen': {
-      id: '/_public/vergelijkingen'
-      path: '/vergelijkingen'
-      fullPath: '/vergelijkingen'
-      preLoaderRoute: typeof PublicVergelijkingenRouteImport
-      parentRoute: typeof PublicRoute
-    }
     '/_public/contact': {
       id: '/_public/contact'
       path: '/contact'
@@ -235,18 +228,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicContactRouteImport
       parentRoute: typeof PublicRoute
     }
-    '/api/premies/': {
-      id: '/api/premies/'
-      path: '/api/premies'
-      fullPath: '/api/premies/'
-      preLoaderRoute: typeof ApiPremiesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_public/vergelijkingen': {
+      id: '/_public/vergelijkingen'
+      path: '/vergelijkingen'
+      fullPath: '/vergelijkingen'
+      preLoaderRoute: typeof PublicVergelijkingenRouteImport
+      parentRoute: typeof PublicRoute
     }
-    '/api/maatschappijen/': {
-      id: '/api/maatschappijen/'
-      path: '/api/maatschappijen'
-      fullPath: '/api/maatschappijen/'
-      preLoaderRoute: typeof ApiMaatschappijenIndexRouteImport
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/contact/': {
@@ -256,11 +249,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiContactIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/premies/$id': {
-      id: '/api/premies/$id'
-      path: '/api/premies/$id'
-      fullPath: '/api/premies/$id'
-      preLoaderRoute: typeof ApiPremiesIdRouteImport
+    '/api/contact/$id': {
+      id: '/api/contact/$id'
+      path: '/api/contact/$id'
+      fullPath: '/api/contact/$id'
+      preLoaderRoute: typeof ApiContactIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/maatschappijen/': {
+      id: '/api/maatschappijen/'
+      path: '/api/maatschappijen'
+      fullPath: '/api/maatschappijen/'
+      preLoaderRoute: typeof ApiMaatschappijenIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/maatschappijen/$id': {
@@ -270,18 +270,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMaatschappijenIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/contact/$id': {
-      id: '/api/contact/$id'
-      path: '/api/contact/$id'
-      fullPath: '/api/contact/$id'
-      preLoaderRoute: typeof ApiContactIdRouteImport
+    '/api/premies/': {
+      id: '/api/premies/'
+      path: '/api/premies'
+      fullPath: '/api/premies/'
+      preLoaderRoute: typeof ApiPremiesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
+    '/api/premies/$id': {
+      id: '/api/premies/$id'
+      path: '/api/premies/$id'
+      fullPath: '/api/premies/$id'
+      preLoaderRoute: typeof ApiPremiesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
