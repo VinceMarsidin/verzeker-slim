@@ -3,12 +3,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { db } from '#/db'
 import { maatschappijen } from '#/db/schema'
 import { requireAdmin } from '#/lib/require-admin'
-
-interface MaatschappijInput {
-  naam: string
-  logoUrl?: string
-  contactEmail?: string
-}
+import { maatschappijInputSchema } from '#/lib/schemas/maatschappij'
+import { validateBody } from '#/lib/validate-body'
 
 export const Route = createFileRoute('/api/maatschappijen/')({
   server: {
@@ -24,17 +20,18 @@ export const Route = createFileRoute('/api/maatschappijen/')({
         const guard = await requireAdmin(request)
         if (guard instanceof Response) return guard
 
-        const body = (await request.json()) as MaatschappijInput
-        if (!body.naam) {
-          return Response.json({ error: 'Naam is verplicht' }, { status: 400 })
-        }
+        const { data: body, error } = await validateBody(
+          request,
+          maatschappijInputSchema,
+        )
+        if (error) return error
 
         const [created] = await db
           .insert(maatschappijen)
           .values({
             naam: body.naam,
-            logoUrl: body.logoUrl || null,
-            contactEmail: body.contactEmail || null,
+            logoUrl: body.logoUrl ?? null,
+            contactEmail: body.contactEmail ?? null,
           })
           .returning()
 

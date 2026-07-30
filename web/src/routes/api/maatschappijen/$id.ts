@@ -4,12 +4,8 @@ import { eq } from 'drizzle-orm'
 import { db } from '#/db'
 import { maatschappijen } from '#/db/schema'
 import { requireAdmin } from '#/lib/require-admin'
-
-interface MaatschappijInput {
-  naam: string
-  logoUrl?: string
-  contactEmail?: string
-}
+import { maatschappijInputSchema } from '#/lib/schemas/maatschappij'
+import { validateBody } from '#/lib/validate-body'
 
 export const Route = createFileRoute('/api/maatschappijen/$id')({
   server: {
@@ -30,14 +26,18 @@ export const Route = createFileRoute('/api/maatschappijen/$id')({
         const guard = await requireAdmin(request)
         if (guard instanceof Response) return guard
 
-        const body = (await request.json()) as MaatschappijInput
+        const { data: body, error } = await validateBody(
+          request,
+          maatschappijInputSchema,
+        )
+        if (error) return error
 
         const [updated] = await db
           .update(maatschappijen)
           .set({
             naam: body.naam,
-            logoUrl: body.logoUrl || null,
-            contactEmail: body.contactEmail || null,
+            logoUrl: body.logoUrl ?? null,
+            contactEmail: body.contactEmail ?? null,
           })
           .where(eq(maatschappijen.id, Number(params.id)))
           .returning()
