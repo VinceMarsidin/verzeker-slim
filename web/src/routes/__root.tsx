@@ -7,7 +7,8 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
-import { Footer } from '#/components/site/footer'
+import { Navbar } from '@/components/layout/navbar'
+import { Footer } from '@/components/layout/footer'
 
 import appCss from '../styles.css?url'
 
@@ -36,8 +37,21 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         rel: 'stylesheet',
         href: appCss,
       },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap',
+      },
     ],
   }),
+  notFoundComponent: () => <p>Not Found</p>,
   shellComponent: RootDocument,
 })
 
@@ -48,13 +62,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {/* flex-col + min-h-screen zorgt dat de footer onderaan blijft
-            plakken, ook op pagina's met weinig inhoud (bijv. login) */}
-        <div className="flex min-h-screen flex-col">
-          <div className="flex-1">{children}</div>
-          <Footer />
-        </div>
-
+        <Navbar />
+        {children}
+        <Footer />
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -72,5 +82,3 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     </html>
   )
 }
-
-
