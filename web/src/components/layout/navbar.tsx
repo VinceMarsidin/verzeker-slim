@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
+import { NavbarAuth } from '@/components/layout/navbar-auth'
 
 export function Navbar() {
     return (
@@ -7,12 +8,13 @@ export function Navbar() {
             <Link to="/" className="font-slab text-lg font-bold text-ink">
                 Verzeker<span className="text-stamp-dark">Slim</span>
             </Link>
-            <nav className="flex items-center gap-8 text-sm font-medium text-ink">
+            <nav className="flex items-center gap-6 text-sm font-medium text-ink md:gap-8">
                 <Link to="/">Home</Link>
                 <Link to="/vergelijkingen">Vergelijkingen</Link>
                 <Link to="/premie-calculator">Premie berekenen</Link>
                 <Link to="/contact">Contact</Link>
-                <Button asChild size="sm" className="bg-stamp-dark hover:bg-stamp-dark/90">
+                <NavbarAuth />
+                <Button asChild size="sm" className="hidden bg-stamp-dark hover:bg-stamp-dark/90 sm:inline-flex">
                     <Link to="/vergelijkingen">Vergelijk nu</Link>
                 </Button>
             </nav>
