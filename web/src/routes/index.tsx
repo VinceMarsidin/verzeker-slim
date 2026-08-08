@@ -45,7 +45,6 @@ const categorieen = [
   },
 ]
 
-// Feitelijke cijfers over het platform zelf, geen verzonnen social proof.
 const stats = [
   { value: '37+', label: 'verzekeraars in 8 regio\'s' },
   { value: '100%', label: 'gratis voor consumenten' },
