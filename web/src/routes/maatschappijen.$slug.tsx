@@ -86,3 +86,6 @@ function CompanyDetailPage() {
     </div>
   )
 }
+
+
+// test
