@@ -92,4 +92,5 @@ export interface PremieCalculatorResult {
   premie: number
   minimumToegepast: boolean
   toelichting: string
+  breakdown: { label: string; bedrag: number }[]
 }

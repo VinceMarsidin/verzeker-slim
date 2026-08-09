@@ -5,7 +5,6 @@ import {
 } from '@/lib/validators/premie.schema'
 
 
-
 export const berekenPremie = createServerFn({ method: 'POST' })
     .validator(premieCalculatorSchema)
     .handler(async ({ data }): Promise<PremieCalculatorResult> => {
@@ -13,6 +12,7 @@ export const berekenPremie = createServerFn({ method: 'POST' })
             case 'motor': {
                 const basisPercentage = 0.025
                 const minimum = 1500
+
                 const typeFactor: Record<string, number> = {
                     auto: 1,
                     elektrische_auto: 0.95,
@@ -44,11 +44,20 @@ export const berekenPremie = createServerFn({ method: 'POST' })
 
                 const totaal = basispremie + extraDekkingen
 
+                const breakdown = [
+                    { label: 'Basispremie (dagwaarde, type, leeftijd, gebruik)', bedrag: Math.round(basispremie) },
+                ]
+                if (data.miniCasco) breakdown.push({ label: 'Mini Casco', bedrag: 300 })
+                if (data.inzittendenverzekering) {
+                    breakdown.push({ label: 'Ongevallen inzittenden', bedrag: 150 })
+                }
+
                 return {
                     premie: Math.round(Math.max(totaal, minimum)),
                     minimumToegepast: totaal < minimum,
                     toelichting: `${(basisPercentage * 100).toFixed(1)}% van de dagwaarde, aangepast voor voertuigtype, leeftijd en gebruiksdoel${extraDekkingen > 0 ? ', plus gekozen extra dekkingen' : ''
                         }. Minimum SRD ${minimum.toLocaleString('nl-NL')}.`,
+                    breakdown,
                 }
             }
 
@@ -56,11 +65,17 @@ export const berekenPremie = createServerFn({ method: 'POST' })
                 const perDag = 15
                 const perPersoon = 10
                 const minimum = 250
-                const berekend = data.aantalDagen * perDag + data.aantalPersonen * perPersoon
+                const dagenDeel = data.aantalDagen * perDag
+                const personenDeel = data.aantalPersonen * perPersoon
+                const berekend = dagenDeel + personenDeel
                 return {
                     premie: Math.round(Math.max(berekend, minimum)),
                     minimumToegepast: berekend < minimum,
                     toelichting: `SRD ${perDag} per dag + SRD ${perPersoon} per persoon, met een minimum van SRD ${minimum.toLocaleString('nl-NL')}.`,
+                    breakdown: [
+                        { label: `${data.aantalDagen} dagen × SRD ${perDag}`, bedrag: dagenDeel },
+                        { label: `${data.aantalPersonen} personen × SRD ${perPersoon}`, bedrag: personenDeel },
+                    ],
                 }
             }
 
@@ -72,18 +87,31 @@ export const berekenPremie = createServerFn({ method: 'POST' })
                     premie: Math.round(Math.max(berekend, minimum)),
                     minimumToegepast: berekend < minimum,
                     toelichting: `SRD ${perVierkanteMeter} per m², met een minimum van SRD ${minimum.toLocaleString('nl-NL')}.`,
+                    breakdown: [
+                        {
+                            label: `${data.vierkanteMeters} m² × SRD ${perVierkanteMeter}`,
+                            bedrag: Math.round(berekend),
+                        },
+                    ],
                 }
             }
 
             case 'leven': {
                 const minimum = 300
                 const leeftijdsFactor = 1 + Math.max(0, data.leeftijd - 18) * 0.01
-                const berekend =
-                    (data.verzekerdBedrag * 0.004 * leeftijdsFactor) / data.looptijdJaren
+                const basisJaarlijks = (data.verzekerdBedrag * 0.004) / data.looptijdJaren
+                const berekend = basisJaarlijks * leeftijdsFactor
                 return {
                     premie: Math.round(Math.max(berekend, minimum)),
                     minimumToegepast: berekend < minimum,
                     toelichting: `Gebaseerd op verzekerd bedrag, leeftijd en looptijd, met een minimum van SRD ${minimum.toLocaleString('nl-NL')}.`,
+                    breakdown: [
+                        { label: 'Basisbedrag (verzekerd bedrag ÷ looptijd)', bedrag: Math.round(basisJaarlijks) },
+                        {
+                            label: `Leeftijdscorrectie (×${leeftijdsFactor.toFixed(2)})`,
+                            bedrag: Math.round(berekend - basisJaarlijks),
+                        },
+                    ],
                 }
             }
         }
