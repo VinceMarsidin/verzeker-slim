@@ -44,6 +44,8 @@ const categorieen = [
     { value: 'leven', label: 'Leven', icon: ShieldCheck },
 ] as const
 
+// Zelfde set als heroImages in vergelijkingen.tsx, bewust hergebruikt zodat
+// dezelfde categorie overal hetzelfde beeld toont.
 const heroImages: Record<Categorie, string> = {
     motor:
         'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=80&auto=format&fit=crop',
@@ -55,6 +57,9 @@ const heroImages: Record<Categorie, string> = {
         'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=1400&q=80&auto=format&fit=crop',
 }
 
+// Alle mogelijke velden staan hier optioneel in één form-type; welke ervan
+// verplicht zijn hangt af van de gekozen categorie (zie de dynamische
+// resolver hieronder).
 type FormValues = {
     categorie: Categorie
     dagwaarde?: number
@@ -71,6 +76,9 @@ type FormValues = {
     verzekerdBedrag?: number
 }
 
+// Kiest per submit/validatie het juiste zod-schema op basis van de op dat
+// moment geselecteerde categorie, zodat één form-instance toch per categorie
+// andere verplichte velden kan afdwingen.
 const dynamicResolver: Resolver<FormValues> = (values, context, options) => {
     const schema = schemaPerCategorie[values.categorie]
     const resolver = zodResolver(schema) as unknown as Resolver<FormValues>
@@ -109,6 +117,8 @@ function PremieCalculatorPage() {
         setIsSubmitting(true)
         setSubmitError(null)
         try {
+            // values is op dit punt al gevalideerd tegen het juiste sub-schema,
+            // dus veilig te casten naar het discriminated-union input-type.
             const data = await berekenPremie({ data: values as never })
             setResult(data)
         } catch {
@@ -138,8 +148,8 @@ function PremieCalculatorPage() {
                             type="button"
                             onClick={() => selecteerCategorie(value)}
                             className={`flex flex-col items-center gap-2 rounded-[4px] border p-4 text-sm font-semibold transition-colors ${categorie === value
-                                ? 'border-stamp-dark bg-stamp-dark/10 text-stamp-dark'
-                                : 'border-line bg-paper-raised text-ink-soft hover:border-stamp-dark/40'
+                                    ? 'border-stamp-dark bg-stamp-dark/10 text-stamp-dark'
+                                    : 'border-line bg-paper-raised text-ink-soft hover:border-stamp-dark/40'
                                 }`}
                         >
                             <Icon className="h-5 w-5" />
@@ -346,7 +356,20 @@ function PremieCalculatorPage() {
                     <p className="mt-1 font-mono text-3xl font-bold text-ink">
                         {formatSrd(result.premie)}
                     </p>
-                    <p className="mt-2 text-sm text-ink-soft">{result.toelichting}</p>
+
+                    <div className="mt-4 space-y-1.5 border-t border-dashed border-trust/30 pt-4">
+                        {result.breakdown.map((regel) => (
+                            <div
+                                key={regel.label}
+                                className="flex items-center justify-between text-sm text-ink-soft"
+                            >
+                                <span>{regel.label}</span>
+                                <span className="font-mono">{formatSrd(regel.bedrag)}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <p className="mt-4 text-sm text-ink-soft">{result.toelichting}</p>
                 </div>
             )}
         </div>
