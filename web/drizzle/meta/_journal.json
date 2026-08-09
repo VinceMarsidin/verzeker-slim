@@ -15,6 +15,20 @@
       "when": 1783726535767,
       "tag": "0001_loud_squadron_sinister",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783726600000,
+      "tag": "0002_insurance_platform",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1783726700000,
+      "tag": "0003_reviews_unique",
+      "breakpoints": true
     }
   ]
 }

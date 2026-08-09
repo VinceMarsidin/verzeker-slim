@@ -13,11 +13,16 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PremieCalculatorRouteImport } from './routes/premie-calculator'
 import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
+import { Route as AccountLoginRouteImport } from './routes/account/login'
+import { Route as AccountRegisterRouteImport } from './routes/account/register'
 import { Route as AdminCoompaniesRouteImport } from './routes/admin/coompanies'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as MaatschappijenSlugRouteImport } from './routes/maatschappijen.$slug'
 import { Route as VergelijkingenTypeRouteImport } from './routes/vergelijkingen.$type'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiV1SplatRouteImport } from './routes/api/v1/$'
+import { Route as ApiAuthMaatschappijenSlugRouteImport } from './routes/api/auth/maatschappijen.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -39,6 +44,16 @@ const VergelijkingenRoute = VergelijkingenRouteImport.update({
   path: '/vergelijkingen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountLoginRoute = AccountLoginRouteImport.update({
+  id: '/account/login',
+  path: '/account/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRegisterRoute = AccountRegisterRouteImport.update({
+  id: '/account/register',
+  path: '/account/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCoompaniesRoute = AdminCoompaniesRouteImport.update({
   id: '/admin/coompanies',
   path: '/admin/coompanies',
@@ -54,6 +69,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MaatschappijenSlugRoute = MaatschappijenSlugRouteImport.update({
+  id: '/maatschappijen/$slug',
+  path: '/maatschappijen/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VergelijkingenTypeRoute = VergelijkingenTypeRouteImport.update({
   id: '/$type',
   path: '/$type',
@@ -64,28 +84,49 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1SplatRoute = ApiV1SplatRouteImport.update({
+  id: '/api/v1/$',
+  path: '/api/v1/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthMaatschappijenSlugRoute =
+  ApiAuthMaatschappijenSlugRouteImport.update({
+    id: '/api/auth/maatschappijen/$slug',
+    path: '/api/auth/maatschappijen/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof VergelijkingenRouteWithChildren
+  '/account/login': typeof AccountLoginRoute
+  '/account/register': typeof AccountRegisterRoute
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
+  '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
+  '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof VergelijkingenRouteWithChildren
+  '/account/login': typeof AccountLoginRoute
+  '/account/register': typeof AccountRegisterRoute
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
+  '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
+  '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,11 +134,16 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof VergelijkingenRouteWithChildren
+  '/account/login': typeof AccountLoginRoute
+  '/account/register': typeof AccountRegisterRoute
   '/admin/coompanies': typeof AdminCoompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
+  '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
+  '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,33 +152,48 @@ export interface FileRouteTypes {
     | '/contact'
     | '/premie-calculator'
     | '/vergelijkingen'
+    | '/account/login'
+    | '/account/register'
     | '/admin/coompanies'
     | '/admin/dashboard'
     | '/admin/users'
+    | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
     | '/api/auth/$'
+    | '/api/v1/$'
+    | '/api/auth/maatschappijen/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/contact'
     | '/premie-calculator'
     | '/vergelijkingen'
+    | '/account/login'
+    | '/account/register'
     | '/admin/coompanies'
     | '/admin/dashboard'
     | '/admin/users'
+    | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
     | '/api/auth/$'
+    | '/api/v1/$'
+    | '/api/auth/maatschappijen/$slug'
   id:
     | '__root__'
     | '/'
     | '/contact'
     | '/premie-calculator'
     | '/vergelijkingen'
+    | '/account/login'
+    | '/account/register'
     | '/admin/coompanies'
     | '/admin/dashboard'
     | '/admin/users'
+    | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
     | '/api/auth/$'
+    | '/api/v1/$'
+    | '/api/auth/maatschappijen/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,10 +201,15 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   PremieCalculatorRoute: typeof PremieCalculatorRoute
   VergelijkingenRoute: typeof VergelijkingenRouteWithChildren
+  AccountLoginRoute: typeof AccountLoginRoute
+  AccountRegisterRoute: typeof AccountRegisterRoute
   AdminCoompaniesRoute: typeof AdminCoompaniesRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminUsersRoute: typeof AdminUsersRoute
+  MaatschappijenSlugRoute: typeof MaatschappijenSlugRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiV1SplatRoute: typeof ApiV1SplatRoute
+  ApiAuthMaatschappijenSlugRoute: typeof ApiAuthMaatschappijenSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -176,6 +242,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VergelijkingenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account/login': {
+      id: '/account/login'
+      path: '/account/login'
+      fullPath: '/account/login'
+      preLoaderRoute: typeof AccountLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/register': {
+      id: '/account/register'
+      path: '/account/register'
+      fullPath: '/account/register'
+      preLoaderRoute: typeof AccountRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/coompanies': {
       id: '/admin/coompanies'
       path: '/admin/coompanies'
@@ -197,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/maatschappijen/$slug': {
+      id: '/maatschappijen/$slug'
+      path: '/maatschappijen/$slug'
+      fullPath: '/maatschappijen/$slug'
+      preLoaderRoute: typeof MaatschappijenSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vergelijkingen/$type': {
       id: '/vergelijkingen/$type'
       path: '/$type'
@@ -209,6 +296,20 @@ declare module '@tanstack/react-router' {
       path: '/api/auth/$'
       fullPath: '/api/auth/$'
       preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/$': {
+      id: '/api/v1/$'
+      path: '/api/v1/$'
+      fullPath: '/api/v1/$'
+      preLoaderRoute: typeof ApiV1SplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/maatschappijen/$slug': {
+      id: '/api/auth/maatschappijen/$slug'
+      path: '/api/auth/maatschappijen/$slug'
+      fullPath: '/api/auth/maatschappijen/$slug'
+      preLoaderRoute: typeof ApiAuthMaatschappijenSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -231,10 +332,15 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   PremieCalculatorRoute: PremieCalculatorRoute,
   VergelijkingenRoute: VergelijkingenRouteWithChildren,
+  AccountLoginRoute: AccountLoginRoute,
+  AccountRegisterRoute: AccountRegisterRoute,
   AdminCoompaniesRoute: AdminCoompaniesRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminUsersRoute: AdminUsersRoute,
+  MaatschappijenSlugRoute: MaatschappijenSlugRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiV1SplatRoute: ApiV1SplatRoute,
+  ApiAuthMaatschappijenSlugRoute: ApiAuthMaatschappijenSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
