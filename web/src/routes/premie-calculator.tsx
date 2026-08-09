@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Resolver } from 'react-hook-form'
@@ -44,6 +44,8 @@ const categorieen = [
     { value: 'leven', label: 'Leven', icon: ShieldCheck },
 ] as const
 
+// Zelfde set als heroImages in vergelijkingen.tsx, bewust hergebruikt zodat
+// dezelfde categorie overal hetzelfde beeld toont.
 const heroImages: Record<Categorie, string> = {
     motor:
         'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=80&auto=format&fit=crop',
@@ -55,7 +57,9 @@ const heroImages: Record<Categorie, string> = {
         'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=1400&q=80&auto=format&fit=crop',
 }
 
-
+// Alle mogelijke velden staan hier optioneel in één form-type; welke ervan
+// verplicht zijn hangt af van de gekozen categorie (zie de dynamische
+// resolver hieronder).
 type FormValues = {
     categorie: Categorie
     dagwaarde?: number
@@ -72,7 +76,9 @@ type FormValues = {
     verzekerdBedrag?: number
 }
 
-
+// Kiest per submit/validatie het juiste zod-schema op basis van de op dat
+// moment geselecteerde categorie, zodat één form-instance toch per categorie
+// andere verplichte velden kan afdwingen.
 const dynamicResolver: Resolver<FormValues> = (values, context, options) => {
     const schema = schemaPerCategorie[values.categorie]
     const resolver = zodResolver(schema) as unknown as Resolver<FormValues>
@@ -98,6 +104,7 @@ function PremieCalculatorPage() {
     const [result, setResult] = useState<PremieCalculatorResult | null>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitError, setSubmitError] = useState<string | null>(null)
+    const [livePreview, setLivePreview] = useState<number | null>(null)
 
     const {
         register,
@@ -111,17 +118,43 @@ function PremieCalculatorPage() {
     })
 
     const categorie = watch('categorie')
+    const alleWaardes = watch()
+
+    // Live voorbeeld: zodra de ingevulde velden voor de huidige categorie
+    // geldig zijn, berekenen we (gedebounced) een indicatie op de achtergrond,
+    // los van de "officiële" berekening via de submit-knop.
+    useEffect(() => {
+        const schema = schemaPerCategorie[alleWaardes.categorie]
+        const parsed = schema.safeParse(alleWaardes)
+
+        if (!parsed.success) {
+            setLivePreview(null)
+            return
+        }
+
+        const timeout = setTimeout(() => {
+            berekenPremie({ data: parsed.data as never })
+                .then((res) => setLivePreview(res.premie))
+                .catch(() => setLivePreview(null))
+        }, 500)
+
+        return () => clearTimeout(timeout)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [JSON.stringify(alleWaardes)])
 
     function selecteerCategorie(nieuw: Categorie) {
         setValue('categorie', nieuw)
         setResult(null)
         setSubmitError(null)
+        setLivePreview(null)
     }
 
     async function onSubmit(values: FormValues) {
         setIsSubmitting(true)
         setSubmitError(null)
         try {
+            // values is op dit punt al gevalideerd tegen het juiste sub-schema,
+            // dus veilig te casten naar het discriminated-union input-type.
             const data = await berekenPremie({ data: values as never })
             setResult(data)
         } catch {
@@ -338,6 +371,15 @@ function PremieCalculatorPage() {
                                     <Foutmelding message={errors.verzekerdBedrag.message} />
                                 )}
                             </div>
+                        </div>
+                    )}
+
+                    {livePreview !== null && (
+                        <div className="mb-4 flex items-center justify-between rounded-[4px] border border-dashed border-stamp-dark/40 bg-stamp-dark/5 px-4 py-3">
+                            <span className="text-sm text-ink-soft">Live voorbeeld</span>
+                            <span className="font-mono text-lg font-semibold text-stamp-dark">
+                                {formatSrd(livePreview)}
+                            </span>
                         </div>
                     )}
 
