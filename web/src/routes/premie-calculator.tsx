@@ -44,9 +44,17 @@ const categorieen = [
     { value: 'leven', label: 'Leven', icon: ShieldCheck },
 ] as const
 
-// Alle mogelijke velden staan hier optioneel in één form-type; welke ervan
-// verplicht zijn hangt af van de gekozen categorie (zie de dynamische
-// resolver hieronder).
+const heroImages: Record<Categorie, string> = {
+    motor:
+        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=80&auto=format&fit=crop',
+    reis:
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80&auto=format&fit=crop',
+    woon:
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80&auto=format&fit=crop',
+    leven:
+        'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=1400&q=80&auto=format&fit=crop',
+}
+
 type FormValues = {
     categorie: Categorie
     dagwaarde?: number
@@ -63,9 +71,6 @@ type FormValues = {
     verzekerdBedrag?: number
 }
 
-// Kiest per submit/validatie het juiste zod-schema op basis van de op dat
-// moment geselecteerde categorie, zodat één form-instance toch per categorie
-// andere verplichte velden kan afdwingen.
 const dynamicResolver: Resolver<FormValues> = (values, context, options) => {
     const schema = schemaPerCategorie[values.categorie]
     const resolver = zodResolver(schema) as unknown as Resolver<FormValues>
@@ -104,8 +109,6 @@ function PremieCalculatorPage() {
         setIsSubmitting(true)
         setSubmitError(null)
         try {
-            // values is op dit punt al gevalideerd tegen het juiste sub-schema,
-            // dus veilig te casten naar het discriminated-union input-type.
             const data = await berekenPremie({ data: values as never })
             setResult(data)
         } catch {
@@ -135,14 +138,23 @@ function PremieCalculatorPage() {
                             type="button"
                             onClick={() => selecteerCategorie(value)}
                             className={`flex flex-col items-center gap-2 rounded-[4px] border p-4 text-sm font-semibold transition-colors ${categorie === value
-                                    ? 'border-stamp-dark bg-stamp-dark/10 text-stamp-dark'
-                                    : 'border-line bg-paper-raised text-ink-soft hover:border-stamp-dark/40'
+                                ? 'border-stamp-dark bg-stamp-dark/10 text-stamp-dark'
+                                : 'border-line bg-paper-raised text-ink-soft hover:border-stamp-dark/40'
                                 }`}
                         >
                             <Icon className="h-5 w-5" />
                             {label}
                         </button>
                     ))}
+                </div>
+
+                <div className="mb-8 overflow-hidden rounded-[4px] border border-line">
+                    <img
+                        key={categorie}
+                        src={heroImages[categorie]}
+                        alt={`${categorieen.find((c) => c.value === categorie)?.label ?? ''}verzekering`}
+                        className="block h-[200px] w-full object-cover md:h-[260px]"
+                    />
                 </div>
 
                 {/* Motor */}
