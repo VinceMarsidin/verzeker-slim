@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
+// import { Button } from '@/components/ui/button'
 import { NavbarAuth } from '@/components/layout/navbar-auth'
 
 export function Navbar() {
@@ -14,10 +14,13 @@ export function Navbar() {
                 <Link to="/premie-calculator">Premie berekenen</Link>
                 <Link to="/contact">Contact</Link>
                 <NavbarAuth />
-                <Button asChild size="sm" className="hidden bg-stamp-dark hover:bg-stamp-dark/90 sm:inline-flex">
+                {/* <Button asChild size="sm" className="hidden bg-stamp-dark hover:bg-stamp-dark/90 sm:inline-flex">
                     <Link to="/vergelijkingen">Vergelijk nu</Link>
-                </Button>
+                </Button> */}
             </nav>
         </header>
     )
 }
+
+
+
