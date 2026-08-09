@@ -9,12 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PublicRouteImport } from './routes/_public'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as PublicIndexRouteImport } from './routes/_public.index'
-import { Route as PublicContactRouteImport } from './routes/_public.contact'
+import { Route as PremieCalculatorRouteImport } from './routes/premie-calculator'
+import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
+import { Route as AdminCoompaniesRouteImport } from './routes/admin/coompanies'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as VergelijkingenTypeRouteImport } from './routes/vergelijkingen.$type'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiContactIndexRouteImport } from './routes/api/contact/index'
 import { Route as ApiContactIdRouteImport } from './routes/api/contact/$id'
@@ -23,8 +28,14 @@ import { Route as ApiMaatschappijenIdRouteImport } from './routes/api/maatschapp
 import { Route as ApiPremiesIndexRouteImport } from './routes/api/premies/index'
 import { Route as ApiPremiesIdRouteImport } from './routes/api/premies/$id'
 
-const PublicRoute = PublicRouteImport.update({
-  id: '/_public',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -37,20 +48,40 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PublicIndexRoute = PublicIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => PublicRoute,
+const PremieCalculatorRoute = PremieCalculatorRouteImport.update({
+  id: '/premie-calculator',
+  path: '/premie-calculator',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const PublicContactRoute = PublicContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => PublicRoute,
-} as any)
-const PublicVergelijkingenRoute = PublicVergelijkingenRouteImport.update({
+const VergelijkingenRoute = VergelijkingenRouteImport.update({
   id: '/vergelijkingen',
   path: '/vergelijkingen',
-  getParentRoute: () => PublicRoute,
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicVergelijkingenRoute = PublicVergelijkingenRouteImport.update({
+  id: '/_public/vergelijkingen',
+  path: '/vergelijkingen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCoompaniesRoute = AdminCoompaniesRouteImport.update({
+  id: '/admin/coompanies',
+  path: '/admin/coompanies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VergelijkingenTypeRoute = VergelijkingenTypeRouteImport.update({
+  id: '/$type',
+  path: '/$type',
+  getParentRoute: () => VergelijkingenRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -89,11 +120,16 @@ const ApiPremiesIdRoute = ApiPremiesIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof PublicIndexRoute
+  '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/contact': typeof PublicContactRoute
+  '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof PublicVergelijkingenRoute
+  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -103,11 +139,16 @@ export interface FileRoutesByFullPath {
   '/api/premies/': typeof ApiPremiesIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/contact': typeof PublicContactRoute
+  '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof PublicVergelijkingenRoute
-  '/': typeof PublicIndexRoute
+  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -118,12 +159,17 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_public': typeof PublicRouteWithChildren
+  '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/_public/contact': typeof PublicContactRoute
+  '/premie-calculator': typeof PremieCalculatorRoute
+  '/vergelijkingen': typeof VergelijkingenRouteWithChildren
   '/_public/vergelijkingen': typeof PublicVergelijkingenRoute
-  '/_public/': typeof PublicIndexRoute
+  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -136,10 +182,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contact'
     | '/dashboard'
     | '/login'
-    | '/contact'
+    | '/premie-calculator'
     | '/vergelijkingen'
+    | '/admin/coompanies'
+    | '/admin/dashboard'
+    | '/admin/users'
+    | '/vergelijkingen/$type'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -149,11 +200,16 @@ export interface FileRouteTypes {
     | '/api/premies/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
+    | '/contact'
     | '/dashboard'
     | '/login'
-    | '/contact'
+    | '/premie-calculator'
     | '/vergelijkingen'
-    | '/'
+    | '/admin/coompanies'
+    | '/admin/dashboard'
+    | '/admin/users'
+    | '/vergelijkingen/$type'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -163,12 +219,17 @@ export interface FileRouteTypes {
     | '/api/premies'
   id:
     | '__root__'
-    | '/_public'
+    | '/'
+    | '/contact'
     | '/dashboard'
     | '/login'
-    | '/_public/contact'
+    | '/premie-calculator'
+    | '/vergelijkingen'
     | '/_public/vergelijkingen'
-    | '/_public/'
+    | '/admin/coompanies'
+    | '/admin/dashboard'
+    | '/admin/users'
+    | '/vergelijkingen/$type'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -179,9 +240,16 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  PublicRoute: typeof PublicRouteWithChildren
+  IndexRoute: typeof IndexRoute
+  ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
+  PremieCalculatorRoute: typeof PremieCalculatorRoute
+  VergelijkingenRoute: typeof VergelijkingenRouteWithChildren
+  PublicVergelijkingenRoute: typeof PublicVergelijkingenRoute
+  AdminCoompaniesRoute: typeof AdminCoompaniesRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiContactIdRoute: typeof ApiContactIdRoute
   ApiMaatschappijenIdRoute: typeof ApiMaatschappijenIdRoute
@@ -193,11 +261,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_public': {
-      id: '/_public'
-      path: ''
+    '/': {
+      id: '/'
+      path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof PublicRouteImport
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -214,26 +289,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_public/': {
-      id: '/_public/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof PublicIndexRouteImport
-      parentRoute: typeof PublicRoute
+    '/premie-calculator': {
+      id: '/premie-calculator'
+      path: '/premie-calculator'
+      fullPath: '/premie-calculator'
+      preLoaderRoute: typeof PremieCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_public/contact': {
-      id: '/_public/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof PublicContactRouteImport
-      parentRoute: typeof PublicRoute
+    '/vergelijkingen': {
+      id: '/vergelijkingen'
+      path: '/vergelijkingen'
+      fullPath: '/vergelijkingen'
+      preLoaderRoute: typeof VergelijkingenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_public/vergelijkingen': {
       id: '/_public/vergelijkingen'
       path: '/vergelijkingen'
       fullPath: '/vergelijkingen'
       preLoaderRoute: typeof PublicVergelijkingenRouteImport
-      parentRoute: typeof PublicRoute
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/coompanies': {
+      id: '/admin/coompanies'
+      path: '/admin/coompanies'
+      fullPath: '/admin/coompanies'
+      preLoaderRoute: typeof AdminCoompaniesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vergelijkingen/$type': {
+      id: '/vergelijkingen/$type'
+      path: '/$type'
+      fullPath: '/vergelijkingen/$type'
+      preLoaderRoute: typeof VergelijkingenTypeRouteImport
+      parentRoute: typeof VergelijkingenRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -287,25 +390,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface PublicRouteChildren {
-  PublicContactRoute: typeof PublicContactRoute
-  PublicVergelijkingenRoute: typeof PublicVergelijkingenRoute
-  PublicIndexRoute: typeof PublicIndexRoute
+interface VergelijkingenRouteChildren {
+  VergelijkingenTypeRoute: typeof VergelijkingenTypeRoute
 }
 
-const PublicRouteChildren: PublicRouteChildren = {
-  PublicContactRoute: PublicContactRoute,
-  PublicVergelijkingenRoute: PublicVergelijkingenRoute,
-  PublicIndexRoute: PublicIndexRoute,
+const VergelijkingenRouteChildren: VergelijkingenRouteChildren = {
+  VergelijkingenTypeRoute: VergelijkingenTypeRoute,
 }
 
-const PublicRouteWithChildren =
-  PublicRoute._addFileChildren(PublicRouteChildren)
+const VergelijkingenRouteWithChildren = VergelijkingenRoute._addFileChildren(
+  VergelijkingenRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  PublicRoute: PublicRouteWithChildren,
+  IndexRoute: IndexRoute,
+  ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
+  PremieCalculatorRoute: PremieCalculatorRoute,
+  VergelijkingenRoute: VergelijkingenRouteWithChildren,
+  PublicVergelijkingenRoute: PublicVergelijkingenRoute,
+  AdminCoompaniesRoute: AdminCoompaniesRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminUsersRoute: AdminUsersRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiContactIdRoute: ApiContactIdRoute,
   ApiMaatschappijenIdRoute: ApiMaatschappijenIdRoute,
