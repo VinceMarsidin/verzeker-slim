@@ -2,13 +2,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Pencil, Trash2 } from 'lucide-react'
 
-import { EmptyState } from '#/components/ui/empty-state'
-import { FormField, inputClass } from '#/components/ui/form-field'
-import { IconButton } from '#/components/ui/icon-button'
-import { Modal } from '#/components/ui/modal'
-import { PageHeader } from '#/components/ui/page-header'
-import { SearchInput } from '#/components/ui/search-input'
-import { StatCard } from '#/components/ui/stat-card'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+
+import { EmptyState } from './empty-state'
+import { FormField, inputClass } from './form-field'
+import { IconButton } from './icon-button'
+import { Modal } from './modal'
+import { PageHeader } from './page-header'
+import { SearchInput } from './search-input'
+import { StatCard } from './stat-card'
 import { avatarKleur } from '#/lib/avatar-color'
 import type { Maatschappij } from '#/lib/types'
 
@@ -101,36 +104,34 @@ export function MaatschappijenSectie() {
         addLabel="Nieuwe maatschappij"
       />
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <StatCard label="Totaal" value={maatschappijen.length} accent="orange" />
+      <div className="mb-6 grid grid-cols-3 gap-4">
+        <StatCard label="Totaal" value={maatschappijen.length} />
         <StatCard
           label="Met logo"
           value={maatschappijen.filter((m) => m.logoUrl).length}
-          accent="blue"
         />
         <StatCard
           label="Met contactmail"
           value={maatschappijen.filter((m) => m.contactEmail).length}
-          accent="emerald"
         />
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
-        <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-slate-100 bg-slate-50/60">
+      <Card className="overflow-hidden">
+        <div className="flex items-center justify-between gap-3 border-b border-line bg-[#f8fafd] px-4 py-3">
           <SearchInput
             value={zoekterm}
             onChange={setZoekterm}
             placeholder="Zoek op naam of e-mail..."
           />
           {zoekterm && (
-            <span className="text-xs text-slate-400 shrink-0">
+            <span className="shrink-0 text-xs text-ink-soft">
               {gefilterd.length} van {maatschappijen.length}
             </span>
           )}
         </div>
 
         {isLoading ? (
-          <p className="p-8 text-center text-slate-400 text-sm">Data laden...</p>
+          <p className="p-8 text-center text-sm text-ink-soft">Data laden...</p>
         ) : maatschappijen.length === 0 ? (
           <EmptyState label="Nog geen maatschappijen toegevoegd." />
         ) : gefilterd.length === 0 ? (
@@ -138,7 +139,7 @@ export function MaatschappijenSectie() {
         ) : (
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b border-slate-100 text-slate-400 text-xs font-medium">
+              <tr className="border-b border-line font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
                 <th className="p-4 text-left">Maatschappij</th>
                 <th className="p-4 text-left">Contact</th>
                 <th className="p-4 text-right">Acties</th>
@@ -148,23 +149,23 @@ export function MaatschappijenSectie() {
               {gefilterd.map((m) => (
                 <tr
                   key={m.id}
-                  className="border-b border-slate-50 last:border-0 hover:bg-slate-50/60 transition-colors"
+                  className="border-b border-line last:border-0 hover:bg-[#f8fafd]"
                 >
                   <td className="p-4">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`h-9 w-9 rounded-full flex items-center justify-center text-sm font-semibold ${avatarKleur(m.naam)}`}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${avatarKleur(m.naam)}`}
                       >
                         {m.naam.charAt(0).toUpperCase()}
                       </div>
-                      <span className="font-medium text-slate-900">{m.naam}</span>
+                      <span className="font-medium text-ink">{m.naam}</span>
                     </div>
                   </td>
-                  <td className="p-4 text-slate-500">{m.contactEmail || '—'}</td>
+                  <td className="p-4 text-ink-soft">{m.contactEmail || '—'}</td>
                   <td className="p-4">
                     <div className="flex justify-end gap-2">
                       <IconButton onClick={() => openEdit(m)} variant="default">
-                        <Pencil size={14} />
+                        <Pencil className="h-3.5 w-3.5" />
                       </IconButton>
                       <IconButton
                         variant="danger"
@@ -174,7 +175,7 @@ export function MaatschappijenSectie() {
                           }
                         }}
                       >
-                        <Trash2 size={14} />
+                        <Trash2 className="h-3.5 w-3.5" />
                       </IconButton>
                     </div>
                   </td>
@@ -183,7 +184,7 @@ export function MaatschappijenSectie() {
             </tbody>
           </table>
         )}
-      </div>
+      </Card>
 
       {modalOpen && (
         <Modal
@@ -217,21 +218,21 @@ export function MaatschappijenSectie() {
                 className={inputClass}
               />
             </FormField>
-            <div className="flex justify-end gap-2 mt-6">
-              <button
+            <div className="mt-6 flex justify-end gap-2">
+              <Button
                 type="button"
+                variant="ghost"
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors"
               >
                 Annuleren
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
                 disabled={saveMutation.isPending}
-                className="px-4 py-2.5 rounded-xl text-sm font-medium bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-50 transition-colors"
+                className="bg-ink hover:bg-ink/90"
               >
                 {saveMutation.isPending ? 'Opslaan...' : 'Opslaan'}
-              </button>
+              </Button>
             </div>
           </form>
         </Modal>

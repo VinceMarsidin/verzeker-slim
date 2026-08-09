@@ -2,13 +2,17 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Pencil, Trash2 } from 'lucide-react'
 
-import { EmptyState } from '#/components/ui/empty-state'
-import { FormField, inputClass } from '#/components/ui/form-field'
-import { IconButton } from '#/components/ui/icon-button'
-import { Modal } from '#/components/ui/modal'
-import { PageHeader } from '#/components/ui/page-header'
-import { SearchInput } from '#/components/ui/search-input'
-import { StatCard } from '#/components/ui/stat-card'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+
+import { EmptyState } from './empty-state'
+import { FormField, inputClass } from './form-field'
+import { IconButton } from './icon-button'
+import { Modal } from './modal'
+import { PageHeader } from './page-header'
+import { SearchInput } from './search-input'
+import { StatCard } from './stat-card'
 import type { Maatschappij, Premie } from '#/lib/types'
 
 export function PremiesSectie() {
@@ -112,32 +116,28 @@ export function PremiesSectie() {
         addLabel="Nieuwe premie"
       />
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <StatCard label="Totaal premies" value={premies.length} accent="orange" />
-        <StatCard label="Categorieën" value={categorieen} accent="blue" />
-        <StatCard
-          label="Maatschappijen"
-          value={maatschappijen.length}
-          accent="emerald"
-        />
+      <div className="mb-6 grid grid-cols-3 gap-4">
+        <StatCard label="Totaal premies" value={premies.length} />
+        <StatCard label="Categorieën" value={categorieen} />
+        <StatCard label="Maatschappijen" value={maatschappijen.length} />
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
-        <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-slate-100 bg-slate-50/60">
+      <Card className="overflow-hidden">
+        <div className="flex items-center justify-between gap-3 border-b border-line bg-[#f8fafd] px-4 py-3">
           <SearchInput
             value={zoekterm}
             onChange={setZoekterm}
             placeholder="Zoek op maatschappij, categorie..."
           />
           {zoekterm && (
-            <span className="text-xs text-slate-400 shrink-0">
+            <span className="shrink-0 text-xs text-ink-soft">
               {gefilterd.length} van {premies.length}
             </span>
           )}
         </div>
 
         {isLoading ? (
-          <p className="p-8 text-center text-slate-400 text-sm">Data laden...</p>
+          <p className="p-8 text-center text-sm text-ink-soft">Data laden...</p>
         ) : premies.length === 0 ? (
           <EmptyState label="Nog geen premies toegevoegd." />
         ) : gefilterd.length === 0 ? (
@@ -145,7 +145,7 @@ export function PremiesSectie() {
         ) : (
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b border-slate-100 text-slate-400 text-xs font-medium">
+              <tr className="border-b border-line font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
                 <th className="p-4 text-left">Maatschappij</th>
                 <th className="p-4 text-left">Categorie</th>
                 <th className="p-4 text-left">Type</th>
@@ -157,24 +157,22 @@ export function PremiesSectie() {
               {gefilterd.map((p) => (
                 <tr
                   key={p.id}
-                  className="border-b border-slate-50 last:border-0 hover:bg-slate-50/60 transition-colors"
+                  className="border-b border-line last:border-0 hover:bg-[#f8fafd]"
                 >
-                  <td className="p-4 font-medium text-slate-900">
+                  <td className="p-4 font-medium text-ink">
                     {p.maatschappijNaam || 'Onbekend'}
                   </td>
                   <td className="p-4">
-                    <span className="px-2 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-medium capitalize">
-                      {p.categorie}
-                    </span>
+                    <Badge className="capitalize">{p.categorie}</Badge>
                   </td>
-                  <td className="p-4 text-slate-500">{p.type}</td>
-                  <td className="p-4 text-slate-900 font-medium tabular-nums">
+                  <td className="p-4 text-ink-soft">{p.type}</td>
+                  <td className="p-4 font-mono font-semibold text-ink">
                     {p.premieBedrag}
                   </td>
                   <td className="p-4">
                     <div className="flex justify-end gap-2">
                       <IconButton onClick={() => openEdit(p)} variant="default">
-                        <Pencil size={14} />
+                        <Pencil className="h-3.5 w-3.5" />
                       </IconButton>
                       <IconButton
                         variant="danger"
@@ -184,7 +182,7 @@ export function PremiesSectie() {
                           }
                         }}
                       >
-                        <Trash2 size={14} />
+                        <Trash2 className="h-3.5 w-3.5" />
                       </IconButton>
                     </div>
                   </td>
@@ -193,7 +191,7 @@ export function PremiesSectie() {
             </tbody>
           </table>
         )}
-      </div>
+      </Card>
 
       {modalOpen && (
         <Modal
@@ -247,21 +245,21 @@ export function PremiesSectie() {
                 className={inputClass}
               />
             </FormField>
-            <div className="flex justify-end gap-2 mt-6">
-              <button
+            <div className="mt-6 flex justify-end gap-2">
+              <Button
                 type="button"
+                variant="ghost"
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors"
               >
                 Annuleren
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
                 disabled={saveMutation.isPending}
-                className="px-4 py-2.5 rounded-xl text-sm font-medium bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-50 transition-colors"
+                className="bg-ink hover:bg-ink/90"
               >
                 {saveMutation.isPending ? 'Opslaan...' : 'Premie opslaan'}
-              </button>
+              </Button>
             </div>
           </form>
         </Modal>
