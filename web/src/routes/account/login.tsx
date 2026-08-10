@@ -37,7 +37,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="grid min-h-screen grid-cols-1 md:grid-cols-2">
+    <div className="isolate grid min-h-screen grid-cols-1 md:grid-cols-2">
       {/* Branding panel */}
       <div className="relative hidden flex-col justify-between overflow-hidden bg-ink px-12 py-14 text-paper md:flex">
         <div
@@ -48,10 +48,6 @@ function LoginPage() {
             backgroundSize: '32px 32px',
           }}
         />
-
-        <Link to="/" className="relative z-10 font-slab text-2xl font-bold">
-          Verzeker<span className="text-stamp">Slim</span>
-        </Link>
 
         <div className="relative z-10 flex flex-col items-start">
           <LogoAnimated size={84} />
@@ -179,4 +175,4 @@ function LoginPage() {
       </div>
     </div>
   )
-}// test
+}
