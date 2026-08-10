@@ -167,7 +167,7 @@ function PremieCalculatorPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[image:linear-gradient(rgba(13,59,102,0.6),rgba(13,59,102,0.6)),url('/premie-achtergrond.jpg')] bg-cover bg-center bg-no-repeat px-4 py-16 md:px-8">
+        <div className="min-h-screen bg-[image:linear-gradient(rgba(248,250,253,0.25),rgba(248,250,253,0.)),url('/public/kreek.jpg')] bg-cover bg-center bg-no-repeat px-4 py-16 md:px-8">
             <div className="mx-auto max-w-6xl rounded-[4px] border border-line bg-paper-raised p-8 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_24px_48px_-24px_rgba(13,59,102,0.18)] md:p-12 md:grid md:grid-cols-[1fr_320px] md:gap-16">
                 <div className="max-w-2xl">
                     <div className="mb-2 font-mono text-xs uppercase tracking-wide text-stamp-dark">
