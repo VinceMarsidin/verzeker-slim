@@ -40,49 +40,49 @@ function RegisterPage() {
 
   return (
     <div className="isolate grid min-h-screen grid-cols-1 md:grid-cols-2">
-     {/* Branding panel */}
-<div className="relative hidden flex-col items-center justify-center overflow-hidden bg-ink px-12 py-14 text-paper md:flex">
-  <div
-    className="pointer-events-none absolute inset-0 opacity-[0.07]"
-    style={{
-      backgroundImage:
-        'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-      backgroundSize: '32px 32px',
-    }}
-  />
+      {/* Branding panel */}
+      <div className="relative hidden flex-col items-center justify-center overflow-hidden bg-ink px-12 py-14 text-paper md:flex">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
 
-  <div className="relative z-10 flex flex-col items-center text-center">
-    <LogoAnimated size={84} />
-    <h2 className="mt-8 max-w-sm font-slab text-3xl font-bold leading-tight">
-      Word gratis lid en vergelijk zonder gedoe.
-    </h2>
-    <p className="mt-4 max-w-sm text-[15px] text-paper/70">
-      Maak een account aan om vergelijkingen op te slaan en reviews te
-      plaatsen over verzekeraars in Suriname.
-    </p>
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <LogoAnimated size={84} />
+          <h2 className="mt-8 max-w-sm font-slab text-3xl font-bold leading-tight">
+            Word gratis lid en vergelijk zonder gedoe.
+          </h2>
+          <p className="mt-4 max-w-sm text-[15px] text-paper/70">
+            Maak een account aan om vergelijkingen op te slaan en reviews te
+            plaatsen over verzekeraars in Suriname.
+          </p>
 
-    <div className="mt-10 flex flex-col items-center gap-4">
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-          <ShieldCheck className="h-4 w-4 text-stamp" />
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                <ShieldCheck className="h-4 w-4 text-stamp" />
+              </div>
+              <span className="text-sm text-paper/80">37+ verzekeraars objectief vergeleken</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                <Users className="h-4 w-4 text-stamp" />
+              </div>
+              <span className="text-sm text-paper/80">100% gratis, geen verborgen kosten</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                <Sparkles className="h-4 w-4 text-stamp" />
+              </div>
+              <span className="text-sm text-paper/80">Jouw gegevens blijven van jou</span>
+            </div>
+          </div>
         </div>
-        <span className="text-sm text-paper/80">37+ verzekeraars objectief vergeleken</span>
       </div>
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-          <Users className="h-4 w-4 text-stamp" />
-        </div>
-        <span className="text-sm text-paper/80">100% gratis, geen verborgen kosten</span>
-      </div>
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-          <Sparkles className="h-4 w-4 text-stamp" />
-        </div>
-         <span className="text-sm text-paper/80">Jouw gegevens blijven van jou</span>
-      </div>
-    </div>
-  </div>
-</div>
 
       {/* Form panel */}
       <div className="flex items-center justify-center bg-paper px-8 py-16">
@@ -90,6 +90,12 @@ function RegisterPage() {
           <Link to="/" className="mb-8 inline-block font-slab text-xl font-bold text-ink md:hidden">
             Verzeker<span className="text-stamp-dark">Slim</span>
           </Link>
+
+          <img
+            src="/registreren.png"
+            alt="Registreren"
+            className="mb-6 w-full max-w-[220px]"
+          />
 
           <h1 className="font-slab text-3xl font-bold text-ink">Account aanmaken</h1>
           <p className="mt-2 text-ink-soft">
