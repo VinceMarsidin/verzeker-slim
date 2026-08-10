@@ -30,7 +30,7 @@ function LoginPage() {
       setError('root', { message: 'Ongeldige inloggegevens' })
       return
     }
-    await navigate({ to: '/account' })
+    await navigate({ to: '/account/login' })
   }
 
   return (
