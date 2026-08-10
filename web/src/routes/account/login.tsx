@@ -1,10 +1,12 @@
+import { useState } from 'react'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Mail, Lock, Eye, EyeOff, ShieldCheck, Users, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { loginSchema, type LoginInput } from '@/lib/validators/auth.schema'
 import { authClient } from '@/lib/auth-client'
+import { LogoAnimated } from '@/components/logo-animated'
 
 export const Route = createFileRoute('/account/login')({
   component: LoginPage,
@@ -12,6 +14,7 @@ export const Route = createFileRoute('/account/login')({
 
 function LoginPage() {
   const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
   const {
     register,
     handleSubmit,
@@ -30,69 +33,151 @@ function LoginPage() {
       setError('root', { message: 'Ongeldige inloggegevens' })
       return
     }
-    await navigate({ to: '/account/login' })
+    await navigate({ to: '/dashboard' })
   }
 
   return (
-    <div className="min-h-screen bg-paper px-8 py-20">
-      <div className="mx-auto max-w-md">
-        <h1 className="font-slab text-3xl font-bold text-ink">Inloggen</h1>
-        <p className="mt-2 text-ink-soft">
-          Log in om reviews te plaatsen over verzekeraars.
-        </p>
+    <div className="isolate grid min-h-screen grid-cols-1 md:grid-cols-2">
+      {/* Branding panel */}
+      <div className="relative hidden flex-col items-center justify-center overflow-hidden bg-ink px-12 py-14 text-paper md:flex">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
 
-        <Card className="mt-8 border-line bg-paper-raised p-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <LogoAnimated size={84} />
+          <h2 className="mt-8 max-w-sm font-slab text-3xl font-bold leading-tight">
+            Welkom terug bij je onafhankelijke premievergelijker.
+          </h2>
+          <p className="mt-4 max-w-sm text-[15px] text-paper/70">
+            Log in om je opgeslagen vergelijkingen te bekijken en reviews te
+            plaatsen over verzekeraars in Suriname.
+          </p>
+
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                <ShieldCheck className="h-4 w-4 text-stamp" />
+              </div>
+              <span className="text-sm text-paper/80">37+ verzekeraars objectief vergeleken</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                <Users className="h-4 w-4 text-stamp" />
+              </div>
+              <span className="text-sm text-paper/80">100% gratis voor consumenten</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                <Sparkles className="h-4 w-4 text-stamp" />
+              </div>
+              <span className="text-sm text-paper/80">Jouw gegevens blijven van jou</span>
+            </div>
+          </div>
+        </div>
+
+        <p className="absolute bottom-14 left-1/2 z-10 -translate-x-1/2 font-mono text-xs uppercase tracking-wide text-paper/40">
+          Verzekeringen vergelijken &middot; Suriname
+        </p>
+      </div>
+
+      {/* Form panel */}
+      <div className="flex items-center justify-center bg-paper px-8 py-16">
+        <div className="w-full max-w-sm">
+          <Link to="/" className="mb-8 inline-block font-slab text-xl font-bold text-ink md:hidden">
+            Verzeker<span className="text-stamp-dark">Slim</span>
+          </Link>
+
+          <img
+            src="/login.png"
+            alt="Inloggen"
+            className="mb-6 w-full max-w-[220px]"
+          />
+
+          <h1 className="font-slab text-3xl font-bold text-ink">Inloggen</h1>
+          <p className="mt-2 text-ink-soft">
+            Log in om reviews te plaatsen over verzekeraars.
+          </p>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-5">
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-semibold text-ink">
+              <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-ink">
                 E-mailadres
               </label>
-              <input
-                id="email"
-                type="email"
-                {...register('email')}
-                className="w-full rounded-[4px] border border-line bg-paper px-3 py-2 text-ink"
-              />
+              <div className="relative">
+                <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-soft" />
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="naam@voorbeeld.com"
+                  {...register('email')}
+                  className="w-full rounded-[6px] border border-line bg-paper-raised py-2.5 pl-10 pr-3 text-ink outline-none transition-colors focus:border-stamp-dark focus:ring-2 focus:ring-stamp/25"
+                />
+              </div>
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                <p className="mt-1.5 text-sm text-red-600">{errors.email.message}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-2 block text-sm font-semibold text-ink">
-                Wachtwoord
-              </label>
-              <input
-                id="password"
-                type="password"
-                {...register('password')}
-                className="w-full rounded-[4px] border border-line bg-paper px-3 py-2 text-ink"
-              />
+              <div className="mb-1.5 flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-semibold text-ink">
+                  Wachtwoord
+                </label>
+                <Link to="/account/login" className="text-xs font-medium text-stamp-dark hover:underline">
+                  Wachtwoord vergeten?
+                </Link>
+              </div>
+              <div className="relative">
+                <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-soft" />
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  {...register('password')}
+                  className="w-full rounded-[6px] border border-line bg-paper-raised py-2.5 pl-10 pr-10 text-ink outline-none transition-colors focus:border-stamp-dark focus:ring-2 focus:ring-stamp/25"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-ink"
+                  aria-label={showPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+                <p className="mt-1.5 text-sm text-red-600">{errors.password.message}</p>
               )}
             </div>
 
             {errors.root && (
-              <p className="text-sm text-red-600">{errors.root.message}</p>
+              <p className="rounded-[6px] bg-red-50 px-3 py-2 text-sm text-red-600">
+                {errors.root.message}
+              </p>
             )}
 
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-stamp-dark hover:bg-stamp-dark/90"
+              className="w-full bg-stamp-dark py-2.5 hover:bg-stamp-dark/90"
             >
               {isSubmitting ? 'Bezig...' : 'Inloggen'}
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-ink-soft">
+          <p className="mt-8 text-center text-sm text-ink-soft">
             Nog geen account?{' '}
-            <Link to="/account/register" className="font-medium text-trust hover:underline">
+            <Link to="/account/register" className="font-semibold text-stamp-dark hover:underline">
               Registreren
             </Link>
           </p>
-        </Card>
+        </div>
       </div>
     </div>
   )
