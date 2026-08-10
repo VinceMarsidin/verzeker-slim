@@ -14,6 +14,8 @@ export const voertuigTypes = [
 
 export const gebruiksdoelen = ['prive', 'taxi', 'verhuur', 'lease', 'rijles'] as const
 
+export const eigenRisicoOpties = [500, 1000, 2000, 5000] as const
+
 const motorSchema = z.object({
   categorie: z.literal('motor'),
   dagwaarde: z
@@ -27,6 +29,13 @@ const motorSchema = z.object({
     .min(1980, 'Bouwjaar moet na 1980 zijn')
     .max(huidigJaar, `Bouwjaar kan niet na ${huidigJaar} zijn`),
   gebruiksdoel: z.enum(gebruiksdoelen, { error: 'Kies een gebruiksdoel' }),
+  eigenRisico: z.union(
+    eigenRisicoOpties.map((bedrag) => z.literal(bedrag)) as [
+      z.ZodLiteral<number>,
+      ...z.ZodLiteral<number>[],
+    ],
+    { error: 'Kies een eigen risico' },
+  ),
   miniCasco: z.boolean().default(false),
   inzittendenverzekering: z.boolean().default(false),
 })
