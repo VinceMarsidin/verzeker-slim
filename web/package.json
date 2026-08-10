@@ -22,6 +22,7 @@
     "create-admin": "tsx scripts/create-admin.ts"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.6",
     "@hookform/resolvers": "^5.4.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
@@ -36,7 +37,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-kit": "^0.31.9",
-    "@hono/zod-validator": "^0.7.6",
     "drizzle-orm": "^0.45.1",
     "hono": "^4.11.4",
     "lucide-react": "^0.577.0",
@@ -46,6 +46,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.82.0",
+    "react-icons": "^5.7.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.1.18",
     "tw-animate-css": "^1.3.6",
