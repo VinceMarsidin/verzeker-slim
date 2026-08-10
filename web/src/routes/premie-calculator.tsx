@@ -167,320 +167,322 @@ function PremieCalculatorPage() {
     }
 
     return (
-        <div className="mx-auto max-w-6xl px-8 py-16 md:grid md:grid-cols-[1fr_320px] md:gap-16">
-            <div className="max-w-2xl">
-                <div className="mb-2 font-mono text-xs uppercase tracking-wide text-stamp-dark">
-                    Premie-indicatie
-                </div>
-                <h1 className="font-slab text-3xl font-bold text-ink">Bereken je premie</h1>
-                <p className="mt-3 max-w-md text-ink-soft">
-                    Een snelle schatting, per categorie op basis van andere gegevens. Voor
-                    een exacte premie vergelijk je de aanbieders zelf op de
-                    vergelijkingspagina.
-                </p>
-
-                <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
-                    <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-                        {categorieen.map(({ value, label, icon: Icon }) => (
-                            <button
-                                key={value}
-                                type="button"
-                                onClick={() => selecteerCategorie(value)}
-                                className={`flex flex-col items-center gap-2 rounded-[4px] border p-4 text-sm font-semibold transition-colors ${categorie === value
-                                        ? 'border-stamp-dark bg-stamp-dark/10 text-stamp-dark'
-                                        : 'border-line bg-paper-raised text-ink-soft hover:border-stamp-dark/40'
-                                    }`}
-                            >
-                                <Icon className="h-5 w-5" />
-                                {label}
-                            </button>
-                        ))}
+        <div className="min-h-screen bg-paper px-4 py-16 md:px-8">
+            <div className="mx-auto max-w-6xl rounded-[4px] border border-line bg-paper-raised p-8 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_24px_48px_-24px_rgba(13,59,102,0.18)] md:p-12 md:grid md:grid-cols-[1fr_320px] md:gap-16">
+                <div className="max-w-2xl">
+                    <div className="mb-2 font-mono text-xs uppercase tracking-wide text-stamp-dark">
+                        Premie-indicatie
                     </div>
+                    <h1 className="font-slab text-3xl font-bold text-ink">Bereken je premie</h1>
+                    <p className="mt-3 max-w-md text-ink-soft">
+                        Een snelle schatting, per categorie op basis van andere gegevens. Voor
+                        een exacte premie vergelijk je de aanbieders zelf op de
+                        vergelijkingspagina.
+                    </p>
 
-                    <div className="mb-8 overflow-hidden rounded-[4px] border border-line">
-                        <img
-                            key={categorie}
-                            src={heroImages[categorie]}
-                            alt={`${categorieen.find((c) => c.value === categorie)?.label ?? ''}verzekering`}
-                            className="block h-[200px] w-full object-cover md:h-[260px]"
-                        />
-                    </div>
+                    <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
+                        <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+                            {categorieen.map(({ value, label, icon: Icon }) => (
+                                <button
+                                    key={value}
+                                    type="button"
+                                    onClick={() => selecteerCategorie(value)}
+                                    className={`flex flex-col items-center gap-2 rounded-[4px] border p-4 text-sm font-semibold transition-colors ${categorie === value
+                                            ? 'border-stamp-dark bg-stamp-dark/10 text-stamp-dark'
+                                            : 'border-line bg-paper-raised text-ink-soft hover:border-stamp-dark/40'
+                                        }`}
+                                >
+                                    <Icon className="h-5 w-5" />
+                                    {label}
+                                </button>
+                            ))}
+                        </div>
 
-                    {/* Motor */}
-                    {categorie === 'motor' && (
-                        <>
-                            <Veld label="Dagwaarde voertuig" prefix="SRD">
-                                <input
-                                    type="number"
-                                    placeholder="Bijv. 150000"
-                                    className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                    {...register('dagwaarde', { valueAsNumber: true })}
-                                />
-                            </Veld>
-                            {errors.dagwaarde && <Foutmelding message={errors.dagwaarde.message} />}
+                        <div className="mb-8 overflow-hidden rounded-[4px] border border-line">
+                            <img
+                                key={categorie}
+                                src={heroImages[categorie]}
+                                alt={`${categorieen.find((c) => c.value === categorie)?.label ?? ''}verzekering`}
+                                className="block h-[200px] w-full object-cover md:h-[260px]"
+                            />
+                        </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                        {/* Motor */}
+                        {categorie === 'motor' && (
+                            <>
+                                <Veld label="Dagwaarde voertuig" prefix="SRD">
+                                    <input
+                                        type="number"
+                                        placeholder="Bijv. 150000"
+                                        className="w-full bg-transparent font-mono text-base text-ink outline-none"
+                                        {...register('dagwaarde', { valueAsNumber: true })}
+                                    />
+                                </Veld>
+                                {errors.dagwaarde && <Foutmelding message={errors.dagwaarde.message} />}
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="mb-2 block text-sm font-semibold text-ink">
+                                            Voertuigtype
+                                        </label>
+                                        <select
+                                            className="w-full rounded-[4px] border border-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink outline-none"
+                                            {...register('voertuigtype')}
+                                        >
+                                            <option value="">Kies een type</option>
+                                            {voertuigTypes.map((type) => (
+                                                <option key={type} value={type}>
+                                                    {voertuigTypeLabels[type]}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        {errors.voertuigtype && (
+                                            <Foutmelding message={errors.voertuigtype.message} />
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <Veld label="Bouwjaar">
+                                            <input
+                                                type="number"
+                                                placeholder="Bijv. 2019"
+                                                className="w-full bg-transparent font-mono text-base text-ink outline-none"
+                                                {...register('bouwjaar', { valueAsNumber: true })}
+                                            />
+                                        </Veld>
+                                        {errors.bouwjaar && <Foutmelding message={errors.bouwjaar.message} />}
+                                    </div>
+                                </div>
+
                                 <div>
                                     <label className="mb-2 block text-sm font-semibold text-ink">
-                                        Voertuigtype
+                                        Gebruiksdoel
                                     </label>
                                     <select
-                                        className="w-full rounded-[4px] border border-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink outline-none"
-                                        {...register('voertuigtype')}
+                                        className="mb-4 w-full rounded-[4px] border border-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink outline-none"
+                                        {...register('gebruiksdoel')}
                                     >
-                                        <option value="">Kies een type</option>
-                                        {voertuigTypes.map((type) => (
-                                            <option key={type} value={type}>
-                                                {voertuigTypeLabels[type]}
+                                        <option value="">Kies een gebruiksdoel</option>
+                                        {gebruiksdoelen.map((doel) => (
+                                            <option key={doel} value={doel}>
+                                                {gebruiksdoelLabels[doel]}
                                             </option>
                                         ))}
                                     </select>
-                                    {errors.voertuigtype && (
-                                        <Foutmelding message={errors.voertuigtype.message} />
+                                    {errors.gebruiksdoel && (
+                                        <Foutmelding message={errors.gebruiksdoel.message} />
                                     )}
                                 </div>
 
                                 <div>
-                                    <Veld label="Bouwjaar">
+                                    <label className="mb-2 block text-sm font-semibold text-ink">
+                                        Eigen risico
+                                    </label>
+                                    <select
+                                        className="mb-4 w-full rounded-[4px] border border-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink outline-none"
+                                        {...register('eigenRisico', { valueAsNumber: true })}
+                                    >
+                                        {eigenRisicoOpties.map((bedrag) => (
+                                            <option key={bedrag} value={bedrag}>
+                                                SRD {bedrag.toLocaleString('nl-NL')}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors.eigenRisico && (
+                                        <Foutmelding message={errors.eigenRisico.message} />
+                                    )}
+                                </div>
+
+                                <div className="mb-6 flex flex-wrap gap-6">
+                                    <label className="flex items-center gap-2 text-sm text-ink-soft">
+                                        <input type="checkbox" {...register('miniCasco')} />
+                                        Mini Casco (+SRD 300)
+                                    </label>
+                                    <label className="flex items-center gap-2 text-sm text-ink-soft">
+                                        <input type="checkbox" {...register('inzittendenverzekering')} />
+                                        Ongevallen inzittenden (+SRD 150)
+                                    </label>
+                                </div>
+                            </>
+                        )}
+
+                        {/* Reis */}
+                        {categorie === 'reis' && (
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <Veld label="Aantal dagen">
                                         <input
                                             type="number"
-                                            placeholder="Bijv. 2019"
+                                            placeholder="Bijv. 14"
                                             className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                            {...register('bouwjaar', { valueAsNumber: true })}
+                                            {...register('aantalDagen', { valueAsNumber: true })}
                                         />
                                     </Veld>
-                                    {errors.bouwjaar && <Foutmelding message={errors.bouwjaar.message} />}
+                                    {errors.aantalDagen && <Foutmelding message={errors.aantalDagen.message} />}
+                                </div>
+                                <div>
+                                    <Veld label="Aantal personen">
+                                        <input
+                                            type="number"
+                                            placeholder="Bijv. 2"
+                                            className="w-full bg-transparent font-mono text-base text-ink outline-none"
+                                            {...register('aantalPersonen', { valueAsNumber: true })}
+                                        />
+                                    </Veld>
+                                    {errors.aantalPersonen && (
+                                        <Foutmelding message={errors.aantalPersonen.message} />
+                                    )}
                                 </div>
                             </div>
+                        )}
 
-                            <div>
-                                <label className="mb-2 block text-sm font-semibold text-ink">
-                                    Gebruiksdoel
-                                </label>
-                                <select
-                                    className="mb-4 w-full rounded-[4px] border border-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink outline-none"
-                                    {...register('gebruiksdoel')}
-                                >
-                                    <option value="">Kies een gebruiksdoel</option>
-                                    {gebruiksdoelen.map((doel) => (
-                                        <option key={doel} value={doel}>
-                                            {gebruiksdoelLabels[doel]}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errors.gebruiksdoel && (
-                                    <Foutmelding message={errors.gebruiksdoel.message} />
-                                )}
-                            </div>
-
-                            <div>
-                                <label className="mb-2 block text-sm font-semibold text-ink">
-                                    Eigen risico
-                                </label>
-                                <select
-                                    className="mb-4 w-full rounded-[4px] border border-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink outline-none"
-                                    {...register('eigenRisico', { valueAsNumber: true })}
-                                >
-                                    {eigenRisicoOpties.map((bedrag) => (
-                                        <option key={bedrag} value={bedrag}>
-                                            SRD {bedrag.toLocaleString('nl-NL')}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errors.eigenRisico && (
-                                    <Foutmelding message={errors.eigenRisico.message} />
-                                )}
-                            </div>
-
-                            <div className="mb-6 flex flex-wrap gap-6">
-                                <label className="flex items-center gap-2 text-sm text-ink-soft">
-                                    <input type="checkbox" {...register('miniCasco')} />
-                                    Mini Casco (+SRD 300)
-                                </label>
-                                <label className="flex items-center gap-2 text-sm text-ink-soft">
-                                    <input type="checkbox" {...register('inzittendenverzekering')} />
-                                    Ongevallen inzittenden (+SRD 150)
-                                </label>
-                            </div>
-                        </>
-                    )}
-
-                    {/* Reis */}
-                    {categorie === 'reis' && (
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <Veld label="Aantal dagen">
+                        {/* Woon */}
+                        {categorie === 'woon' && (
+                            <>
+                                <Veld label="Woonoppervlakte" prefix="m²">
                                     <input
                                         type="number"
-                                        placeholder="Bijv. 14"
+                                        placeholder="Bijv. 120"
                                         className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                        {...register('aantalDagen', { valueAsNumber: true })}
+                                        {...register('vierkanteMeters', { valueAsNumber: true })}
                                     />
                                 </Veld>
-                                {errors.aantalDagen && <Foutmelding message={errors.aantalDagen.message} />}
-                            </div>
-                            <div>
-                                <Veld label="Aantal personen">
-                                    <input
-                                        type="number"
-                                        placeholder="Bijv. 2"
-                                        className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                        {...register('aantalPersonen', { valueAsNumber: true })}
-                                    />
-                                </Veld>
-                                {errors.aantalPersonen && (
-                                    <Foutmelding message={errors.aantalPersonen.message} />
+                                {errors.vierkanteMeters && (
+                                    <Foutmelding message={errors.vierkanteMeters.message} />
                                 )}
-                            </div>
-                        </div>
-                    )}
+                            </>
+                        )}
 
-                    {/* Woon */}
-                    {categorie === 'woon' && (
-                        <>
-                            <Veld label="Woonoppervlakte" prefix="m²">
-                                <input
-                                    type="number"
-                                    placeholder="Bijv. 120"
-                                    className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                    {...register('vierkanteMeters', { valueAsNumber: true })}
-                                />
-                            </Veld>
-                            {errors.vierkanteMeters && (
-                                <Foutmelding message={errors.vierkanteMeters.message} />
-                            )}
-                        </>
-                    )}
-
-                    {/* Leven */}
-                    {categorie === 'leven' && (
-                        <div className="grid grid-cols-3 gap-4">
-                            <div>
-                                <Veld label="Leeftijd">
-                                    <input
-                                        type="number"
-                                        placeholder="Bijv. 35"
-                                        className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                        {...register('leeftijd', { valueAsNumber: true })}
-                                    />
-                                </Veld>
-                                {errors.leeftijd && <Foutmelding message={errors.leeftijd.message} />}
-                            </div>
-                            <div>
-                                <Veld label="Looptijd (jaar)">
-                                    <input
-                                        type="number"
-                                        placeholder="Bijv. 20"
-                                        className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                        {...register('looptijdJaren', { valueAsNumber: true })}
-                                    />
-                                </Veld>
-                                {errors.looptijdJaren && (
-                                    <Foutmelding message={errors.looptijdJaren.message} />
-                                )}
-                            </div>
-                            <div>
-                                <Veld label="Verzekerd bedrag" prefix="SRD">
-                                    <input
-                                        type="number"
-                                        placeholder="Bijv. 50000"
-                                        className="w-full bg-transparent font-mono text-base text-ink outline-none"
-                                        {...register('verzekerdBedrag', { valueAsNumber: true })}
-                                    />
-                                </Veld>
-                                {errors.verzekerdBedrag && (
-                                    <Foutmelding message={errors.verzekerdBedrag.message} />
-                                )}
-                            </div>
-                        </div>
-                    )}
-
-                    {livePreview !== null && (
-                        <div className="mb-4 flex items-center justify-between rounded-[4px] border border-dashed border-stamp-dark/40 bg-stamp-dark/5 px-4 py-3">
-                            <span className="text-sm text-ink-soft">Live voorbeeld</span>
-                            <span className="font-mono text-lg font-semibold text-stamp-dark">
-                                {formatSrd(livePreview)}
-                            </span>
-                        </div>
-                    )}
-
-                    <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="mt-6 w-full bg-stamp-dark py-3.5 text-sm font-semibold hover:bg-stamp-dark/90"
-                    >
-                        {isSubmitting ? 'Bezig met berekenen...' : 'Bereken nu'}
-                    </Button>
-
-                    {submitError && <Foutmelding message={submitError} />}
-                </form>
-
-                {result && (
-                    <div className="mt-8 rounded-[4px] border border-trust bg-trust/5 p-6">
-                        <p className="font-mono text-xs uppercase tracking-wide text-trust">
-                            Geschatte jaarpremie
-                        </p>
-                        <p className="mt-1 font-mono text-3xl font-bold text-ink">
-                            {formatSrd(result.premie)}
-                        </p>
-
-                        <div className="mt-4 space-y-1.5 border-t border-dashed border-trust/30 pt-4">
-                            {result.breakdown.map((regel) => (
-                                <div
-                                    key={regel.label}
-                                    className="flex items-center justify-between text-sm text-ink-soft"
-                                >
-                                    <span>{regel.label}</span>
-                                    <span className="font-mono">{formatSrd(regel.bedrag)}</span>
+                        {/* Leven */}
+                        {categorie === 'leven' && (
+                            <div className="grid grid-cols-3 gap-4">
+                                <div>
+                                    <Veld label="Leeftijd">
+                                        <input
+                                            type="number"
+                                            placeholder="Bijv. 35"
+                                            className="w-full bg-transparent font-mono text-base text-ink outline-none"
+                                            {...register('leeftijd', { valueAsNumber: true })}
+                                        />
+                                    </Veld>
+                                    {errors.leeftijd && <Foutmelding message={errors.leeftijd.message} />}
                                 </div>
-                            ))}
-                        </div>
+                                <div>
+                                    <Veld label="Looptijd (jaar)">
+                                        <input
+                                            type="number"
+                                            placeholder="Bijv. 20"
+                                            className="w-full bg-transparent font-mono text-base text-ink outline-none"
+                                            {...register('looptijdJaren', { valueAsNumber: true })}
+                                        />
+                                    </Veld>
+                                    {errors.looptijdJaren && (
+                                        <Foutmelding message={errors.looptijdJaren.message} />
+                                    )}
+                                </div>
+                                <div>
+                                    <Veld label="Verzekerd bedrag" prefix="SRD">
+                                        <input
+                                            type="number"
+                                            placeholder="Bijv. 50000"
+                                            className="w-full bg-transparent font-mono text-base text-ink outline-none"
+                                            {...register('verzekerdBedrag', { valueAsNumber: true })}
+                                        />
+                                    </Veld>
+                                    {errors.verzekerdBedrag && (
+                                        <Foutmelding message={errors.verzekerdBedrag.message} />
+                                    )}
+                                </div>
+                            </div>
+                        )}
 
-                        <p className="mt-4 text-sm text-ink-soft">{result.toelichting}</p>
-                    </div>
-                )}
-            </div>
+                        {livePreview !== null && (
+                            <div className="mb-4 flex items-center justify-between rounded-[4px] border border-dashed border-stamp-dark/40 bg-stamp-dark/5 px-4 py-3">
+                                <span className="text-sm text-ink-soft">Live voorbeeld</span>
+                                <span className="font-mono text-lg font-semibold text-stamp-dark">
+                                    {formatSrd(livePreview)}
+                                </span>
+                            </div>
+                        )}
 
-            <aside className="mt-12 md:mt-0">
-                <div className="sticky top-24 space-y-6">
-                    <div className="rounded-[4px] border border-line bg-paper-raised p-6">
-                        <p className="font-mono text-xs uppercase tracking-wide text-stamp-dark">
-                            Wist je dat?
-                        </p>
-                        <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                            {categorieTips[categorie]}
-                        </p>
-                    </div>
-
-                    <div className="rounded-[4px] border border-line bg-paper-raised p-6">
-                        <p className="font-mono text-xs uppercase tracking-wide text-stamp-dark">
-                            Waarom vergelijken?
-                        </p>
-                        <ul className="mt-2 space-y-2 text-sm text-ink-soft">
-                            <li>Onafhankelijk, geen verplichtingen</li>
-                            <li>Premies van meerdere maatschappijen naast elkaar</li>
-                            <li>Altijd gratis om te vergelijken</li>
-                        </ul>
-                    </div>
-
-                    <div className="rounded-[4px] border border-stamp-dark/40 bg-stamp-dark/5 p-6">
-                        <p className="font-slab text-base font-bold text-ink">
-                            Klaar om te vergelijken?
-                        </p>
-                        <p className="mt-2 text-sm text-ink-soft">
-                            Bekijk de echte aanbieders voor{' '}
-                            {categorieen.find((c) => c.value === categorie)?.label.toLowerCase()}.
-                        </p>
-                        <Link
-                            to="/vergelijkingen/$type"
-                            params={{ type: categorie }}
-                            className="mt-4 inline-block w-full rounded-[4px] bg-stamp-dark px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-stamp-dark/90"
+                        <Button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="mt-6 w-full bg-stamp-dark py-3.5 text-sm font-semibold hover:bg-stamp-dark/90"
                         >
-                            Vergelijk aanbieders
-                        </Link>
-                    </div>
+                            {isSubmitting ? 'Bezig met berekenen...' : 'Bereken nu'}
+                        </Button>
+
+                        {submitError && <Foutmelding message={submitError} />}
+                    </form>
+
+                    {result && (
+                        <div className="mt-8 rounded-[4px] border border-trust bg-trust/5 p-6">
+                            <p className="font-mono text-xs uppercase tracking-wide text-trust">
+                                Geschatte jaarpremie
+                            </p>
+                            <p className="mt-1 font-mono text-3xl font-bold text-ink">
+                                {formatSrd(result.premie)}
+                            </p>
+
+                            <div className="mt-4 space-y-1.5 border-t border-dashed border-trust/30 pt-4">
+                                {result.breakdown.map((regel) => (
+                                    <div
+                                        key={regel.label}
+                                        className="flex items-center justify-between text-sm text-ink-soft"
+                                    >
+                                        <span>{regel.label}</span>
+                                        <span className="font-mono">{formatSrd(regel.bedrag)}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <p className="mt-4 text-sm text-ink-soft">{result.toelichting}</p>
+                        </div>
+                    )}
                 </div>
-            </aside>
+
+                <aside className="mt-12 md:mt-0">
+                    <div className="sticky top-24 space-y-6">
+                        <div className="rounded-[4px] border border-line bg-paper-raised p-6">
+                            <p className="font-mono text-xs uppercase tracking-wide text-stamp-dark">
+                                Wist je dat?
+                            </p>
+                            <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                                {categorieTips[categorie]}
+                            </p>
+                        </div>
+
+                        <div className="rounded-[4px] border border-line bg-paper-raised p-6">
+                            <p className="font-mono text-xs uppercase tracking-wide text-stamp-dark">
+                                Waarom vergelijken?
+                            </p>
+                            <ul className="mt-2 space-y-2 text-sm text-ink-soft">
+                                <li>Onafhankelijk, geen verplichtingen</li>
+                                <li>Premies van meerdere maatschappijen naast elkaar</li>
+                                <li>Altijd gratis om te vergelijken</li>
+                            </ul>
+                        </div>
+
+                        <div className="rounded-[4px] border border-stamp-dark/40 bg-stamp-dark/5 p-6">
+                            <p className="font-slab text-base font-bold text-ink">
+                                Klaar om te vergelijken?
+                            </p>
+                            <p className="mt-2 text-sm text-ink-soft">
+                                Bekijk de echte aanbieders voor{' '}
+                                {categorieen.find((c) => c.value === categorie)?.label.toLowerCase()}.
+                            </p>
+                            <Link
+                                to="/vergelijkingen/$type"
+                                params={{ type: categorie }}
+                                className="mt-4 inline-block w-full rounded-[4px] bg-stamp-dark px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-stamp-dark/90"
+                            >
+                                Vergelijk aanbieders
+                            </Link>
+                        </div>
+                    </div>
+                </aside>
+            </div>
         </div>
     )
 }
