@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PremieCalculatorRouteImport } from './routes/premie-calculator'
 import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
+import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
 import { Route as AccountLoginRouteImport } from './routes/account/login'
 import { Route as AccountRegisterRouteImport } from './routes/account/register'
 import { Route as AdminCoompaniesRouteImport } from './routes/admin/coompanies'
@@ -21,6 +24,12 @@ import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as MaatschappijenSlugRouteImport } from './routes/maatschappijen.$slug'
 import { Route as VergelijkingenTypeRouteImport } from './routes/vergelijkingen.$type'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiContactIndexRouteImport } from './routes/api/contact/index'
+import { Route as ApiContactIdRouteImport } from './routes/api/contact/$id'
+import { Route as ApiMaatschappijenIndexRouteImport } from './routes/api/maatschappijen/index'
+import { Route as ApiMaatschappijenIdRouteImport } from './routes/api/maatschappijen/$id'
+import { Route as ApiPremiesIndexRouteImport } from './routes/api/premies/index'
+import { Route as ApiPremiesIdRouteImport } from './routes/api/premies/$id'
 import { Route as ApiV1SplatRouteImport } from './routes/api/v1/$'
 import { Route as ApiAuthMaatschappijenSlugRouteImport } from './routes/api/auth/maatschappijen.$slug'
 
@@ -34,6 +43,16 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PremieCalculatorRoute = PremieCalculatorRouteImport.update({
   id: '/premie-calculator',
   path: '/premie-calculator',
@@ -41,6 +60,11 @@ const PremieCalculatorRoute = PremieCalculatorRouteImport.update({
 } as any)
 const VergelijkingenRoute = VergelijkingenRouteImport.update({
   id: '/vergelijkingen',
+  path: '/vergelijkingen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicVergelijkingenRoute = PublicVergelijkingenRouteImport.update({
+  id: '/_public/vergelijkingen',
   path: '/vergelijkingen',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -84,6 +108,36 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiContactIndexRoute = ApiContactIndexRouteImport.update({
+  id: '/api/contact/',
+  path: '/api/contact/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactIdRoute = ApiContactIdRouteImport.update({
+  id: '/api/contact/$id',
+  path: '/api/contact/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMaatschappijenIndexRoute = ApiMaatschappijenIndexRouteImport.update({
+  id: '/api/maatschappijen/',
+  path: '/api/maatschappijen/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMaatschappijenIdRoute = ApiMaatschappijenIdRouteImport.update({
+  id: '/api/maatschappijen/$id',
+  path: '/api/maatschappijen/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPremiesIndexRoute = ApiPremiesIndexRouteImport.update({
+  id: '/api/premies/',
+  path: '/api/premies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPremiesIdRoute = ApiPremiesIdRouteImport.update({
+  id: '/api/premies/$id',
+  path: '/api/premies/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1SplatRoute = ApiV1SplatRouteImport.update({
   id: '/api/v1/$',
   path: '/api/v1/$',
@@ -99,8 +153,10 @@ const ApiAuthMaatschappijenSlugRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/premie-calculator': typeof PremieCalculatorRoute
-  '/vergelijkingen': typeof VergelijkingenRouteWithChildren
+  '/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
   '/admin/coompanies': typeof AdminCoompaniesRoute
@@ -109,14 +165,22 @@ export interface FileRoutesByFullPath {
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/contact/$id': typeof ApiContactIdRoute
+  '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
+  '/api/premies/$id': typeof ApiPremiesIdRoute
   '/api/v1/$': typeof ApiV1SplatRoute
+  '/api/contact/': typeof ApiContactIndexRoute
+  '/api/maatschappijen/': typeof ApiMaatschappijenIndexRoute
+  '/api/premies/': typeof ApiPremiesIndexRoute
   '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/premie-calculator': typeof PremieCalculatorRoute
-  '/vergelijkingen': typeof VergelijkingenRouteWithChildren
+  '/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
   '/admin/coompanies': typeof AdminCoompaniesRoute
@@ -125,15 +189,24 @@ export interface FileRoutesByTo {
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/contact/$id': typeof ApiContactIdRoute
+  '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
+  '/api/premies/$id': typeof ApiPremiesIdRoute
   '/api/v1/$': typeof ApiV1SplatRoute
+  '/api/contact': typeof ApiContactIndexRoute
+  '/api/maatschappijen': typeof ApiMaatschappijenIndexRoute
+  '/api/premies': typeof ApiPremiesIndexRoute
   '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/premie-calculator': typeof PremieCalculatorRoute
   '/vergelijkingen': typeof VergelijkingenRouteWithChildren
+  '/_public/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
   '/admin/coompanies': typeof AdminCoompaniesRoute
@@ -142,7 +215,13 @@ export interface FileRoutesById {
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/contact/$id': typeof ApiContactIdRoute
+  '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
+  '/api/premies/$id': typeof ApiPremiesIdRoute
   '/api/v1/$': typeof ApiV1SplatRoute
+  '/api/contact/': typeof ApiContactIndexRoute
+  '/api/maatschappijen/': typeof ApiMaatschappijenIndexRoute
+  '/api/premies/': typeof ApiPremiesIndexRoute
   '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
 }
 export interface FileRouteTypes {
@@ -150,6 +229,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contact'
+    | '/dashboard'
+    | '/login'
     | '/premie-calculator'
     | '/vergelijkingen'
     | '/account/login'
@@ -160,12 +241,20 @@ export interface FileRouteTypes {
     | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
     | '/api/auth/$'
+    | '/api/contact/$id'
+    | '/api/maatschappijen/$id'
+    | '/api/premies/$id'
     | '/api/v1/$'
+    | '/api/contact/'
+    | '/api/maatschappijen/'
+    | '/api/premies/'
     | '/api/auth/maatschappijen/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/contact'
+    | '/dashboard'
+    | '/login'
     | '/premie-calculator'
     | '/vergelijkingen'
     | '/account/login'
@@ -176,14 +265,23 @@ export interface FileRouteTypes {
     | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
     | '/api/auth/$'
+    | '/api/contact/$id'
+    | '/api/maatschappijen/$id'
+    | '/api/premies/$id'
     | '/api/v1/$'
+    | '/api/contact'
+    | '/api/maatschappijen'
+    | '/api/premies'
     | '/api/auth/maatschappijen/$slug'
   id:
     | '__root__'
     | '/'
     | '/contact'
+    | '/dashboard'
+    | '/login'
     | '/premie-calculator'
     | '/vergelijkingen'
+    | '/_public/vergelijkingen'
     | '/account/login'
     | '/account/register'
     | '/admin/coompanies'
@@ -192,15 +290,24 @@ export interface FileRouteTypes {
     | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
     | '/api/auth/$'
+    | '/api/contact/$id'
+    | '/api/maatschappijen/$id'
+    | '/api/premies/$id'
     | '/api/v1/$'
+    | '/api/contact/'
+    | '/api/maatschappijen/'
+    | '/api/premies/'
     | '/api/auth/maatschappijen/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
+  DashboardRoute: typeof DashboardRoute
+  LoginRoute: typeof LoginRoute
   PremieCalculatorRoute: typeof PremieCalculatorRoute
   VergelijkingenRoute: typeof VergelijkingenRouteWithChildren
+  PublicVergelijkingenRoute: typeof PublicVergelijkingenRoute
   AccountLoginRoute: typeof AccountLoginRoute
   AccountRegisterRoute: typeof AccountRegisterRoute
   AdminCoompaniesRoute: typeof AdminCoompaniesRoute
@@ -208,7 +315,13 @@ export interface RootRouteChildren {
   AdminUsersRoute: typeof AdminUsersRoute
   MaatschappijenSlugRoute: typeof MaatschappijenSlugRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiContactIdRoute: typeof ApiContactIdRoute
+  ApiMaatschappijenIdRoute: typeof ApiMaatschappijenIdRoute
+  ApiPremiesIdRoute: typeof ApiPremiesIdRoute
   ApiV1SplatRoute: typeof ApiV1SplatRoute
+  ApiContactIndexRoute: typeof ApiContactIndexRoute
+  ApiMaatschappijenIndexRoute: typeof ApiMaatschappijenIndexRoute
+  ApiPremiesIndexRoute: typeof ApiPremiesIndexRoute
   ApiAuthMaatschappijenSlugRoute: typeof ApiAuthMaatschappijenSlugRoute
 }
 
@@ -228,6 +341,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/premie-calculator': {
       id: '/premie-calculator'
       path: '/premie-calculator'
@@ -240,6 +367,13 @@ declare module '@tanstack/react-router' {
       path: '/vergelijkingen'
       fullPath: '/vergelijkingen'
       preLoaderRoute: typeof VergelijkingenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/vergelijkingen': {
+      id: '/_public/vergelijkingen'
+      path: '/vergelijkingen'
+      fullPath: '/vergelijkingen'
+      preLoaderRoute: typeof PublicVergelijkingenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account/login': {
@@ -298,6 +432,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/contact/': {
+      id: '/api/contact/'
+      path: '/api/contact'
+      fullPath: '/api/contact/'
+      preLoaderRoute: typeof ApiContactIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contact/$id': {
+      id: '/api/contact/$id'
+      path: '/api/contact/$id'
+      fullPath: '/api/contact/$id'
+      preLoaderRoute: typeof ApiContactIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/maatschappijen/': {
+      id: '/api/maatschappijen/'
+      path: '/api/maatschappijen'
+      fullPath: '/api/maatschappijen/'
+      preLoaderRoute: typeof ApiMaatschappijenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/maatschappijen/$id': {
+      id: '/api/maatschappijen/$id'
+      path: '/api/maatschappijen/$id'
+      fullPath: '/api/maatschappijen/$id'
+      preLoaderRoute: typeof ApiMaatschappijenIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/premies/': {
+      id: '/api/premies/'
+      path: '/api/premies'
+      fullPath: '/api/premies/'
+      preLoaderRoute: typeof ApiPremiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/premies/$id': {
+      id: '/api/premies/$id'
+      path: '/api/premies/$id'
+      fullPath: '/api/premies/$id'
+      preLoaderRoute: typeof ApiPremiesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/$': {
       id: '/api/v1/$'
       path: '/api/v1/$'
@@ -330,8 +506,11 @@ const VergelijkingenRouteWithChildren = VergelijkingenRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
+  DashboardRoute: DashboardRoute,
+  LoginRoute: LoginRoute,
   PremieCalculatorRoute: PremieCalculatorRoute,
   VergelijkingenRoute: VergelijkingenRouteWithChildren,
+  PublicVergelijkingenRoute: PublicVergelijkingenRoute,
   AccountLoginRoute: AccountLoginRoute,
   AccountRegisterRoute: AccountRegisterRoute,
   AdminCoompaniesRoute: AdminCoompaniesRoute,
@@ -339,7 +518,13 @@ const rootRouteChildren: RootRouteChildren = {
   AdminUsersRoute: AdminUsersRoute,
   MaatschappijenSlugRoute: MaatschappijenSlugRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiContactIdRoute: ApiContactIdRoute,
+  ApiMaatschappijenIdRoute: ApiMaatschappijenIdRoute,
+  ApiPremiesIdRoute: ApiPremiesIdRoute,
   ApiV1SplatRoute: ApiV1SplatRoute,
+  ApiContactIndexRoute: ApiContactIndexRoute,
+  ApiMaatschappijenIndexRoute: ApiMaatschappijenIndexRoute,
+  ApiPremiesIndexRoute: ApiPremiesIndexRoute,
   ApiAuthMaatschappijenSlugRoute: ApiAuthMaatschappijenSlugRoute,
 }
 export const routeTree = rootRouteImport
