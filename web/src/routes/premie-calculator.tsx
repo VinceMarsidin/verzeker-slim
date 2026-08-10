@@ -10,6 +10,7 @@ import {
     schemaPerCategorie,
     voertuigTypes,
     gebruiksdoelen,
+    eigenRisicoOpties,
     type Categorie,
     type PremieCalculatorResult,
 } from '@/lib/validators/premie.schema'
@@ -66,6 +67,7 @@ type FormValues = {
     voertuigtype?: (typeof voertuigTypes)[number]
     bouwjaar?: number
     gebruiksdoel?: (typeof gebruiksdoelen)[number]
+    eigenRisico?: number
     miniCasco?: boolean
     inzittendenverzekering?: boolean
     aantalDagen?: number
@@ -114,7 +116,7 @@ function PremieCalculatorPage() {
         formState: { errors },
     } = useForm<FormValues>({
         resolver: dynamicResolver,
-        defaultValues: { categorie: 'motor' },
+        defaultValues: { categorie: 'motor', eigenRisico: 500 },
     })
 
     const categorie = watch('categorie')
@@ -268,6 +270,25 @@ function PremieCalculatorPage() {
                                 </select>
                                 {errors.gebruiksdoel && (
                                     <Foutmelding message={errors.gebruiksdoel.message} />
+                                )}
+                            </div>
+
+                            <div>
+                                <label className="mb-2 block text-sm font-semibold text-ink">
+                                    Eigen risico
+                                </label>
+                                <select
+                                    className="mb-4 w-full rounded-[4px] border border-line bg-paper-raised px-4 py-3 font-mono text-sm text-ink outline-none"
+                                    {...register('eigenRisico', { valueAsNumber: true })}
+                                >
+                                    {eigenRisicoOpties.map((bedrag) => (
+                                        <option key={bedrag} value={bedrag}>
+                                            SRD {bedrag.toLocaleString('nl-NL')}
+                                        </option>
+                                    ))}
+                                </select>
+                                {errors.eigenRisico && (
+                                    <Foutmelding message={errors.eigenRisico.message} />
                                 )}
                             </div>
 
