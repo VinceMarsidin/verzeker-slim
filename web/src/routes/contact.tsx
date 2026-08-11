@@ -12,9 +12,7 @@ export const Route = createFileRoute('/contact')({
   component: ContactPage,
 })
 
-// TODO: download deze zes icoontjes (bijv. via simpleicons.org of de officiële
-// merk-kits) en zet ze in public/icons/. Vervang ook elke url door je echte
-// social-media-pagina zodra die bestaat.
+
 const socialLinks = [
   { label: 'Facebook', icon: '/icons/facebook.svg', url: 'https://facebook.com/verzekerslim' },
   { label: 'Instagram', icon: '/icons/instagram.svg', url: 'https://instagram.com/verzekerslim' },
@@ -50,10 +48,9 @@ function ContactPage() {
 
   return (
     <div className="bg-paper">
-      {/* Hero: full-bleed foto, vaste hoogte zodat de overlap voorspelbaar is */}
       <section className="relative h-[420px] overflow-hidden md:h-[460px]">
         <img
-          src="/public/paramaribo.jpg"
+          src="/paramaribo.jpg"
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -103,11 +100,10 @@ function ContactPage() {
         </div>
       </section>
 
-      {/* Slogan links + zwevende formulierkaart rechts, onderkant uitgelijnd */}
       <div className="relative z-10 mx-auto flex max-w-5xl flex-col gap-8 px-8 pb-20 md:flex-row md:items-end md:justify-between">
         <div className="max-w-sm">
           <img
-            src="/public/contact-illustration.svg"
+            src="/contact-illustration.svg"
             alt=""
             className="w-56 md:w-64"
           />

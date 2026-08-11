@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { eq } from 'drizzle-orm'
 
 import { db } from '#/db'
-import { contactBerichten } from '#/db/schema'
+import { contactMessages } from '#/db/schema'
 import { requireAdmin } from '#/lib/require-admin'
 
 export const Route = createFileRoute('/api/contact/$id')({
@@ -14,8 +14,8 @@ export const Route = createFileRoute('/api/contact/$id')({
 
         const [item] = await db
           .select()
-          .from(contactBerichten)
-          .where(eq(contactBerichten.id, Number(params.id)))
+          .from(contactMessages)
+          .where(eq(contactMessages.id, Number(params.id)))
 
         if (!item) {
           return Response.json({ error: 'Niet gevonden' }, { status: 404 })
@@ -28,8 +28,8 @@ export const Route = createFileRoute('/api/contact/$id')({
         if (guard instanceof Response) return guard
 
         await db
-          .delete(contactBerichten)
-          .where(eq(contactBerichten.id, Number(params.id)))
+          .delete(contactMessages)
+          .where(eq(contactMessages.id, Number(params.id)))
 
         return new Response(null, { status: 204 })
       },

@@ -18,6 +18,7 @@ import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
 import { Route as AccountLoginRouteImport } from './routes/account/login'
 import { Route as AccountRegisterRouteImport } from './routes/account/register'
+import { Route as AdminBerichtenRouteImport } from './routes/admin/berichten'
 import { Route as AdminCompaniesRouteImport } from './routes/admin/companies'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
@@ -76,6 +77,11 @@ const AccountLoginRoute = AccountLoginRouteImport.update({
 const AccountRegisterRoute = AccountRegisterRouteImport.update({
   id: '/account/register',
   path: '/account/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminBerichtenRoute = AdminBerichtenRouteImport.update({
+  id: '/admin/berichten',
+  path: '/admin/berichten',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminCompaniesRoute = AdminCompaniesRouteImport.update({
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
+  '/admin/berichten': typeof AdminBerichtenRoute
   '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
@@ -183,6 +190,7 @@ export interface FileRoutesByTo {
   '/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
+  '/admin/berichten': typeof AdminBerichtenRoute
   '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
@@ -209,6 +217,7 @@ export interface FileRoutesById {
   '/_public/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
+  '/admin/berichten': typeof AdminBerichtenRoute
   '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/vergelijkingen'
     | '/account/login'
     | '/account/register'
+    | '/admin/berichten'
     | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/vergelijkingen'
     | '/account/login'
     | '/account/register'
+    | '/admin/berichten'
     | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
@@ -284,6 +295,7 @@ export interface FileRouteTypes {
     | '/_public/vergelijkingen'
     | '/account/login'
     | '/account/register'
+    | '/admin/berichten'
     | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
@@ -310,6 +322,7 @@ export interface RootRouteChildren {
   PublicVergelijkingenRoute: typeof PublicVergelijkingenRoute
   AccountLoginRoute: typeof AccountLoginRoute
   AccountRegisterRoute: typeof AccountRegisterRoute
+  AdminBerichtenRoute: typeof AdminBerichtenRoute
   AdminCompaniesRoute: typeof AdminCompaniesRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -388,6 +401,13 @@ declare module '@tanstack/react-router' {
       path: '/account/register'
       fullPath: '/account/register'
       preLoaderRoute: typeof AccountRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/berichten': {
+      id: '/admin/berichten'
+      path: '/admin/berichten'
+      fullPath: '/admin/berichten'
+      preLoaderRoute: typeof AdminBerichtenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/companies': {
@@ -513,6 +533,7 @@ const rootRouteChildren: RootRouteChildren = {
   PublicVergelijkingenRoute: PublicVergelijkingenRoute,
   AccountLoginRoute: AccountLoginRoute,
   AccountRegisterRoute: AccountRegisterRoute,
+  AdminBerichtenRoute: AdminBerichtenRoute,
   AdminCompaniesRoute: AdminCompaniesRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminUsersRoute: AdminUsersRoute,
