@@ -1,20 +1,36 @@
 ---
-title: Dashboard — Maatschappijen overzicht
-description: Overzicht van verzekeringsmaatschappijen in het admin-dashboard.
+title: Dashboard — Admin overzicht
+description: Het beheerdersdashboard voor premies, maatschappijen en contactberichten.
 ---
 
 ## Overzicht
 
-Op deze pagina zie je een overzicht van de verzekeringsmaatschappijen in het systeem, met per maatschappij de naam, het adres, e-mailadres en telefoonnummer.
+Op `/dashboard` vinden beheerders (accounts met `role: 'admin'`) een overzicht met drie tabbladen:
 
-:::caution[In ontwikkeling]
-Deze pagina toont momenteel nog voorbeelddata. De koppeling met echte data en beheerfunctionaliteit (toevoegen, bewerken, verwijderen) moet nog gebouwd worden. De onderstaande beschrijving geeft de bedoelde werking weer.
+- **Premies** — premies per maatschappij en verzekeringstype beheren
+- **Maatschappijen** — de lijst met verzekeringsmaatschappijen beheren
+- **Contact** — inkomende berichten uit het [contactformulier](/admin/contact) bekijken
+
+## Toegang
+
+Deze pagina is **alleen toegankelijk voor beheerders**:
+
+- Niet ingelogd → je wordt teruggestuurd naar de homepage.
+- Ingelogd maar zonder adminrol (`role: 'user'`) → je ziet de melding **"Geen toegang: deze pagina is alleen beschikbaar voor beheerders."**
+- Ingelogd met adminrol → je krijgt toegang tot het dashboard.
+
+:::note
+Standaard krijgt elk nieuw account de rol `user`. Een account wordt admin door de kolom `role` in de `user`-tabel handmatig op `admin` te zetten (bijvoorbeeld via een SQL-query in pgAdmin). Er is momenteel geen zelfbedieningsfunctie in de UI om iemand admin te maken.
 :::
 
-## Wat kun je hier doen?
+## Tabblad: Premies
 
-- **Maatschappijen bekijken** — een tabel met per maatschappij:
-  - Naam
-  - Adres
-  - E-mailadres
-  - Telefoonnummer
+Toont de premies die per maatschappij en verzekeringscategorie (motor, reis, woon, leven) zijn ingesteld. Deze premies zijn de data die gebruikers zien op de [vergelijkingspagina](/vergelijkingen).
+
+## Tabblad: Maatschappijen
+
+Toont de verzekeringsmaatschappijen in het systeem, met naam, adres, e-mailadres en telefoonnummer.
+
+## Tabblad: Contact
+
+Toont de berichten die bezoekers hebben verstuurd via het [contactformulier](/admin/contact) op de website, inclusief naam, e-mailadres, bericht en tijdstip.
