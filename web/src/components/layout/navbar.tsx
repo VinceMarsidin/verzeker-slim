@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
 import { NavbarAuth } from '@/components/layout/navbar-auth'
 
 export function Navbar() {
@@ -14,9 +13,6 @@ export function Navbar() {
                 <Link to="/premie-calculator" className="nav-link" activeProps={{ className: 'nav-link is-active' }}>Premie berekenen</Link>
                 <Link to="/contact" className="nav-link" activeProps={{ className: 'nav-link is-active' }}>Contact</Link>
                 <NavbarAuth />
-                <Button asChild size="sm" className="hover-lift hidden bg-stamp-dark hover:bg-stamp-dark/90 sm:inline-flex">
-                    <Link to="/vergelijkingen">Vergelijk nu</Link>
-                </Button>
             </nav>
         </header>
     )
