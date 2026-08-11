@@ -32,8 +32,11 @@ export function NavbarAuth() {
           </Button>
         )}
 
-        {/* Bestaande accountinformatie */}
-        <div className="flex items-center gap-2">
+        {/* Accountinformatie, klikbaar naar het profiel */}
+        <Link
+          to="/account"
+          className="flex items-center gap-2 rounded-[4px] transition-colors hover:bg-paper-raised"
+        >
           <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-line bg-paper-raised text-xs font-semibold text-stamp-dark">
             {initial}
           </span>
@@ -41,7 +44,7 @@ export function NavbarAuth() {
           <span className="hidden text-sm text-ink-soft sm:inline">
             {session.user.name ?? session.user.email}
           </span>
-        </div>
+        </Link>
 
         {/* Bestaande uitlogfunctie */}
         <Button

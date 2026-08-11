@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as PremieCalculatorRouteImport } from './routes/premie-calculator'
 import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
+import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as AccountLoginRouteImport } from './routes/account/login'
 import { Route as AccountRegisterRouteImport } from './routes/account/register'
 import { Route as AdminBerichtenRouteImport } from './routes/admin/berichten'
@@ -67,6 +68,11 @@ const VergelijkingenRoute = VergelijkingenRouteImport.update({
 const PublicVergelijkingenRoute = PublicVergelijkingenRouteImport.update({
   id: '/_public/vergelijkingen',
   path: '/vergelijkingen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountIndexRoute = AccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountLoginRoute = AccountLoginRouteImport.update({
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
+  '/account/': typeof AccountIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
+  '/account': typeof AccountIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -223,6 +231,7 @@ export interface FileRoutesById {
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
   '/vergelijkingen/$type': typeof VergelijkingenTypeRoute
+  '/account/': typeof AccountIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/contact/$id': typeof ApiContactIdRoute
   '/api/maatschappijen/$id': typeof ApiMaatschappijenIdRoute
@@ -250,6 +259,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
+    | '/account/'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -275,6 +285,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
+    | '/account'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/maatschappijen/$slug'
     | '/vergelijkingen/$type'
+    | '/account/'
     | '/api/auth/$'
     | '/api/contact/$id'
     | '/api/maatschappijen/$id'
@@ -327,6 +339,7 @@ export interface RootRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminUsersRoute: typeof AdminUsersRoute
   MaatschappijenSlugRoute: typeof MaatschappijenSlugRoute
+  AccountIndexRoute: typeof AccountIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiContactIdRoute: typeof ApiContactIdRoute
   ApiMaatschappijenIdRoute: typeof ApiMaatschappijenIdRoute
@@ -387,6 +400,13 @@ declare module '@tanstack/react-router' {
       path: '/vergelijkingen'
       fullPath: '/vergelijkingen'
       preLoaderRoute: typeof PublicVergelijkingenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/': {
+      id: '/account/'
+      path: '/account'
+      fullPath: '/account/'
+      preLoaderRoute: typeof AccountIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account/login': {
@@ -538,6 +558,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminUsersRoute: AdminUsersRoute,
   MaatschappijenSlugRoute: MaatschappijenSlugRoute,
+  AccountIndexRoute: AccountIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiContactIdRoute: ApiContactIdRoute,
   ApiMaatschappijenIdRoute: ApiMaatschappijenIdRoute,
