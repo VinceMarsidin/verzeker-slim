@@ -95,7 +95,7 @@ function LoginPage() {
           </Link>
 
           <img
-            src="/login.png"
+            src="/icons/login.png"
             alt="Inloggen"
             className="mb-6 w-full max-w-[220px]"
           />

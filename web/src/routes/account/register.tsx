@@ -93,7 +93,7 @@ function RegisterPage() {
           </Link>
 
           <img
-            src="/registreren.png"
+            src="/icons/registreren.png"
             alt="Registreren"
             className="mb-6 w-full max-w-[220px]"
           />

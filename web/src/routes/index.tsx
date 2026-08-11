@@ -226,7 +226,7 @@ function HomePage() {
         <div className="flex flex-col items-start gap-8 overflow-hidden rounded-[6px] border border-line bg-paper-raised md:flex-row md:items-stretch">
           <div className="relative h-56 w-full md:h-auto md:w-2/5">
             <img
-              src="/About-foto.jpg"
+              src="/backgrounds/about-foto.jpg"
               alt="Suriname"
               className="h-full w-full object-cover"
             />

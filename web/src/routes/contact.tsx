@@ -103,7 +103,7 @@ function ContactPage() {
       <div className="relative z-10 mx-auto flex max-w-5xl flex-col gap-8 px-8 pb-20 md:flex-row md:items-end md:justify-between">
         <div className="max-w-sm">
           <img
-            src="/contact-illustration.svg"
+            src="/icons/contact-illustration.svg"
             alt=""
             className="w-56 md:w-64"
           />
