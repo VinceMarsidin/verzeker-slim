@@ -150,11 +150,14 @@ export const companies = pgTable('companies', {
   slug: varchar('slug', { length: 100 }).notNull().unique(),
   name: varchar('name', { length: 200 }).notNull(),
   logoInitial: varchar('logo_initial', { length: 2 }).notNull(),
+  logoUrl: text('logo_url'),
+  homepageImage: text('homepage_image'),
   region: regionEnum('region').notNull(),
   website: varchar('website', { length: 300 }).notNull(),
   description: text('description').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 })
+
 
 export const premiums = pgTable('premiums', {
   id: serial().primaryKey(),
