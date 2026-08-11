@@ -42,14 +42,15 @@ export function NavbarAuth() {
           </span>
         </Link>
 
-        {/* Uitloggen als subtiele tekstlink, niet als even zware knop */}
-        <button
+        {/* Uitloggen als volle knop, zelfde stijl als Registreren */}
+        <Button
           type="button"
+          size="sm"
           onClick={() => void authClient.signOut()}
-          className="text-sm text-ink-soft transition-colors hover:text-ink"
+          className="bg-stamp-dark hover:bg-stamp-dark/90"
         >
           Uitloggen
-        </button>
+        </Button>
       </div>
     )
   }

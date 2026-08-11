@@ -17,13 +17,12 @@ export const Route = createFileRoute('/account/')({
   component: ProfilePage,
 })
 
-// Ingeklapte kop die pas het formulier toont na een klik — houdt de pagina
-// overzichtelijk voor acties die de meeste mensen zelden gebruiken.
 function MijnReviewsSectie() {
   const { data: reviews, isLoading, isError } = useQuery({
     queryKey: ['mijn-reviews'],
     queryFn: () => haalMijnReviews(),
   })
+  const [toonAlles, setToonAlles] = useState(false)
 
   function formatDatum(datum: string | Date | null) {
     if (!datum) return ''
@@ -33,6 +32,11 @@ function MijnReviewsSectie() {
       year: 'numeric',
     })
   }
+
+  const MAX_ZICHTBAAR = 3
+  const zichtbareReviews =
+    reviews && !toonAlles ? reviews.slice(0, MAX_ZICHTBAAR) : reviews
+  const heeftMeer = (reviews?.length ?? 0) > MAX_ZICHTBAAR
 
   return (
     <section className="mt-4 rounded-[4px] border border-line bg-paper p-5">
@@ -55,7 +59,7 @@ function MijnReviewsSectie() {
           </p>
         )}
 
-        {reviews?.map((review) => (
+        {zichtbareReviews?.map((review) => (
           <div
             key={review.id}
             className="rounded-[4px] border border-line bg-paper-raised p-4"
@@ -91,6 +95,18 @@ function MijnReviewsSectie() {
             </p>
           </div>
         ))}
+
+        {heeftMeer && (
+          <button
+            type="button"
+            onClick={() => setToonAlles((v) => !v)}
+            className="text-sm font-medium text-stamp-dark hover:underline"
+          >
+            {toonAlles
+              ? 'Toon minder'
+              : `Bekijk alle ${reviews?.length} reviews`}
+          </button>
+        )}
       </div>
     </section>
   )
@@ -143,8 +159,6 @@ function CollapsibleSection({
   )
 }
 
-// Forceert een verse sessie-fetch (voorbij de cookie-cache) zodat de navbar
-// direct de nieuwe naam/foto toont in plaats van pas na een refresh.
 async function verversSessie() {
   await authClient.getSession({ query: { disableCookieCache: true } })
 }
@@ -166,16 +180,15 @@ function ProfilePage() {
 
   return (
     <div className="bg-paper">
-      {/* Hero: zelfde opzet als contact.tsx, maar gecentreerd en hoger */}
-      <section className="relative h-[300px] overflow-hidden md:h-[340px]">
+      <div className="relative overflow-hidden bg-paper">
         <img
-          src="/paramaribo.jpg"
+          src="/backgrounds/gebergte.jpg"
           alt=""
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-[640px] w-full object-cover md:h-[720px]"
         />
-        <div className="absolute inset-0 bg-ink/75" />
+        <div className="absolute inset-0 h-[640px] bg-ink/75 md:h-[720px]" />
 
-        <div className="absolute inset-0 flex items-end justify-center pb-24 text-center md:pb-28">
+        <div className="relative pt-16 text-center md:pt-20">
           <div className="mx-auto max-w-md px-8">
             <div className="font-mono text-xs uppercase tracking-wide text-stamp">
               Account
@@ -189,26 +202,25 @@ function ProfilePage() {
             </p>
           </div>
         </div>
-      </section>
 
-      {/* Zwevende kaart, overlapt de foto minder ver naar boven dan bij contact */}
-      <div className="relative z-10 mx-auto max-w-lg px-8 pb-20">
-        <div className="-mt-10 rounded-[4px] border border-line bg-paper-raised p-8 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_24px_48px_-24px_rgba(13,59,102,0.35)] md:-mt-12">
-          <NaamSectie
-            naam={session.user.name}
-            email={session.user.email}
-            image={session.user.image ?? null}
-          />
+        <div className="relative z-10 mx-auto max-w-lg px-8 pb-20">
+          <div className="mt-25 rounded-[4px] border border-line bg-paper-raised p-8 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_24px_48px_-24px_rgba(13,59,102,0.35)] md:mt-35">
+            <NaamSectie
+              naam={session.user.name}
+              email={session.user.email}
+              image={session.user.image ?? null}
+            />
 
-          <MijnReviewsSectie />
+            <MijnReviewsSectie />
 
-          <div className="mt-8">
-            <p className="mb-1 font-mono text-xs uppercase tracking-wide text-ink-soft">
-              Meer instellingen
-            </p>
-            <WachtwoordSectie />
-            <EmailSectie huidigEmail={session.user.email} />
-            <VerwijderSectie />
+            <div className="mt-8">
+              <p className="mb-1 font-mono text-xs uppercase tracking-wide text-ink-soft">
+                Meer instellingen
+              </p>
+              <WachtwoordSectie />
+              <EmailSectie huidigEmail={session.user.email} />
+              <VerwijderSectie />
+            </div>
           </div>
         </div>
       </div>
@@ -216,9 +228,7 @@ function ProfilePage() {
   )
 }
 
-// ---------------------------------------------------------------------------
-// Naam + avatar
-// ---------------------------------------------------------------------------
+
 
 function NaamSectie({
   naam,
@@ -407,9 +417,6 @@ function AvatarUploader({
   )
 }
 
-// ---------------------------------------------------------------------------
-// Wachtwoord wijzigen
-// ---------------------------------------------------------------------------
 
 function WachtwoordSectie() {
   const [succes, setSucces] = useState(false)
@@ -513,9 +520,7 @@ function WachtwoordSectie() {
   )
 }
 
-// ---------------------------------------------------------------------------
-// E-mailadres wijzigen
-// ---------------------------------------------------------------------------
+
 
 function EmailSectie({ huidigEmail }: { huidigEmail: string }) {
   const [succes, setSucces] = useState(false)
@@ -593,9 +598,6 @@ function EmailSectie({ huidigEmail }: { huidigEmail: string }) {
   )
 }
 
-// ---------------------------------------------------------------------------
-// Account verwijderen — gevaarlijke zone
-// ---------------------------------------------------------------------------
 
 function VerwijderSectie() {
   const navigate = useNavigate()
