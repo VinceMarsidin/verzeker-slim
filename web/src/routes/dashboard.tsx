@@ -37,14 +37,7 @@ function DashboardPage() {
 
   const role = (session.user as { role?: string }).role
   if (role !== 'admin') {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-2 text-center px-4">
-        <h1 className="text-xl font-medium text-slate-900">Geen toegang</h1>
-        <p className="text-slate-500 max-w-md text-sm">
-          Deze pagina is alleen beschikbaar voor beheerders.
-        </p>
-      </div>
-    )
+    return <Navigate to="/" />
   }
 
   return <DashboardShell adminName={session.user.name} />
