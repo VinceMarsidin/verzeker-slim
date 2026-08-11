@@ -18,7 +18,7 @@ import { Route as VergelijkingenRouteImport } from './routes/vergelijkingen'
 import { Route as PublicVergelijkingenRouteImport } from './routes/_public.vergelijkingen'
 import { Route as AccountLoginRouteImport } from './routes/account/login'
 import { Route as AccountRegisterRouteImport } from './routes/account/register'
-import { Route as AdminCoompaniesRouteImport } from './routes/admin/coompanies'
+import { Route as AdminCompaniesRouteImport } from './routes/admin/companies'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as MaatschappijenSlugRouteImport } from './routes/maatschappijen.$slug'
@@ -78,9 +78,9 @@ const AccountRegisterRoute = AccountRegisterRouteImport.update({
   path: '/account/register',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminCoompaniesRoute = AdminCoompaniesRouteImport.update({
-  id: '/admin/coompanies',
-  path: '/admin/coompanies',
+const AdminCompaniesRoute = AdminCompaniesRouteImport.update({
+  id: '/admin/companies',
+  path: '/admin/companies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -159,7 +159,7 @@ export interface FileRoutesByFullPath {
   '/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
-  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
@@ -183,7 +183,7 @@ export interface FileRoutesByTo {
   '/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
-  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
@@ -209,7 +209,7 @@ export interface FileRoutesById {
   '/_public/vergelijkingen': typeof PublicVergelijkingenRoute
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
-  '/admin/coompanies': typeof AdminCoompaniesRoute
+  '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
@@ -235,7 +235,7 @@ export interface FileRouteTypes {
     | '/vergelijkingen'
     | '/account/login'
     | '/account/register'
-    | '/admin/coompanies'
+    | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
     | '/maatschappijen/$slug'
@@ -259,7 +259,7 @@ export interface FileRouteTypes {
     | '/vergelijkingen'
     | '/account/login'
     | '/account/register'
-    | '/admin/coompanies'
+    | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
     | '/maatschappijen/$slug'
@@ -284,7 +284,7 @@ export interface FileRouteTypes {
     | '/_public/vergelijkingen'
     | '/account/login'
     | '/account/register'
-    | '/admin/coompanies'
+    | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
     | '/maatschappijen/$slug'
@@ -310,7 +310,7 @@ export interface RootRouteChildren {
   PublicVergelijkingenRoute: typeof PublicVergelijkingenRoute
   AccountLoginRoute: typeof AccountLoginRoute
   AccountRegisterRoute: typeof AccountRegisterRoute
-  AdminCoompaniesRoute: typeof AdminCoompaniesRoute
+  AdminCompaniesRoute: typeof AdminCompaniesRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminUsersRoute: typeof AdminUsersRoute
   MaatschappijenSlugRoute: typeof MaatschappijenSlugRoute
@@ -390,11 +390,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/coompanies': {
-      id: '/admin/coompanies'
-      path: '/admin/coompanies'
-      fullPath: '/admin/coompanies'
-      preLoaderRoute: typeof AdminCoompaniesRouteImport
+    '/admin/companies': {
+      id: '/admin/companies'
+      path: '/admin/companies'
+      fullPath: '/admin/companies'
+      preLoaderRoute: typeof AdminCompaniesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/dashboard': {
@@ -513,7 +513,7 @@ const rootRouteChildren: RootRouteChildren = {
   PublicVergelijkingenRoute: PublicVergelijkingenRoute,
   AccountLoginRoute: AccountLoginRoute,
   AccountRegisterRoute: AccountRegisterRoute,
-  AdminCoompaniesRoute: AdminCoompaniesRoute,
+  AdminCompaniesRoute: AdminCompaniesRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminUsersRoute: AdminUsersRoute,
   MaatschappijenSlugRoute: MaatschappijenSlugRoute,
