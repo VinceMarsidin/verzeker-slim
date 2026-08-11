@@ -10,20 +10,17 @@ export default defineConfig({
             social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/VinceMarsidin/verzeker-slim' }],
             sidebar: [
                 {
-                    label: 'Guides',
+                    label: 'Account',
                     items: [
-                        { label: 'Example Guide', slug: 'guides/example' },
+                        { label: 'Inloggen en registreren', slug: 'authenticatie' },
+                        { label: 'Reviews', slug: 'reviews' },
                     ],
-                },
-                {
-                    label: 'Reference',
-                    items: [{ autogenerate: { directory: 'reference' } }],
                 },
                 {
                     label: 'Admin',
                     items: [
-                        { label: 'Maatschappijen overzicht', slug: 'admin/dashboard' },
-                        { label: 'Gebruikers', slug: 'admin/users' },
+                        { label: 'Dashboard overzicht', slug: 'admin/dashboard' },
+                        { label: 'Gebruikers en rollen', slug: 'admin/users' },
                         { label: 'Contact', slug: 'admin/contact' },
                     ],
                 },
