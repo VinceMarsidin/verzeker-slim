@@ -55,6 +55,7 @@ function CompanyDetailPage() {
         <CompanyHeader
           name={company.name}
           logoInitial={company.logoInitial}
+          logoUrl={company.logoUrl}
           description={company.description}
           website={company.website}
           regionLabel={region?.label ?? company.region}

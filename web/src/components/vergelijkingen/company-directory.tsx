@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { CompanyLogo } from '@/components/companies/company-logo'
 import type { Company, InsuranceType, Region } from '@/lib/types/insurance'
 import { regions } from '@/lib/types/insurance'
 
@@ -34,15 +35,14 @@ export function CompanyDirectory({ companies, region, insuranceType }: CompanyDi
       </div>
 
       <div className={`grid gap-4 ${gridColumns}`}>
-        {companies.map((company) => (
+        {companies.map((company, i) => (
           <Card
             key={company.slug}
-            className="flex flex-col border-line bg-paper-raised p-5"
+            className="hover-lift rise-in flex flex-col border-line bg-paper-raised p-5"
+            style={{ animationDelay: `${i * 60}ms` }}
           >
             <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border border-line bg-paper font-mono text-sm font-bold text-stamp-dark">
-                {company.logoInitial}
-              </div>
+              <CompanyLogo name={company.name} logoInitial={company.logoInitial} logoUrl={company.logoUrl} size="sm" />
               <div className="min-w-0 flex-1">
                 <h3 className="truncate font-semibold text-ink">{company.name}</h3>
                 <Badge variant="outline" className="mt-1 border-line text-xs text-ink-soft">

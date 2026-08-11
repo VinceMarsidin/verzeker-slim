@@ -9,8 +9,8 @@ type LedgerRow = {
 
 const demoRows: LedgerRow[] = [
     { insurer: "Assuria", amount: 4180 },
-    { insurer: "Maatschappij B", amount: 3640, best: true },
-    { insurer: "Maatschappij C", amount: 4510 },
+    { insurer: "Self-Reliance", amount: 3640, best: true },
+    { insurer: "Fatum", amount: 4510 },
 ];
 
 function formatSrd(amount: number) {
