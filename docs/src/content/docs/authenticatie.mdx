@@ -1,0 +1,36 @@
+---
+title: Inloggen en registreren
+description: Hoe accounts, sessies en authenticatie werken in VerzekerSlim.
+---
+
+## Overzicht
+
+VerzekerSlim gebruikt **better-auth** voor authenticatie met e-mail en wachtwoord. Een account is nodig om [reviews](/reviews) te plaatsen; browsen, vergelijken en het contactformulier gebruiken kan zonder account.
+
+## Registreren
+
+1. Ga naar **Registreren** in de navbar.
+2. Vul naam, e-mailadres en wachtwoord in (met bevestiging van het wachtwoord).
+3. Klik op **Account aanmaken**.
+
+Bij succes word je automatisch ingelogd en aangemaakt met de standaardrol `user`.
+
+:::note
+Elk e-mailadres kan maar één keer geregistreerd worden. Probeer je het opnieuw met een bestaand e-mailadres, dan krijg je de melding "Registratie mislukt" — in dat geval kun je gewoon inloggen met dat account.
+:::
+
+## Inloggen
+
+1. Ga naar **Inloggen** in de navbar.
+2. Vul je e-mailadres en wachtwoord in.
+3. Bij succes verschijnt je naam in de navbar in plaats van "Inloggen/Registreren", en word je doorgestuurd naar `/dashboard` (dit is alleen zichtbaar voor beheerders — een gewone gebruiker ziet daar "Geen toegang" en kan gewoon verder navigeren via de navbar).
+
+## Hoe sessies werken
+
+- Na het inloggen zet better-auth een **sessiecookie** in de browser.
+- Elke pagina die weet wil of je bent ingelogd (bijvoorbeeld het reviewformulier of de navbar) gebruikt de hook `useSession()` om de huidige sessie op te vragen.
+- Uitloggen verwijdert de sessie en de cookie.
+
+## Rollen
+
+Zie [Gebruikers en rollen](/admin/users) voor het verschil tussen een gewone gebruiker (`user`) en een beheerder (`admin`).

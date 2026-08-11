@@ -23,31 +23,34 @@ const categorieen = [
     naam: 'Motor',
     slug: 'motor',
     omschrijving: 'WA en casco-dekkingen voor je voertuig.',
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&auto=format&fit=crop',
+    image: '/motor.png',
   },
+
   {
     icon: Plane,
     code: 'R',
     naam: 'Reis',
     slug: 'reis',
     omschrijving: 'Dekking voor kortere en langere reizen.',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80&auto=format&fit=crop',
+    image: '/reis.png',
   },
+
   {
     icon: HomeIcon,
     code: 'W',
     naam: 'Woon',
     slug: 'woon',
     omschrijving: 'Inboedel- en opstalverzekeringen.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop',
+    image: '/woon.png',
   },
+
   {
     icon: ShieldCheck,
     code: 'L',
     naam: 'Leven',
     slug: 'leven',
     omschrijving: 'Levensverzekeringen voor jou en je gezin.',
-    image: 'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=800&q=80&auto=format&fit=crop',
+    image: '/leven.png',
   },
 ]
 

@@ -81,7 +81,7 @@ export function ComparisonView({
         <div className="hover-lift flex flex-col items-center gap-10 rounded-[4px] border border-line bg-paper-raised p-10 md:flex-row md:p-14">
           <div className="w-full overflow-hidden rounded-[4px] border border-line md:w-2/5">
             <img
-              src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=900&q=80&auto=format&fit=crop"
+              src="/landen.png"
               alt="Caribisch eiland"
               className="block h-[280px] w-full object-cover"
             />

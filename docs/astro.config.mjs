@@ -10,6 +10,38 @@ export default defineConfig({
             social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
             sidebar: [
                 {
+
+                    label: 'Account',
+                    items: [
+                        { label: 'Inloggen en registreren', slug: 'authenticatie' },
+                        { label: 'Reviews', slug: 'reviews' },
+                    ],
+                },
+                {
+                    label: 'Admin',
+                    items: [
+                        { label: 'Dashboard overzicht', slug: 'admin/dashboard' },
+                        { label: 'Gebruikers en rollen', slug: 'admin/users' },
+                        { label: 'Contact', slug: 'admin/contact' },
+                    ],
+                },
+                {
+                    label: 'Premie-calculator',
+                    items: [
+                        { label: 'Premie berekenen', slug: 'premie-calculator' },
+                    ],
+                },
+                {
+                    label: 'Vergelijken',
+                    items: [
+                        { label: 'Verzekeringen vergelijken', slug: 'vergelijkingen' },
+                    ],
+                },
+            ],
+        }),
+    ],
+});
+
                     sidebar: [
                         {
                             label: 'Guides',
@@ -41,3 +73,4 @@ export default defineConfig({
                         },
 
                     ]
+

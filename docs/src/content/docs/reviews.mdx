@@ -1,0 +1,29 @@
+---
+title: Reviews
+description: Hoe gebruikers reviews plaatsen bij verzekeringsmaatschappijen.
+---
+
+## Overzicht
+
+Op elke maatschappij-detailpagina (`/maatschappijen/[naam]`) kunnen ingelogde gebruikers een review achterlaten over hun ervaring met die verzekeraar.
+
+## Een review plaatsen
+
+1. Ga naar een maatschappij-pagina, bijvoorbeeld via de [vergelijkingspagina](/vergelijkingen).
+2. Klik op het tabblad **Reviews**.
+3. Als je **niet bent ingelogd**, zie je een melding dat je moet inloggen om een review te plaatsen (zie [Inloggen en registreren](/authenticatie)).
+4. Als je **wel bent ingelogd**, vul je het reviewformulier in:
+   - **Sterrenbeoordeling** (1 t/m 5)
+   - **Titel** van de review
+   - **Beschrijving** van je ervaring
+5. Klik op versturen.
+
+Na het plaatsen verschijnt direct de bevestiging **"Bedankt voor je review!"**, en de review verschijnt meteen in de lijst eronder — met je naam, de datum, de sterren en je tekst.
+
+## Waar staat dit in de database?
+
+Reviews worden opgeslagen in de `reviews`-tabel, gekoppeld aan zowel de maatschappij (`companyId`) als de gebruiker die de review plaatste (`userId`) — zo weet het systeem altijd wie welke review heeft geschreven.
+
+:::note
+Een review plaatsen kan alleen met een account, om de betrouwbaarheid van reviews te waarborgen. Het bekijken van reviews is voor iedereen mogelijk, ook zonder in te loggen.
+:::
