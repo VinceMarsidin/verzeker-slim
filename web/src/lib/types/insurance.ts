@@ -28,6 +28,8 @@ export interface Company {
   slug: string
   name: string
   logoInitial: string
+  logoUrl?: string
+  homepageImage?: string
   region: Region
   website: string
   description: string
