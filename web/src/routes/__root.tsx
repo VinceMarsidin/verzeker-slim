@@ -3,15 +3,15 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
+
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 
 import appCss from '../styles.css?url'
-
 import type { QueryClient } from '@tanstack/react-query'
 
 interface MyRouterContext {
@@ -32,6 +32,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         title: 'VerzekerSlim',
       },
     ],
+
     links: [
       {
         rel: 'stylesheet',
@@ -51,7 +52,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
-  notFoundComponent: () => <p>Not Found</p>,
+
+  notFoundComponent: () => <div>Not Found</div>,
+
   shellComponent: RootDocument,
 })
 
@@ -61,10 +64,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
+
       <body>
+        {/* Dezelfde Navbar op alle pagina's, inclusief Dashboard */}
         <Navbar />
+
+        {/* Pagina inhoud */}
         {children}
+
+        {/* Dezelfde Footer op alle pagina's, inclusief Dashboard */}
         <Footer />
+
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -77,6 +87,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             TanStackQueryDevtools,
           ]}
         />
+
         <Scripts />
       </body>
     </html>

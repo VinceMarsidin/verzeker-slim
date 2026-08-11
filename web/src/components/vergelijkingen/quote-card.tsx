@@ -13,6 +13,7 @@ import { Link } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardTitle } from '@/components/ui/card'
+import { CompanyLogo } from '@/components/companies/company-logo'
 import { getCompanyBySlug } from '@/lib/data/companies'
 import type { InsuranceType, Quote } from '@/lib/types/insurance'
 
@@ -25,11 +26,9 @@ export function QuoteCard({ quote, insuranceType }: QuoteCardProps) {
   const company = getCompanyBySlug(quote.companySlug)
 
   return (
-    <Card className="flex flex-col gap-6 border-line bg-paper-raised p-6 md:flex-row md:items-center md:justify-between">
+    <Card className="hover-lift rise-in flex flex-col gap-6 border-line bg-paper-raised p-6 md:flex-row md:items-center md:justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border border-line bg-paper font-mono text-lg font-bold text-stamp-dark">
-          {quote.logoInitial}
-        </div>
+        <CompanyLogo name={quote.insurer} logoInitial={quote.logoInitial} logoUrl={company?.logoUrl} size="lg" />
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <CardTitle>
@@ -77,9 +76,9 @@ export function QuoteCard({ quote, insuranceType }: QuoteCardProps) {
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
             Premie
           </p>
-          <p className="font-mono text-2xl font-bold text-ink">
+          <p className="font-mono text-2xl font-bold tabular-nums text-ink">
             {quote.currency} {quote.monthlyPremium}
-            <span className="text-sm font-medium text-ink-soft">/mnd</span>
+            <span className="ml-1 text-sm font-medium text-ink-soft">/mnd</span>
           </p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">

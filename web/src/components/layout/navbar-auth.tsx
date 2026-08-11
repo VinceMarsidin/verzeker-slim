@@ -6,24 +6,44 @@ export function NavbarAuth() {
   const { data: session, isPending } = authClient.useSession()
 
   if (isPending) {
-    return <div className="h-8 w-20 animate-pulse rounded-[4px] bg-line/40" />
+    return (
+      <div className="h-8 w-20 animate-pulse rounded-[4px] bg-line/40" />
+    )
   }
 
   if (session?.user) {
-    const initial = session.user.name?.charAt(0).toUpperCase() ?? 'U'
+    const initial =
+      session.user.name?.charAt(0).toUpperCase() ?? 'U'
+
+    const role = (session.user as { role?: string }).role
+
     return (
       <div className="flex items-center gap-3">
-        <Link
-          to="/account"
-          className="flex items-center gap-2 rounded-[4px] transition-colors hover:bg-paper-raised"
-        >
+        {/* Alleen admins zien de Dashboard-knop */}
+        {role === 'admin' && (
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+          >
+            <Link to="/dashboard">
+              Dashboard
+            </Link>
+          </Button>
+        )}
+
+        {/* Bestaande accountinformatie */}
+        <div className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-line bg-paper-raised text-xs font-semibold text-stamp-dark">
             {initial}
           </span>
+
           <span className="hidden text-sm text-ink-soft sm:inline">
             {session.user.name ?? session.user.email}
           </span>
-        </Link>
+        </div>
+
+        {/* Bestaande uitlogfunctie */}
         <Button
           type="button"
           variant="outline"
@@ -39,10 +59,19 @@ export function NavbarAuth() {
   return (
     <div className="flex items-center gap-2">
       <Button asChild variant="outline" size="sm">
-        <Link to="/account/login">Inloggen</Link>
+        <Link to="/account/login">
+          Inloggen
+        </Link>
       </Button>
-      <Button asChild size="sm" className="bg-stamp-dark hover:bg-stamp-dark/90">
-        <Link to="/account/register">Registreren</Link>
+
+      <Button
+        asChild
+        size="sm"
+        className="bg-stamp-dark hover:bg-stamp-dark/90"
+      >
+        <Link to="/account/register">
+          Registreren
+        </Link>
       </Button>
     </div>
   )

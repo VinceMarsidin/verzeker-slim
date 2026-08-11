@@ -1,22 +1,29 @@
 ---
 title: Contact
-description: Neem contact op via het contactformulier.
+description: Hoe het contactformulier werkt, van invullen tot opslag.
 ---
 
 ## Overzicht
 
-Op deze pagina kunnen bezoekers een bericht sturen via een contactformulier.
+Op `/contact` kan iedere bezoeker — ingelogd of niet — een bericht sturen naar VerzekerSlim via een contactformulier.
 
 ## Een bericht versturen
 
 1. Vul de volgende velden in:
-   - **Naam** *(verplicht)*
-   - **E-mailadres** *(verplicht)* — moet een geldig e-mailadres zijn
-   - **Bericht** *(verplicht)*
-2. Klik op **Versturen**.
+   - **Naam** *(verplicht, minstens 2 tekens)*
+   - **E-mailadres** *(verplicht, moet een geldig e-mailadres zijn)*
+   - **Bericht** *(verplicht, minstens 10 tekens)*
+2. Klik op **Verstuur bericht**.
 
-Na het versturen verschijnt een bevestiging dat het bericht is ontvangen. Bij een ongeldig e-mailadres of een leeg verplicht veld toont het formulier een foutmelding, zodat je de gegevens kunt corrigeren.
+Na het versturen verschijnt de bevestiging **"Bedankt! Je bericht is verstuurd."** Bij een ongeldig e-mailadres, een te kort bericht, of een leeg verplicht veld toont het formulier direct een foutmelding onder het betreffende veld, zodat je de gegevens kunt corrigeren voordat er iets wordt verstuurd.
 
-## Wat gebeurt er met het bericht?
+## Hoe het onder de motorkap werkt
 
-Verzonden berichten komen terecht bij de beheerders van het systeem, die ze kunnen inzien via het admin-dashboard (zie [Contact berichten](/dashboard/contact) in het beheerdersgedeelte).
+1. Het formulier valideert de invoer client-side met **zod** (hetzelfde validatieschema als de server gebruikt, dus de regels zijn overal consistent).
+2. Bij versturen wordt een **server function** (`verstuurContactBericht`) aangeroepen — geen aparte REST-call, maar een directe, type-veilige functie-aanroep die op de server draait.
+3. De server function valideert de data nogmaals (nooit alleen op client-side vertrouwen) en slaat het bericht op in de `contact_messages`-tabel in PostgreSQL, samen met een tijdstempel.
+4. Bij succes krijgt de gebruiker de bevestiging te zien; bij een serverfout verschijnt een nette foutmelding in plaats van dat de pagina crasht.
+
+## Waar komt het bericht terecht?
+
+Verzonden berichten zijn zichtbaar voor beheerders via het tabblad **Contact** in het [admin-dashboard](/admin/dashboard) (`/dashboard`).

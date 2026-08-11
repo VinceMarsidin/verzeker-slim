@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Trash2 } from 'lucide-react'
 
 import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 import { EmptyState } from './empty-state'
@@ -56,11 +55,7 @@ export function ContactSectie() {
   const gefilterd = berichten.filter((m) => {
     const q = zoekterm.trim().toLowerCase()
     if (!q) return true
-    return (
-      m.name.toLowerCase().includes(q) ||
-      m.email.toLowerCase().includes(q) ||
-      m.subject.toLowerCase().includes(q)
-    )
+    return m.naam.toLowerCase().includes(q) || m.email.toLowerCase().includes(q)
   })
 
   return (
@@ -100,7 +95,7 @@ export function ContactSectie() {
             <thead>
               <tr className="border-b border-line font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
                 <th className="p-4 text-left">Afzender</th>
-                <th className="p-4 text-left">Onderwerp</th>
+                <th className="p-4 text-left">Bericht</th>
                 <th className="p-4 text-left">Datum</th>
                 <th className="p-4 text-right">Acties</th>
               </tr>
@@ -114,19 +109,17 @@ export function ContactSectie() {
                   <td className="p-4">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${avatarKleur(msg.name)}`}
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${avatarKleur(msg.naam)}`}
                       >
-                        {msg.name.charAt(0).toUpperCase()}
+                        {msg.naam.charAt(0).toUpperCase()}
                       </div>
                       <div className="min-w-0">
-                        <div className="truncate font-medium text-ink">{msg.name}</div>
+                        <div className="truncate font-medium text-ink">{msg.naam}</div>
                         <div className="truncate text-xs text-ink-soft">{msg.email}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="p-4">
-                    <Badge>{msg.subject}</Badge>
-                  </td>
+                  <td className="max-w-xs truncate p-4 text-ink-soft">{msg.bericht}</td>
                   <td className="whitespace-nowrap p-4 text-ink-soft">
                     {formatDatum(msg.createdAt)}
                   </td>
@@ -160,19 +153,11 @@ export function ContactSectie() {
             <p>
               <span className="text-ink-soft">Van:</span>{' '}
               <span className="font-medium text-ink">
-                {bekijken.name} ({bekijken.email})
+                {bekijken.naam} ({bekijken.email})
               </span>
             </p>
-            <p>
-              <span className="text-ink-soft">Telefoon:</span>{' '}
-              <span className="text-ink">{bekijken.phone || 'Niet opgegeven'}</span>
-            </p>
-            <p>
-              <span className="text-ink-soft">Onderwerp:</span>{' '}
-              <span className="text-ink">{bekijken.subject}</span>
-            </p>
             <div className="whitespace-pre-wrap rounded-xl border border-line bg-[#f8fafd] p-4 text-ink-soft">
-              {bekijken.message}
+              {bekijken.bericht}
             </div>
           </div>
           <div className="mt-6 flex justify-end">

@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { desc } from 'drizzle-orm'
 
 import { db } from '#/db'
-import { contactBerichten } from '#/db/schema'
+import { contactMessages } from '#/db/schema'
 import { requireAdmin } from '#/lib/require-admin'
 
 export const Route = createFileRoute('/api/contact/')({
@@ -14,8 +14,8 @@ export const Route = createFileRoute('/api/contact/')({
 
         const data = await db
           .select()
-          .from(contactBerichten)
-          .orderBy(desc(contactBerichten.createdAt))
+          .from(contactMessages)
+          .orderBy(desc(contactMessages.createdAt))
 
         return Response.json(data)
       },

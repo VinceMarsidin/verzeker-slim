@@ -49,13 +49,13 @@ const categorieen = [
 // dezelfde categorie overal hetzelfde beeld toont.
 const heroImages: Record<Categorie, string> = {
     motor:
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=80&auto=format&fit=crop',
+        '/motor.png',
     reis:
-        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80&auto=format&fit=crop',
+        '/reis.png',
     woon:
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80&auto=format&fit=crop',
+        '/woon.png',
     leven:
-        'https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=1400&q=80&auto=format&fit=crop',
+        '/leven.png',
 }
 
 // Alle mogelijke velden staan hier optioneel in één form-type; welke ervan

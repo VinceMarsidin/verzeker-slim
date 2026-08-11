@@ -16,11 +16,9 @@ export interface Premie {
 
 export interface ContactBericht {
   id: number
-  name: string
+  naam: string
   email: string
-  phone: string | null
-  subject: string
-  message: string
+  bericht: string
   createdAt: string
 }
 

@@ -2,6 +2,7 @@ import { createFileRoute, Navigate, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { authClient } from '#/lib/auth-client'
+import { getPostLoginPath } from '#/lib/post-login-redirect'
 
 export const Route = createFileRoute('/login')({
   component: LoginPage,
@@ -57,7 +58,7 @@ function LoginPage() {
           return
         }
       }
-      navigate({ to: '/dashboard' })
+      navigate({ to: await getPostLoginPath() })
     } finally {
       setLoading(false)
     }

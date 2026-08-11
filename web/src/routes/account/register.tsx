@@ -6,6 +6,7 @@ import { User, Mail, Lock, Eye, EyeOff, ShieldCheck, Users, Sparkles } from 'luc
 import { Button } from '@/components/ui/button'
 import { registerSchema, type RegisterInput } from '@/lib/validators/auth.schema'
 import { authClient } from '@/lib/auth-client'
+import { getPostLoginPath } from '@/lib/post-login-redirect'
 import { LogoAnimated } from '@/components/logo-animated'
 
 export const Route = createFileRoute('/account/register')({
@@ -35,7 +36,7 @@ function RegisterPage() {
       setError('root', { message: 'Registratie mislukt, probeer het opnieuw' })
       return
     }
-    await navigate({ to: '/dashboard' })
+    await navigate({ to: await getPostLoginPath() })
   }
 
   return (

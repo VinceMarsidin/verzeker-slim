@@ -6,6 +6,7 @@ import { Mail, Lock, Eye, EyeOff, ShieldCheck, Users, Sparkles } from 'lucide-re
 import { Button } from '@/components/ui/button'
 import { loginSchema, type LoginInput } from '@/lib/validators/auth.schema'
 import { authClient } from '@/lib/auth-client'
+import { getPostLoginPath } from '@/lib/post-login-redirect'
 import { LogoAnimated } from '@/components/logo-animated'
 
 export const Route = createFileRoute('/account/login')({
@@ -33,7 +34,7 @@ function LoginPage() {
       setError('root', { message: 'Ongeldige inloggegevens' })
       return
     }
-    await navigate({ to: '/dashboard' })
+    await navigate({ to: await getPostLoginPath() })
   }
 
   return (

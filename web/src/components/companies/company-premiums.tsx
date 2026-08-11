@@ -2,6 +2,7 @@ import { Star } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { insuranceTypes, type InsuranceType, type Quote } from '@/lib/types/insurance'
+import { CompanyLogo } from '@/components/companies/company-logo'
 
 interface CompanyPremiumsProps {
   premiums: Quote[]
@@ -64,9 +65,9 @@ export function CompanyPremiums({ premiums, highlightType }: CompanyPremiumsProp
                 <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
                   Premie
                 </p>
-                <p className="font-mono text-2xl font-bold text-ink">
+                <p className="font-mono text-2xl font-bold tabular-nums text-ink">
                   {premium.currency} {premium.monthlyPremium}
-                  <span className="text-sm font-medium text-ink-soft">/mnd</span>
+                  <span className="ml-1 text-sm font-medium text-ink-soft">/mnd</span>
                 </p>
               </div>
             </div>
@@ -80,6 +81,7 @@ export function CompanyPremiums({ premiums, highlightType }: CompanyPremiumsProp
 interface CompanyHeaderProps {
   name: string
   logoInitial: string
+  logoUrl?: string
   description: string
   website: string
   regionLabel: string
@@ -90,6 +92,7 @@ interface CompanyHeaderProps {
 export function CompanyHeader({
   name,
   logoInitial,
+  logoUrl,
   description,
   website,
   regionLabel,
@@ -98,9 +101,7 @@ export function CompanyHeader({
 }: CompanyHeaderProps) {
   return (
     <div className="flex flex-col gap-6 md:flex-row md:items-start">
-      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[4px] border border-line bg-paper font-mono text-2xl font-bold text-stamp-dark">
-        {logoInitial}
-      </div>
+      <CompanyLogo name={name} logoInitial={logoInitial} logoUrl={logoUrl} size="lg" />
       <div className="flex-1">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="font-slab text-3xl font-bold text-ink">{name}</h1>

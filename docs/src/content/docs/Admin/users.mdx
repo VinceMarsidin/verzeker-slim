@@ -1,11 +1,38 @@
 ---
-title: Admin — Gebruikers
-description: Beheer gebruikers in het systeem.
+title: Admin — Gebruikers en rollen
+description: Hoe accounts en rollen (user/admin) werken in VerzekerSlim.
 ---
 
 ## Overzicht
 
-Op deze pagina worden straks de gebruikers van het systeem beheerd.
+VerzekerSlim heeft een eenvoudig rollensysteem met twee rollen: **`user`** (standaard, voor elke bezoeker die een account aanmaakt) en **`admin`** (toegang tot het [beheerdersdashboard](/admin/dashboard)).
 
-:::caution[In ontwikkeling]
-D:::
+## Hoe accounts werken
+
+- Iedereen kan via **Registreren** een account aanmaken met naam, e-mailadres en wachtwoord.
+- Authenticatie loopt via **better-auth**, met sessies die via een cookie worden bijgehouden.
+- Elk nieuw account krijgt automatisch `role: 'user'`.
+
+## Wat kan een gewone gebruiker (`user`)?
+
+- Inloggen/uitloggen en het eigen account gebruiken
+- [Reviews plaatsen](/vergelijkingen) op maatschappij-pagina's
+- Het [contactformulier](/admin/contact) gebruiken (dit kan trouwens ook zonder account)
+
+## Wat kan een beheerder (`admin`) extra?
+
+- Toegang tot `/dashboard`: premies, maatschappijen en contactberichten beheren
+
+## Iemand admin maken
+
+:::caution[Nog geen UI hiervoor]
+Er is momenteel geen scherm in de applicatie om een gebruiker admin te maken — dit gebeurt rechtstreeks in de database.
+:::
+
+In pgAdmin (of via de Query Tool op de `verzekerslim`-database):
+
+```sql
+UPDATE "user" SET role = 'admin' WHERE email = 'naam@voorbeeld.com';
+```
+
+Na het inloggen (of herladen van de sessie) heeft dat account toegang tot het dashboard.
