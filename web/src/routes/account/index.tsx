@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createFileRoute, Navigate } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { authClient } from '@/lib/auth-client'
 import { profileSchema, type ProfileInput } from '@/lib/validators/profile.schema'
+import { uploadAvatar } from '@/lib/server/avatar'
 
 export const Route = createFileRoute('/account/')({
   component: ProfilePage,
@@ -26,10 +27,24 @@ function ProfilePage() {
     return <Navigate to="/account/login" />
   }
 
-  return <ProfileForm naam={session.user.name} email={session.user.email} />
+  return (
+    <ProfileForm
+      naam={session.user.name}
+      email={session.user.email}
+      image={session.user.image ?? null}
+    />
+  )
 }
 
-function ProfileForm({ naam, email }: { naam: string; email: string }) {
+function ProfileForm({
+  naam,
+  email,
+  image,
+}: {
+  naam: string
+  email: string
+  image: string | null
+}) {
   const [succes, setSucces] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
 
@@ -43,8 +58,6 @@ function ProfileForm({ naam, email }: { naam: string; email: string }) {
     defaultValues: { naam },
   })
 
-  // Zorgt dat het formulier meebeweegt als de sessie later pas ingeladen is
-  // (bijv. na een refresh) met een andere naam dan de eerste render.
   useEffect(() => {
     reset({ naam })
   }, [naam, reset])
@@ -73,18 +86,11 @@ function ProfileForm({ naam, email }: { naam: string; email: string }) {
       </div>
       <h1 className="font-slab text-3xl font-bold text-ink">Mijn profiel</h1>
       <p className="mt-3 text-ink-soft">
-        Werk je naam bij zoals die getoond wordt bij reviews en op de site.
+        Werk je naam en profielfoto bij zoals die getoond worden bij reviews
+        en op de site.
       </p>
 
-      <div className="mt-8 flex items-center gap-4">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-line bg-paper-raised text-xl font-semibold text-stamp-dark">
-          {initial}
-        </span>
-        <div>
-          <p className="font-semibold text-ink">{naam}</p>
-          <p className="text-sm text-ink-soft">{email}</p>
-        </div>
-      </div>
+      <AvatarUploader naam={naam} initial={initial} initialImage={image} />
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-5">
         <div>
@@ -132,6 +138,102 @@ function ProfileForm({ naam, email }: { naam: string; email: string }) {
           <p className="text-sm font-medium text-red-600">{serverError}</p>
         )}
       </form>
+    </div>
+  )
+}
+
+function AvatarUploader({
+  naam,
+  initial,
+  initialImage,
+}: {
+  naam: string
+  initial: string
+  initialImage: string | null
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [preview, setPreview] = useState<string | null>(initialImage)
+  const [isUploading, setIsUploading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  function kiesBestand() {
+    fileInputRef.current?.click()
+  }
+
+  async function onBestandGekozen(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = '' // zelfde bestand nogmaals kunnen kiezen
+    if (!file) return
+
+    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+      setError('Alleen PNG, JPEG of WebP toegestaan.')
+      return
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setError('Afbeelding is te groot (max 2MB).')
+      return
+    }
+
+    setError(null)
+    setIsUploading(true)
+
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result as string)
+        reader.onerror = () => reject(new Error('Kon bestand niet lezen'))
+        reader.readAsDataURL(file)
+      })
+
+      const { url } = await uploadAvatar({ data: { dataUrl } })
+      await authClient.updateUser({ image: url })
+      setPreview(url)
+    } catch {
+      setError('Uploaden mislukt. Probeer het opnieuw.')
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
+  return (
+    <div className="mt-8 flex items-center gap-4">
+      <button
+        type="button"
+        onClick={kiesBestand}
+        disabled={isUploading}
+        className="group relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full border border-line bg-paper-raised text-xl font-semibold text-stamp-dark"
+        aria-label="Profielfoto wijzigen"
+      >
+        {preview ? (
+          <img src={preview} alt="" className="h-full w-full object-cover" />
+        ) : (
+          initial
+        )}
+        <span className="absolute inset-0 hidden items-center justify-center bg-ink/50 text-[10px] font-medium text-paper group-hover:flex">
+          {isUploading ? '...' : 'Wijzig'}
+        </span>
+      </button>
+
+      <div>
+        <p className="font-semibold text-ink">{naam}</p>
+        <button
+          type="button"
+          onClick={kiesBestand}
+          disabled={isUploading}
+          className="text-sm text-stamp-dark hover:underline"
+        >
+          {isUploading ? 'Bezig met uploaden...' : 'Profielfoto wijzigen'}
+        </button>
+        {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      </div>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+        onChange={onBestandGekozen}
+        className="hidden"
+      />
     </div>
   )
 }
