@@ -41,7 +41,7 @@ export function ComparisonHero({ type, region, quotes }: ComparisonHeroProps) {
         </p>
       </div>
 
-      <div className="relative mx-auto mt-10 w-full max-w-5xl overflow-hidden rounded-[4px] border border-line">
+      <div className="scale-in relative mx-auto mt-10 w-full max-w-5xl overflow-hidden rounded-[4px] border border-line">
         <img
           src={heroImages[type]}
           alt="VerzekerSlim vergelijking"
