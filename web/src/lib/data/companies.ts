@@ -52,7 +52,7 @@ export const companies: Company[] = [
     homepageImage: '/companies/nagico-aruba/homepage.jpg',
     region: 'aruba',
     website: 'https://www.nagico.com/',
-    description: 'Nagico Insurances biedt schadeverzekeringen op Aruba en in de rest van de Caraïben.',
+    description: 'Nagico Insurances biedt schadeverzekeringen op Aruba en in de rest van het Caribisch gebied.',
   },
 
   {

@@ -28,7 +28,7 @@ export function ComparisonHero({ type, region, quotes }: ComparisonHeroProps) {
           <MapPin className="h-3.5 w-3.5" /> {activeRegion.flag} {activeRegion.label}
         </Badge>
         <h1 className="mx-auto max-w-2xl font-slab text-4xl font-bold leading-[1.15] text-ink md:text-5xl">
-          Vergelijk verzekeringen in <span className="text-trust">de Caraïben</span>.
+          Vergelijk verzekeringen in <span className="text-trust">Het Caribisch gebied</span>.
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
           Kies je land en je type verzekering. Wij zetten de premies van de grootste
