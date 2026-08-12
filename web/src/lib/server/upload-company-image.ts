@@ -22,6 +22,14 @@ const uploadSchema = z.object({
         .refine((val) => val.length < 4_200_000, 'Afbeelding is te groot (max 3MB)'),
 })
 
+// Let op: dit is ALLEEN voor via het dashboard geüploade afbeeldingen.
+// Geseede logo's (public/companies/<slug>/logo.png) staan in git en blijven
+// gewoon werken via de normale statische public/-route.
+const COMPANIES_DIR =
+    process.env.UPLOADS_DIR
+        ? path.join(process.env.UPLOADS_DIR, 'companies')
+        : path.join(process.cwd(), 'data', 'uploads', 'companies')
+
 export const uploadCompanyImage = createServerFn({ method: 'POST' })
     .validator(uploadSchema)
     .handler(async ({ data }) => {
@@ -48,14 +56,12 @@ export const uploadCompanyImage = createServerFn({ method: 'POST' })
             throw new Error('Afbeelding is te groot (max 3MB).')
         }
 
-        const dir = path.join(process.cwd(), 'public', 'companies', data.slug)
-        await mkdir(dir, { recursive: true })
+        await mkdir(COMPANIES_DIR, { recursive: true })
 
-        // Vaste bestandsnaam (logo/homepage) i.p.v. de originele bestandsnaam van
-        // de beheerder — voorkomt path traversal en overschrijft nette de vorige
-        // versie voor dezelfde maatschappij.
-        const filename = `${data.soort}.${ext}`
-        await writeFile(path.join(dir, filename), buffer)
+        // Vlakke bestandsnaam (slug + soort) i.p.v. submap per maatschappij —
+        // past bij de nieuwe dynamische $filename-serveerroute.
+        const filename = `${data.slug}-${data.soort}.${ext}`
+        await writeFile(path.join(COMPANIES_DIR, filename), buffer)
 
-        return { url: `/companies/${data.slug}/${filename}` }
+        return { url: `/api/uploads/companies/${filename}` }
     })
