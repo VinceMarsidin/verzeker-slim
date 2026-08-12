@@ -28,10 +28,7 @@ export const haalAlleMaatschappijen = createServerFn({ method: 'GET' }).handler(
     async () => {
         await vereisAdmin()
 
-        // Los van de basisdata gehaald (niet in dezelfde query met dubbele
-        // leftJoin), anders vermenigvuldigen de premie- en review-aantallen
-        // elkaar door de cartesian-product-werking van twee gelijktijdige
-        // leftJoins op één-op-veel-relaties.
+
         const [bedrijven, premieTellingen, reviewTellingen] = await Promise.all([
             db.select().from(companies).orderBy(asc(companies.name)),
             db
@@ -120,4 +117,12 @@ export const werkMaatschappijBij = createServerFn({ method: 'POST' })
             .returning()
 
         return bijgewerkt
+    })
+
+export const verwijderMaatschappij = createServerFn({ method: 'POST' })
+    .validator((id: number) => id)
+    .handler(async ({ data: id }) => {
+        await vereisAdmin()
+        await db.delete(companies).where(eq(companies.id, id))
+        return { success: true }
     })

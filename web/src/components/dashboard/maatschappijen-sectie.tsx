@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
-import { Pencil } from 'lucide-react'
+import { Pencil, Trash2 } from 'lucide-react'
 
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -16,6 +16,7 @@ import {
   haalAlleMaatschappijen,
   maakMaatschappij,
   werkMaatschappijBij,
+  verwijderMaatschappij,
 } from '@/lib/server/admin-companies'
 import { uploadCompanyImage } from '@/lib/server/upload-company-image'
 
@@ -182,6 +183,13 @@ export function MaatschappijenSectie() {
     },
     onError: (err: Error) => {
       setFormError(err.message || 'Opslaan mislukt.')
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => verwijderMaatschappij({ data: id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-companies'] })
     },
   })
 
@@ -353,9 +361,23 @@ export function MaatschappijenSectie() {
                   <td className="p-4 text-right text-ink-soft">{m.aantalPremies}</td>
                   <td className="p-4 text-right text-ink-soft">{m.aantalReviews}</td>
                   <td className="p-4">
-                    <div className="flex justify-end">
+                    <div className="flex justify-end gap-2">
                       <IconButton onClick={() => openEdit(m)} variant="default">
                         <Pencil className="h-3.5 w-3.5" />
+                      </IconButton>
+                      <IconButton
+                        variant="danger"
+                        onClick={() => {
+                          if (
+                            confirm(
+                              `Weet je zeker dat je "${m.name}" wilt verwijderen? Dit verwijdert ook automatisch alle ${m.aantalPremies} premie(s) en ${m.aantalReviews} review(s) die hieraan gekoppeld zijn.`,
+                            )
+                          ) {
+                            deleteMutation.mutate(m.id)
+                          }
+                        }}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
                       </IconButton>
                     </div>
                   </td>
@@ -467,21 +489,41 @@ export function MaatschappijenSectie() {
               <p className="mt-2 text-sm text-red-600">{formError}</p>
             )}
 
-            <div className="mt-6 flex justify-end gap-2">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setModalOpen(false)}
-              >
-                Annuleren
-              </Button>
-              <Button
-                type="submit"
-                disabled={saveMutation.isPending}
-                className="bg-ink hover:bg-ink/90"
-              >
-                {saveMutation.isPending ? 'Opslaan...' : 'Opslaan'}
-              </Button>
+            <div className="mt-6 flex items-center justify-between gap-2">
+              {editing && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (
+                      confirm(
+                        `Weet je zeker dat je "${editing.name}" wilt verwijderen? Dit verwijdert ook automatisch alle ${editing.aantalPremies} premie(s) en ${editing.aantalReviews} review(s) die hieraan gekoppeld zijn.`,
+                      )
+                    ) {
+                      deleteMutation.mutate(editing.id)
+                      setModalOpen(false)
+                    }
+                  }}
+                  className="text-sm font-medium text-red-600 hover:underline"
+                >
+                  Verwijderen
+                </button>
+              )}
+              <div className="ml-auto flex gap-2">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setModalOpen(false)}
+                >
+                  Annuleren
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={saveMutation.isPending}
+                  className="bg-ink hover:bg-ink/90"
+                >
+                  {saveMutation.isPending ? 'Opslaan...' : 'Opslaan'}
+                </Button>
+              </div>
             </div>
           </form>
         </Modal>
