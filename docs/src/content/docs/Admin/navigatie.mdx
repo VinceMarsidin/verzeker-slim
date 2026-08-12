@@ -1,0 +1,49 @@
+---
+title: Navigatie
+description: Hoe de navbar en footer werken, inclusief het gedrag bij in- en uitloggen.
+---
+
+## Overzicht
+
+De navbar en footer staan op vrijwel elke pagina van VerzekerSlim en zorgen voor consistente navigatie door de site.
+
+## Navbar
+
+De navbar bovenaan de pagina bevat:
+
+- Het **logo** (VerzekerSlim), linkt naar de homepage.
+- Vier hoofdlinks: **Home**, **Vergelijkingen**, **Premie berekenen**, **Contact**.
+- Rechts: accountacties (zie hieronder).
+
+### Op mobiel
+
+Op kleinere schermen worden de hoofdlinks en accountacties verborgen achter een **hamburgermenu**. Bij het openen klapt een menu uit met dezelfde links, plus de accountacties onderaan.
+
+### Accountacties in de navbar
+
+Het rechterdeel van de navbar verandert afhankelijk van of je bent ingelogd:
+
+**Niet ingelogd:**
+- Knop **Inloggen** (naar `/account/login`)
+- Knop **Registreren** (naar `/account/register`)
+
+**Wel ingelogd:**
+- Als je de rol `admin` hebt: een extra **Dashboard**-link (naar `/dashboard`) — deze is **niet zichtbaar** voor gewone gebruikers.
+- Je **profiel**: je profielfoto (of een letter-badge als je geen foto hebt ingesteld) met je naam ernaast, klikbaar naar `/account`.
+- Een knop **Uitloggen**.
+
+Terwijl de sessie nog geladen wordt, toont de navbar kort een lege, pulserende placeholder in plaats van de accountknoppen.
+
+:::note
+Zie [Inloggen en registreren](/authenticatie) voor hoe sessies en rollen precies werken.
+:::
+
+## Footer
+
+De footer onderaan de pagina bevat:
+
+- De naam **VerzekerSlim**.
+- **Producten** — links naar de vergelijkingspagina per categorie: Motorverzekering, Reisverzekering, Woonverzekering, Levensverzekering.
+- **Bedrijf** — een link naar [Contact](/contact).
+- **Contact** — het e-mailadres `info@verzekerslim.sr`.
+- Onderaan een copyrightregel met het huidige jaartal.
