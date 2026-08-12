@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Company } from '@/lib/types/insurance'
 import { CompanyLogo } from '@/components/companies/company-logo'
 
@@ -8,7 +8,6 @@ interface HeroSlideshowProps {
 }
 
 const AUTO_ADVANCE_MS = 5000
-
 
 export function HeroSlideshow({ companies }: HeroSlideshowProps) {
   const slides = companies.filter((c) => c.homepageImage)
@@ -49,7 +48,6 @@ export function HeroSlideshow({ companies }: HeroSlideshowProps) {
         ))}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
 
-        {/* Click zones voor vorige/volgende */}
         {slides.length > 1 && (
           <>
             <button
@@ -81,7 +79,6 @@ export function HeroSlideshow({ companies }: HeroSlideshowProps) {
           </>
         )}
 
-        {/* Content */}
         <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-6 text-paper-raised">
           <div className="flex items-center gap-3">
             <CompanyLogo
@@ -97,9 +94,9 @@ export function HeroSlideshow({ companies }: HeroSlideshowProps) {
               <h3 className="font-slab text-2xl font-bold">{active.name}</h3>
             </div>
           </div>
+        </div>
       </a>
 
-      {/* Dots */}
       {slides.length > 1 && (
         <div className="flex items-center justify-center gap-2 border-t border-line bg-paper-raised py-3">
           {slides.map((company, i) => (
@@ -108,9 +105,8 @@ export function HeroSlideshow({ companies }: HeroSlideshowProps) {
               type="button"
               onClick={() => goTo(i)}
               aria-label={`Ga naar ${company.name}`}
-              className={`h-1.5 rounded-full transition-all ${
-                i === index ? 'w-6 bg-stamp-dark' : 'w-1.5 bg-line hover:bg-slate'
-              }`}
+              className={`h-1.5 rounded-full transition-all ${i === index ? 'w-6 bg-stamp-dark' : 'w-1.5 bg-line hover:bg-slate'
+                }`}
             />
           ))}
         </div>
