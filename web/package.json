@@ -21,7 +21,8 @@
     "db:studio": "drizzle-kit studio",
     "create-admin": "tsx scripts/create-admin.ts",
     "diagnose-user": "tsx scripts/diagnose-user.ts",
-    "promote-admin": "tsx scripts/promote-admin.ts"
+    "promote-admin": "tsx scripts/promote-admin.ts",
+    "start": "node .output/server/index.mjs"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.7.6",

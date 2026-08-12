@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Car, Home, Plane, ShieldCheck } from 'lucide-react'
 
-import { SearchInput } from '#/components/ui/search-input'
+import { SearchInput } from '#/components/dashboard/search-input'
 import { avatarKleur } from '#/lib/avatar-color'
 import type { Premie } from '#/lib/types'
 
@@ -66,11 +66,10 @@ function VergelijkingenPage() {
               <button
                 key={c.id}
                 onClick={() => setCategorie(c.id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  isActief
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all ${isActief
                     ? 'bg-white text-blue-700 shadow-sm'
                     : 'text-slate-500 hover:text-blue-700'
-                }`}
+                  }`}
               >
                 {Icon && <Icon size={14} strokeWidth={2.25} />}
                 {c.label}
