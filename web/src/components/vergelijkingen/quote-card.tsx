@@ -72,7 +72,7 @@ export function QuoteCard({ quote, insuranceType }: QuoteCardProps) {
       </div>
 
       <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end sm:gap-4">
-        <div className="text-right">
+        <div className="text-center sm:text-right">
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
             Premie
           </p>
