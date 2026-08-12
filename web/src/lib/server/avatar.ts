@@ -7,6 +7,13 @@ import path from 'node:path'
 import { auth } from '@/lib/auth'
 import { avatarUploadSchema } from '@/lib/validators/avatar.schema'
 
+// Zelfde map als in de nieuwe uploads/avatars.$filename.ts-serveerroute.
+// Bewust BUITEN public/, zie toelichting daar.
+const AVATARS_DIR =
+    process.env.UPLOADS_DIR
+        ? path.join(process.env.UPLOADS_DIR, 'avatars')
+        : path.join(process.cwd(), 'data', 'uploads', 'avatars')
+
 export const uploadAvatar = createServerFn({ method: 'POST' })
     .validator(avatarUploadSchema)
     .handler(async ({ data }) => {
@@ -26,20 +33,17 @@ export const uploadAvatar = createServerFn({ method: 'POST' })
         const ext = extRaw === 'jpeg' ? 'jpg' : extRaw
         const buffer = Buffer.from(base64, 'base64')
 
-        // Nogmaals checken op de daadwerkelijke bytes, niet alleen de
-        // base64-stringlengte (die kan iets afwijken van de echte bestandsgrootte).
         if (buffer.byteLength > 2 * 1024 * 1024) {
             throw new Error('Afbeelding is te groot (max 2MB).')
         }
 
-        const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'avatars')
-        await mkdir(uploadsDir, { recursive: true })
+        await mkdir(AVATARS_DIR, { recursive: true })
 
-        // Bestandsnaam wordt door de server bepaald (userId + willekeurige id),
-        // nooit de originele bestandsnaam van de gebruiker — voorkomt path
-        // traversal en naamconflicten tussen gebruikers.
         const filename = `${session.user.id}-${randomUUID()}.${ext}`
-        await writeFile(path.join(uploadsDir, filename), buffer)
+        await writeFile(path.join(AVATARS_DIR, filename), buffer)
 
-        return { url: `/uploads/avatars/${filename}` }
+        // Nieuwe URL: via de dynamische serveerroute, niet meer via /uploads/...
+        // (dat pad hoort bij de statische public/-map en werkt niet meer na een
+        // productie-build).
+        return { url: `/api/uploads/avatars/${filename}` }
     })

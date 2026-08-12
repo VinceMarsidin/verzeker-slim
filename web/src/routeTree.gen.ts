@@ -33,6 +33,8 @@ import { Route as ApiPremiesIndexRouteImport } from './routes/api/premies/index'
 import { Route as ApiPremiesIdRouteImport } from './routes/api/premies/$id'
 import { Route as ApiV1SplatRouteImport } from './routes/api/v1/$'
 import { Route as ApiAuthMaatschappijenSlugRouteImport } from './routes/api/auth/maatschappijen.$slug'
+import { Route as ApiUploadsAvatarsFilenameRouteImport } from './routes/api/uploads/avatars.$filename'
+import { Route as ApiUploadsCompaniesFilenameRouteImport } from './routes/api/uploads/companies.$filename'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -155,6 +157,18 @@ const ApiAuthMaatschappijenSlugRoute =
     path: '/api/auth/maatschappijen/$slug',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiUploadsAvatarsFilenameRoute =
+  ApiUploadsAvatarsFilenameRouteImport.update({
+    id: '/api/uploads/avatars/$filename',
+    path: '/api/uploads/avatars/$filename',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiUploadsCompaniesFilenameRoute =
+  ApiUploadsCompaniesFilenameRouteImport.update({
+    id: '/api/uploads/companies/$filename',
+    path: '/api/uploads/companies/$filename',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -180,6 +194,8 @@ export interface FileRoutesByFullPath {
   '/api/maatschappijen/': typeof ApiMaatschappijenIndexRoute
   '/api/premies/': typeof ApiPremiesIndexRoute
   '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
+  '/api/uploads/avatars/$filename': typeof ApiUploadsAvatarsFilenameRoute
+  '/api/uploads/companies/$filename': typeof ApiUploadsCompaniesFilenameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -205,6 +221,8 @@ export interface FileRoutesByTo {
   '/api/maatschappijen': typeof ApiMaatschappijenIndexRoute
   '/api/premies': typeof ApiPremiesIndexRoute
   '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
+  '/api/uploads/avatars/$filename': typeof ApiUploadsAvatarsFilenameRoute
+  '/api/uploads/companies/$filename': typeof ApiUploadsCompaniesFilenameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -232,6 +250,8 @@ export interface FileRoutesById {
   '/api/maatschappijen/': typeof ApiMaatschappijenIndexRoute
   '/api/premies/': typeof ApiPremiesIndexRoute
   '/api/auth/maatschappijen/$slug': typeof ApiAuthMaatschappijenSlugRoute
+  '/api/uploads/avatars/$filename': typeof ApiUploadsAvatarsFilenameRoute
+  '/api/uploads/companies/$filename': typeof ApiUploadsCompaniesFilenameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -259,6 +279,8 @@ export interface FileRouteTypes {
     | '/api/maatschappijen/'
     | '/api/premies/'
     | '/api/auth/maatschappijen/$slug'
+    | '/api/uploads/avatars/$filename'
+    | '/api/uploads/companies/$filename'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -284,6 +306,8 @@ export interface FileRouteTypes {
     | '/api/maatschappijen'
     | '/api/premies'
     | '/api/auth/maatschappijen/$slug'
+    | '/api/uploads/avatars/$filename'
+    | '/api/uploads/companies/$filename'
   id:
     | '__root__'
     | '/'
@@ -310,6 +334,8 @@ export interface FileRouteTypes {
     | '/api/maatschappijen/'
     | '/api/premies/'
     | '/api/auth/maatschappijen/$slug'
+    | '/api/uploads/avatars/$filename'
+    | '/api/uploads/companies/$filename'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -336,6 +362,8 @@ export interface RootRouteChildren {
   ApiMaatschappijenIndexRoute: typeof ApiMaatschappijenIndexRoute
   ApiPremiesIndexRoute: typeof ApiPremiesIndexRoute
   ApiAuthMaatschappijenSlugRoute: typeof ApiAuthMaatschappijenSlugRoute
+  ApiUploadsAvatarsFilenameRoute: typeof ApiUploadsAvatarsFilenameRoute
+  ApiUploadsCompaniesFilenameRoute: typeof ApiUploadsCompaniesFilenameRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -508,6 +536,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthMaatschappijenSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/uploads/avatars/$filename': {
+      id: '/api/uploads/avatars/$filename'
+      path: '/api/uploads/avatars/$filename'
+      fullPath: '/api/uploads/avatars/$filename'
+      preLoaderRoute: typeof ApiUploadsAvatarsFilenameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/uploads/companies/$filename': {
+      id: '/api/uploads/companies/$filename'
+      path: '/api/uploads/companies/$filename'
+      fullPath: '/api/uploads/companies/$filename'
+      preLoaderRoute: typeof ApiUploadsCompaniesFilenameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -547,6 +589,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMaatschappijenIndexRoute: ApiMaatschappijenIndexRoute,
   ApiPremiesIndexRoute: ApiPremiesIndexRoute,
   ApiAuthMaatschappijenSlugRoute: ApiAuthMaatschappijenSlugRoute,
+  ApiUploadsAvatarsFilenameRoute: ApiUploadsAvatarsFilenameRoute,
+  ApiUploadsCompaniesFilenameRoute: ApiUploadsCompaniesFilenameRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
