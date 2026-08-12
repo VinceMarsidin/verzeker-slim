@@ -89,26 +89,26 @@ function CompanyImageUploader({
 
   return (
     <FormField label={label}>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
         {value ? (
           <img
             src={value}
             alt=""
-            className="h-12 w-12 rounded-[4px] border border-line bg-white object-contain p-1"
+            className="h-10 w-10 shrink-0 rounded-[4px] border border-line bg-white object-contain p-1"
           />
         ) : (
-          <div className="flex h-12 w-12 items-center justify-center rounded-[4px] border border-dashed border-line text-xs text-ink-soft">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border border-dashed border-line text-[10px] text-ink-soft">
             geen
           </div>
         )}
-        <div>
+        <div className="min-w-0">
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
             className="text-sm font-medium text-stamp-dark hover:underline"
           >
-            {isUploading ? 'Bezig met uploaden...' : value ? 'Vervangen' : 'Uploaden'}
+            {isUploading ? 'Bezig...' : value ? 'Vervangen' : 'Uploaden'}
           </button>
           {error && <p className="text-xs text-red-600">{error}</p>}
         </div>
@@ -383,7 +383,7 @@ export function MaatschappijenSectie() {
                   name="region"
                   defaultValue={editing?.region ?? regioOpties[0]}
                   required
-                  className={inputClass}
+                  className={`${inputClass} appearance-none`}
                 >
                   {regioOpties.map((regio) => (
                     <option key={regio} value={regio}>
@@ -392,7 +392,7 @@ export function MaatschappijenSectie() {
                   ))}
                 </select>
               </FormField>
-              <FormField label="Logo-letter (fallback, max 2 tekens)">
+              <FormField label="Logo-letter (max 2 tekens)">
                 <input
                   name="logoInitial"
                   defaultValue={editing?.logoInitial}
@@ -415,23 +415,25 @@ export function MaatschappijenSectie() {
               />
             </FormField>
 
-            <CompanyImageUploader
-              label="Logo"
-              name="logoUrl"
-              slug={slugVeld}
-              soort="logo"
-              value={logoUrlVeld}
-              onChange={setLogoUrlVeld}
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <CompanyImageUploader
+                label="Logo"
+                name="logoUrl"
+                slug={slugVeld}
+                soort="logo"
+                value={logoUrlVeld}
+                onChange={setLogoUrlVeld}
+              />
 
-            <CompanyImageUploader
-              label="Homepage-afbeelding"
-              name="homepageImage"
-              slug={slugVeld}
-              soort="homepage"
-              value={homepageImageVeld}
-              onChange={setHomepageImageVeld}
-            />
+              <CompanyImageUploader
+                label="Homepage-afbeelding"
+                name="homepageImage"
+                slug={slugVeld}
+                soort="homepage"
+                value={homepageImageVeld}
+                onChange={setHomepageImageVeld}
+              />
+            </div>
 
             <FormField label="Beschrijving">
               <textarea
