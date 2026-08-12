@@ -1,33 +1,39 @@
 import { useState } from 'react'
-import { Banknote, Building2, Mail } from 'lucide-react'
+import { Banknote, Building2, Mail, Star } from 'lucide-react'
 
 import type { SectieId } from '#/lib/types'
 
 import { MaatschappijenSectie } from './maatschappijen-sectie'
 import { PremiesSectie } from './premies-sectie'
 import { ContactSectie } from './contact-sectie'
+import { ReviewsSectie } from './reviews-sectie'
 
 const secties: {
   id: SectieId
   label: string
   icon: typeof Banknote
 }[] = [
-  {
-    id: 'premies',
-    label: 'Premies',
-    icon: Banknote,
-  },
-  {
-    id: 'maatschappijen',
-    label: 'Maatschappijen',
-    icon: Building2,
-  },
-  {
-    id: 'contact',
-    label: 'Contact',
-    icon: Mail,
-  },
-]
+    {
+      id: 'premies',
+      label: 'Premies',
+      icon: Banknote,
+    },
+    {
+      id: 'maatschappijen',
+      label: 'Maatschappijen',
+      icon: Building2,
+    },
+    {
+      id: 'reviews',
+      label: 'Reviews',
+      icon: Star,
+    },
+    {
+      id: 'contact',
+      label: 'Contact',
+      icon: Mail,
+    },
+  ]
 
 export function DashboardShell() {
   const [actieveSectie, setActieveSectie] =
@@ -45,11 +51,10 @@ export function DashboardShell() {
             <button
               key={sectie.id}
               onClick={() => setActieveSectie(sectie.id)}
-              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
-                isActief
+              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${isActief
                   ? 'bg-white text-ink shadow-[0_2px_8px_rgba(13,59,102,0.10)]'
                   : 'text-ink-soft hover:text-ink'
-              }`}
+                }`}
             >
               <Icon className="h-4 w-4" />
               {sectie.label}
@@ -64,6 +69,8 @@ export function DashboardShell() {
       {actieveSectie === 'maatschappijen' && (
         <MaatschappijenSectie />
       )}
+
+      {actieveSectie === 'reviews' && <ReviewsSectie />}
 
       {actieveSectie === 'contact' && <ContactSectie />}
     </main>

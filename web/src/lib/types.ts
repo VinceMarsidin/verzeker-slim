@@ -22,4 +22,15 @@ export interface ContactBericht {
   createdAt: string
 }
 
-export type SectieId = 'premies' | 'maatschappijen' | 'contact'
+export interface ReviewAdmin {
+  id: number
+  companyName: string
+  companySlug: string
+  userName: string
+  rating: number
+  title: string
+  body: string
+  createdAt: Date | null
+}
+
+export type SectieId = 'premies' | 'maatschappijen' | 'contact' | 'reviews'
