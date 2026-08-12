@@ -72,11 +72,11 @@ export function QuoteCard({ quote, insuranceType }: QuoteCardProps) {
       </div>
 
       <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end sm:gap-4">
-        <div className="text-center sm:text-right">
+        <div className="text-right">
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
             Premie
           </p>
-          <p className="font-mono text-2xl font-bold tabular-nums text-ink">
+          <p className="whitespace-nowrap font-mono text-2xl font-bold tabular-nums text-ink">
             {quote.currency} {quote.monthlyPremium}
             <span className="ml-1 text-sm font-medium text-ink-soft">/mnd</span>
           </p>
