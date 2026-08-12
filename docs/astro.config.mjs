@@ -6,15 +6,34 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
     integrations: [
         starlight({
-            title: 'My Docs',
+            title: 'VerzekerSlim Docs',
             social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
             sidebar: [
                 {
-
+                    label: 'Algemeen',
+                    items: [
+                        { label: 'Startpagina', slug: 'startpagina' },
+                        { label: 'Navigatie', slug: 'navigatie' },
+                    ],
+                },
+                {
                     label: 'Account',
                     items: [
                         { label: 'Inloggen en registreren', slug: 'authenticatie' },
                         { label: 'Reviews', slug: 'reviews' },
+                    ],
+                },
+                {
+                    label: 'Vergelijken',
+                    items: [
+                        { label: 'Verzekeringen vergelijken', slug: 'vergelijkingen' },
+                        { label: 'Maatschappij-pagina', slug: 'maatschappijen' },
+                    ],
+                },
+                {
+                    label: 'Premie-calculator',
+                    items: [
+                        { label: 'Premie berekenen', slug: 'premie-calculator' },
                     ],
                 },
                 {
@@ -25,52 +44,7 @@ export default defineConfig({
                         { label: 'Contact', slug: 'admin/contact' },
                     ],
                 },
-                {
-                    label: 'Premie-calculator',
-                    items: [
-                        { label: 'Premie berekenen', slug: 'premie-calculator' },
-                    ],
-                },
-                {
-                    label: 'Vergelijken',
-                    items: [
-                        { label: 'Verzekeringen vergelijken', slug: 'vergelijkingen' },
-                    ],
-                },
             ],
         }),
     ],
 });
-
-                    sidebar: [
-                        {
-                            label: 'Guides',
-                            items: [
-                                { label: 'Example Guide', slug: 'guides/example' },
-                            ],
-                        },
-                        {
-                            label: 'Reference',
-                            items: [{ autogenerate: { directory: 'reference' } }],
-                        },
-                        {
-                            label: 'Admin',
-                            items: [
-                                { label: 'Maatschappijen overzicht', slug: 'admin/dashboard' },
-                            ],
-                        },
-                        {
-                            label: 'Premie-calculator',
-                            items: [
-                                { label: 'Premie berekenen', slug: 'premie-calculator' },
-                            ],
-                        },
-                        {
-                            label: 'Vergelijken',
-                            items: [
-                                { label: 'Verzekeringen vergelijken', slug: 'vergelijkingen' },
-                            ],
-                        },
-
-                    ]
-
