@@ -39,6 +39,8 @@ export async function listCompanies(region?: Region) {
     slug: row.slug,
     name: row.name,
     logoInitial: row.logoInitial,
+    logoUrl: row.logoUrl ?? undefined,
+    homepageImage: row.homepageImage ?? undefined,
     region: row.region,
     website: row.website,
     description: row.description,
@@ -59,6 +61,8 @@ export async function getCompany(slug: string) {
     slug: row.slug,
     name: row.name,
     logoInitial: row.logoInitial,
+    logoUrl: row.logoUrl ?? undefined,
+    homepageImage: row.homepageImage ?? undefined,
     region: row.region,
     website: row.website,
     description: row.description,
@@ -219,6 +223,8 @@ export async function createReview(
         slug: company.slug,
         name: company.name,
         logoInitial: company.logoInitial,
+        logoUrl: company.logoUrl ?? null,
+        homepageImage: company.homepageImage ?? null,
         region: company.region,
         website: company.website,
         description: company.description,
@@ -251,6 +257,52 @@ export async function createReview(
   return { id: saved.id }
 }
 
+// ---------------------------------------------------------------------------
+// Seeding
+// ---------------------------------------------------------------------------
+
+/**
+ * Seedt uitsluitend de maatschappij-data (companies-tabel), inclusief
+ * logoUrl/homepageImage. Bewust los van premies gehouden, zodat dit los kan
+ * draaien van wie de premie-data seedt (voorkomt dat jullie elkaars werk
+ * overschrijven).
+ */
+export async function seedCompaniesTable() {
+  let created = 0
+  let updated = 0
+
+  for (const company of seedCompanies) {
+    const [existing] = await db.select().from(companies).where(eq(companies.slug, company.slug)).limit(1)
+
+    const values = {
+      name: company.name,
+      logoInitial: company.logoInitial,
+      logoUrl: company.logoUrl ?? null,
+      homepageImage: company.homepageImage ?? null,
+      region: company.region,
+      website: company.website,
+      description: company.description,
+    }
+
+    if (existing) {
+      await db.update(companies).set(values).where(eq(companies.id, existing.id))
+      updated++
+      continue
+    }
+
+    await db.insert(companies).values({ slug: company.slug, ...values })
+    created++
+  }
+
+  return { created, updated, total: seedCompanies.length }
+}
+
+/**
+ * Seedt zowel companies als premies in één keer, gebaseerd op de hardcoded
+ * data. Blijft bestaan voor wie het complete pakket in één keer wil vullen,
+ * maar overlapt met seedCompaniesTable() hierboven — gebruik niet allebei tegen
+ * dezelfde lege database zonder overleg met wie de premies seedt.
+ */
 export async function seedDatabase() {
   for (const company of seedCompanies) {
     const [existing] = await db.select().from(companies).where(eq(companies.slug, company.slug)).limit(1)
@@ -262,6 +314,8 @@ export async function seedDatabase() {
         slug: company.slug,
         name: company.name,
         logoInitial: company.logoInitial,
+        logoUrl: company.logoUrl ?? null,
+        homepageImage: company.homepageImage ?? null,
         region: company.region,
         website: company.website,
         description: company.description,
