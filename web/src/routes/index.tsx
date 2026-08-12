@@ -10,9 +10,13 @@ import {
 } from '@/components/ui/accordion'
 import { HeroSlideshow } from '@/components/home/hero-slideshow'
 import { PremieLedger } from '@/components/home/premie-ledger'
-import { companies } from '@/lib/data/companies'
+import { getCompaniesFn } from '@/lib/server/insurance'
 
 export const Route = createFileRoute('/')({
+  loader: async () => {
+    const companies = await getCompaniesFn({ data: undefined })
+    return { companies }
+  },
   component: HomePage,
 })
 
@@ -54,7 +58,6 @@ const categorieen = [
   },
 ]
 
-// Feitelijke cijfers over het platform zelf, geen verzonnen social proof.
 const stats = [
   { value: '37+', label: 'verzekeraars in 8 regio\'s' },
   { value: '100%', label: 'gratis voor consumenten' },
@@ -90,9 +93,9 @@ const faqs = [
 ]
 
 function HomePage() {
+  const { companies } = Route.useLoaderData()
   return (
     <div className="bg-paper text-ink">
-      {/* Hero */}
       <section className="px-6 pb-14 pt-6 sm:px-10 sm:pt-8 md:pb-20 md:pt-10 lg:px-16 xl:px-20">
         <div className="rise-in mx-auto max-w-[1520px]">
           <HeroSlideshow companies={companies} />
@@ -137,7 +140,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Stats */}
       <section className="border-b border-line bg-paper-raised px-8 py-14">
         <div className="mx-auto grid max-w-3xl grid-cols-1 gap-8 text-center md:grid-cols-3">
           {stats.map((s) => (
@@ -149,7 +151,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Hoe het werkt */}
       <section id="hoe-het-werkt" className="mx-auto max-w-5xl px-8 py-20">
         <h2 className="text-center font-slab text-[28px] font-bold">Hoe het werkt</h2>
         <p className="mx-auto mt-3 max-w-lg text-center text-ink-soft">
@@ -172,7 +173,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Categorieën */}
       <section className="mx-auto max-w-5xl px-8 py-20">
         <h2 className="text-center font-slab text-[28px] font-bold">Kies jouw verzekering</h2>
         <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-4">
@@ -204,7 +204,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="mx-auto max-w-2xl px-8 py-20">
         <h2 className="text-center font-slab text-[28px] font-bold">Veelgestelde vragen</h2>
         <Accordion type="single" collapsible className="mt-10">
@@ -221,7 +220,6 @@ function HomePage() {
         </Accordion>
       </section>
 
-      {/* Vertrouwen + Final CTA */}
       <section className="mx-auto my-8 max-w-5xl px-8 pb-20">
         <div className="flex flex-col items-start gap-8 overflow-hidden rounded-[6px] border border-line bg-paper-raised md:flex-row md:items-stretch">
           <div className="relative h-56 w-full md:h-auto md:w-2/5">
