@@ -1,26 +1,37 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
-import { asc, count } from 'drizzle-orm'
+import { asc, count, eq } from 'drizzle-orm'
+import { z } from 'zod'
 
 import { db } from '@/db'
 import { companies, premiums, reviews } from '@/db/schema'
 import { auth } from '@/lib/auth'
+import { companyAdminSchema } from '@/lib/validators/company.schema'
+
+async function vereisAdmin() {
+    const request = getRequest()
+    const session = await auth.api.getSession({ headers: request.headers })
+
+    if (!session?.user) {
+        throw new Error('Niet ingelogd.')
+    }
+
+    const role = (session.user as { role?: string }).role
+    if (role !== 'admin') {
+        throw new Error('Geen toegang: adminrechten vereist.')
+    }
+
+    return session
+}
 
 export const haalAlleMaatschappijen = createServerFn({ method: 'GET' }).handler(
     async () => {
-        const request = getRequest()
-        const session = await auth.api.getSession({ headers: request.headers })
+        await vereisAdmin()
 
-        if (!session?.user) {
-            throw new Error('Niet ingelogd.')
-        }
-
-        const role = (session.user as { role?: string }).role
-        if (role !== 'admin') {
-            throw new Error('Geen toegang: adminrechten vereist.')
-        }
-
-
+        // Los van de basisdata gehaald (niet in dezelfde query met dubbele
+        // leftJoin), anders vermenigvuldigen de premie- en review-aantallen
+        // elkaar door de cartesian-product-werking van twee gelijktijdige
+        // leftJoins op één-op-veel-relaties.
         const [bedrijven, premieTellingen, reviewTellingen] = await Promise.all([
             db.select().from(companies).orderBy(asc(companies.name)),
             db
@@ -43,3 +54,70 @@ export const haalAlleMaatschappijen = createServerFn({ method: 'GET' }).handler(
         }))
     },
 )
+
+export const maakMaatschappij = createServerFn({ method: 'POST' })
+    .validator(companyAdminSchema)
+    .handler(async ({ data }) => {
+        await vereisAdmin()
+
+        const [bestaand] = await db
+            .select({ id: companies.id })
+            .from(companies)
+            .where(eq(companies.slug, data.slug))
+            .limit(1)
+
+        if (bestaand) {
+            throw new Error('Er bestaat al een maatschappij met deze slug.')
+        }
+
+        const [aangemaakt] = await db
+            .insert(companies)
+            .values({
+                slug: data.slug,
+                name: data.name,
+                logoInitial: data.logoInitial,
+                logoUrl: data.logoUrl || null,
+                homepageImage: data.homepageImage || null,
+                region: data.region,
+                website: data.website,
+                description: data.description,
+            })
+            .returning()
+
+        return aangemaakt
+    })
+
+export const werkMaatschappijBij = createServerFn({ method: 'POST' })
+    .validator(companyAdminSchema.extend({ id: z.number() }))
+    .handler(async ({ data }) => {
+        await vereisAdmin()
+
+        const { id, ...velden } = data
+
+        const [bestaand] = await db
+            .select({ id: companies.id })
+            .from(companies)
+            .where(eq(companies.slug, velden.slug))
+            .limit(1)
+
+        if (bestaand && bestaand.id !== id) {
+            throw new Error('Er bestaat al een andere maatschappij met deze slug.')
+        }
+
+        const [bijgewerkt] = await db
+            .update(companies)
+            .set({
+                slug: velden.slug,
+                name: velden.name,
+                logoInitial: velden.logoInitial,
+                logoUrl: velden.logoUrl || null,
+                homepageImage: velden.homepageImage || null,
+                region: velden.region,
+                website: velden.website,
+                description: velden.description,
+            })
+            .where(eq(companies.id, id))
+            .returning()
+
+        return bijgewerkt
+    })
