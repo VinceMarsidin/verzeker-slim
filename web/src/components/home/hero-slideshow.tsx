@@ -97,11 +97,6 @@ export function HeroSlideshow({ companies }: HeroSlideshowProps) {
               <h3 className="font-slab text-2xl font-bold">{active.name}</h3>
             </div>
           </div>
-          <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-[4px] bg-stamp-dark px-5 py-2.5 text-sm font-semibold text-white transition-colors">
-            Bezoek site
-            <ExternalLink className="h-3.5 w-3.5" />
-          </span>
-        </div>
       </a>
 
       {/* Dots */}
