@@ -20,7 +20,6 @@ import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as AccountLoginRouteImport } from './routes/account/login'
 import { Route as AccountRegisterRouteImport } from './routes/account/register'
 import { Route as AdminBerichtenRouteImport } from './routes/admin/berichten'
-import { Route as AdminCompaniesRouteImport } from './routes/admin/companies'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as MaatschappijenSlugRouteImport } from './routes/maatschappijen.$slug'
@@ -88,11 +87,6 @@ const AccountRegisterRoute = AccountRegisterRouteImport.update({
 const AdminBerichtenRoute = AdminBerichtenRouteImport.update({
   id: '/admin/berichten',
   path: '/admin/berichten',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminCompaniesRoute = AdminCompaniesRouteImport.update({
-  id: '/admin/companies',
-  path: '/admin/companies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -172,7 +166,6 @@ export interface FileRoutesByFullPath {
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
   '/admin/berichten': typeof AdminBerichtenRoute
-  '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
@@ -198,7 +191,6 @@ export interface FileRoutesByTo {
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
   '/admin/berichten': typeof AdminBerichtenRoute
-  '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
@@ -226,7 +218,6 @@ export interface FileRoutesById {
   '/account/login': typeof AccountLoginRoute
   '/account/register': typeof AccountRegisterRoute
   '/admin/berichten': typeof AdminBerichtenRoute
-  '/admin/companies': typeof AdminCompaniesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/users': typeof AdminUsersRoute
   '/maatschappijen/$slug': typeof MaatschappijenSlugRoute
@@ -254,7 +245,6 @@ export interface FileRouteTypes {
     | '/account/login'
     | '/account/register'
     | '/admin/berichten'
-    | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
     | '/maatschappijen/$slug'
@@ -280,7 +270,6 @@ export interface FileRouteTypes {
     | '/account/login'
     | '/account/register'
     | '/admin/berichten'
-    | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
     | '/maatschappijen/$slug'
@@ -307,7 +296,6 @@ export interface FileRouteTypes {
     | '/account/login'
     | '/account/register'
     | '/admin/berichten'
-    | '/admin/companies'
     | '/admin/dashboard'
     | '/admin/users'
     | '/maatschappijen/$slug'
@@ -335,7 +323,6 @@ export interface RootRouteChildren {
   AccountLoginRoute: typeof AccountLoginRoute
   AccountRegisterRoute: typeof AccountRegisterRoute
   AdminBerichtenRoute: typeof AdminBerichtenRoute
-  AdminCompaniesRoute: typeof AdminCompaniesRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminUsersRoute: typeof AdminUsersRoute
   MaatschappijenSlugRoute: typeof MaatschappijenSlugRoute
@@ -428,13 +415,6 @@ declare module '@tanstack/react-router' {
       path: '/admin/berichten'
       fullPath: '/admin/berichten'
       preLoaderRoute: typeof AdminBerichtenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/companies': {
-      id: '/admin/companies'
-      path: '/admin/companies'
-      fullPath: '/admin/companies'
-      preLoaderRoute: typeof AdminCompaniesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/dashboard': {
@@ -554,7 +534,6 @@ const rootRouteChildren: RootRouteChildren = {
   AccountLoginRoute: AccountLoginRoute,
   AccountRegisterRoute: AccountRegisterRoute,
   AdminBerichtenRoute: AdminBerichtenRoute,
-  AdminCompaniesRoute: AdminCompaniesRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminUsersRoute: AdminUsersRoute,
   MaatschappijenSlugRoute: MaatschappijenSlugRoute,

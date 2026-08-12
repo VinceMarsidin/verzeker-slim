@@ -269,17 +269,12 @@ export async function createReview(
  */
 export async function seedCompaniesTable() {
   let created = 0
-  let skipped = 0
+  let updated = 0
 
   for (const company of seedCompanies) {
     const [existing] = await db.select().from(companies).where(eq(companies.slug, company.slug)).limit(1)
-    if (existing) {
-      skipped++
-      continue
-    }
 
-    await db.insert(companies).values({
-      slug: company.slug,
+    const values = {
       name: company.name,
       logoInitial: company.logoInitial,
       logoUrl: company.logoUrl ?? null,
@@ -287,11 +282,19 @@ export async function seedCompaniesTable() {
       region: company.region,
       website: company.website,
       description: company.description,
-    })
+    }
+
+    if (existing) {
+      await db.update(companies).set(values).where(eq(companies.id, existing.id))
+      updated++
+      continue
+    }
+
+    await db.insert(companies).values({ slug: company.slug, ...values })
     created++
   }
 
-  return { created, skipped, total: seedCompanies.length }
+  return { created, updated, total: seedCompanies.length }
 }
 
 /**

@@ -1,5 +1,4 @@
 import { config } from 'dotenv'
-import { seedCompaniesTable } from '../src/lib/services/insurance.ts'
 
 config({ path: ['.env.local', '.env'] })
 
@@ -9,9 +8,11 @@ async function main() {
         process.exit(1)
     }
 
+    const { seedCompaniesTable } = await import('../src/lib/services/insurance.ts')
+
     console.log('Maatschappijen seeden (companies-tabel)...')
     const result = await seedCompaniesTable()
-    console.log(`Klaar. ${result.created} toegevoegd, ${result.skipped} bestonden al (van de ${result.total} totaal).`)
+    console.log(`Klaar. ${result.created} nieuw toegevoegd, ${result.updated} bijgewerkt (van de ${result.total} totaal).`)
     process.exit(0)
 }
 
