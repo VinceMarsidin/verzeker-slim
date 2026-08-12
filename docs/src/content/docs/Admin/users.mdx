@@ -15,24 +15,50 @@ VerzekerSlim heeft een eenvoudig rollensysteem met twee rollen: **`user`** (stan
 
 ## Wat kan een gewone gebruiker (`user`)?
 
-- Inloggen/uitloggen en het eigen account gebruiken
-- [Reviews plaatsen](/vergelijkingen) op maatschappij-pagina's
-- Het [contactformulier](/admin/contact) gebruiken (dit kan trouwens ook zonder account)
+- Inloggen/uitloggen en het eigen account beheren op `/account` (naam, profielfoto, wachtwoord, e-mailadres, account verwijderen).
+- [Reviews plaatsen](/maatschappijen) op maatschappij-detailpagina's.
+- De eigen geplaatste reviews terugzien op `/account`.
+- Het [contactformulier](/admin/contact) gebruiken (dit kan ook zonder account).
 
 ## Wat kan een beheerder (`admin`) extra?
 
-- Toegang tot `/dashboard`: premies, maatschappijen en contactberichten beheren
+Toegang tot `/dashboard`, met vier tabbladen:
+
+- **Premies** toevoegen, bewerken en verwijderen
+- **Maatschappijen** toevoegen, bewerken en verwijderen (inclusief logo/homepage-afbeelding uploaden)
+- **Reviews** bekijken, filteren en modereren (verwijderen)
+- **Contactberichten** bekijken
+
+Zie [Dashboard overzicht](/admin/dashboard) voor de details per tabblad.
 
 ## Iemand admin maken
 
-:::caution[Nog geen UI hiervoor]
-Er is momenteel geen scherm in de applicatie om een gebruiker admin te maken — dit gebeurt rechtstreeks in de database.
-:::
+Er is geen zelfbedieningsscherm in de applicatie zelf om een gebruiker admin te maken — dit gebeurt via een command-line script, niet via de UI.
 
-In pgAdmin (of via de Query Tool op de `verzekerslim`-database):
+**Nieuw account meteen als admin aanmaken:**
 
-```sql
-UPDATE "user" SET role = 'admin' WHERE email = 'naam@voorbeeld.com';
+```
+pnpm create-admin "Naam" email@voorbeeld.com wachtwoord123
 ```
 
-Na het inloggen (of herladen van de sessie) heeft dat account toegang tot het dashboard.
+**Bestaand account admin maken:**
+
+```
+pnpm promote-admin email@voorbeeld.com
+```
+
+Dit script deblokkeert het account ook automatisch als het geblokkeerd was.
+
+**Problemen met inloggen diagnosticeren** (bijvoorbeeld als iemand meldt dat inloggen niet lukt):
+
+```
+pnpm diagnose-user email@voorbeeld.com
+```
+
+Toont de rol, of het account bestaat, en of het geblokkeerd is.
+
+:::note
+Deze scripts moeten gedraaid worden in de omgeving waar je database daadwerkelijk bereikbaar is — lokaal (met een correct ingestelde `DATABASE_URL` in `.env.local`) of in de shell/console van je hostingplatform (bijv. Railway) tegen de productiedatabase.
+:::
+
+Na het inloggen (of herladen van de sessie) heeft het account toegang tot het dashboard.

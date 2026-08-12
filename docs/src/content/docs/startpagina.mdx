@@ -20,6 +20,10 @@ Op de homepage draait een carrousel met screenshots van de homepages van deelnem
 
 Als er geen enkele maatschappij een homepage-afbeelding heeft, wordt de slideshow niet getoond.
 
+:::note
+De maatschappijen in de slideshow komen uit de database (`companies`-tabel), via dezelfde `getCompaniesFn` die ook de [vergelijkingspagina](/vergelijkingen) gebruikt. Staat de database leeg, dan valt het systeem terug op voorbeelddata, zodat de homepage nooit leeg oogt.
+:::
+
 ## Premie-voorbeeldkaart
 
 Naast de slideshow staat een kaart die laat zien hoe een premievergelijking eruitziet — bijvoorbeeld voor een autoverzekering (Casco) op een Toyota Corolla 2019. De kaart toont premies van een paar maatschappijen naast elkaar, waarbij de **laagste premie** wordt gemarkeerd met een "BESTE PREMIE"-stempel dat inanimeert zodra de pagina laadt.

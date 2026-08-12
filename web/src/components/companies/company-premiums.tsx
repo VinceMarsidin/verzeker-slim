@@ -65,7 +65,7 @@ export function CompanyPremiums({ premiums, highlightType }: CompanyPremiumsProp
                 <p className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-soft">
                   Premie
                 </p>
-                <p className="font-mono text-2xl font-bold tabular-nums text-ink">
+                <p className="whitespace-nowrap font-mono text-2xl font-bold tabular-nums text-ink">
                   {premium.currency} {premium.monthlyPremium}
                   <span className="ml-1 text-sm font-medium text-ink-soft">/mnd</span>
                 </p>

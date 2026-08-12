@@ -1,4 +1,4 @@
-import { eq, and } from 'drizzle-orm'
+import { eq, and, avg } from 'drizzle-orm'
 import { db } from '@/db'
 import { companies, premiums, reviews } from '@/db/schema'
 import { companies as seedCompanies, getCompanyBySlug, getCompaniesByRegion } from '@/lib/data/companies'
@@ -69,6 +69,15 @@ export async function getCompany(slug: string) {
   }
 }
 
+async function getGemiddeldeRatings(): Promise<Map<number, number>> {
+  const rows = await db
+    .select({ companyId: reviews.companyId, avgRating: avg(reviews.rating) })
+    .from(reviews)
+    .groupBy(reviews.companyId)
+
+  return new Map(rows.map((r) => [r.companyId, Number(r.avgRating)]))
+}
+
 export async function fetchQuotes(region: Region, type: InsuranceType): Promise<Quote[]> {
   if (!(await useDatabase())) {
     return getQuotes(region, type)
@@ -76,6 +85,7 @@ export async function fetchQuotes(region: Region, type: InsuranceType): Promise<
 
   const rows = await db
     .select({
+      companyId: companies.id,
       slug: companies.slug,
       name: companies.name,
       logoInitial: companies.logoInitial,
@@ -94,6 +104,8 @@ export async function fetchQuotes(region: Region, type: InsuranceType): Promise<
     return getQuotes(region, type)
   }
 
+  const gemiddeldeRatings = await getGemiddeldeRatings()
+
   return rows.map((row) => ({
     companySlug: row.slug,
     insurer: row.name,
@@ -101,7 +113,7 @@ export async function fetchQuotes(region: Region, type: InsuranceType): Promise<
     monthlyPremium: row.monthlyPremium,
     currency: row.currency,
     deductible: row.deductible,
-    rating: row.rating,
+    rating: gemiddeldeRatings.get(row.companyId) ?? row.rating,
     coverage: row.coverage,
     badge: row.badge as Quote['badge'] | undefined,
   }))
@@ -341,4 +353,68 @@ export async function seedDatabase() {
       }
     }
   }
+}
+
+/**
+ * Seedt de premiums-tabel op basis van quoteData, gekoppeld aan companies
+ * die al in de database staan (via companySlug -> companyId). Bewust los
+ * van seedCompaniesTable() gehouden — raakt de companies-tabel niet aan,
+ * dus dit kan veilig los draaien nadat de maatschappijen al geseed zijn.
+ */
+export async function seedPremiumsTable() {
+  let created = 0
+  let updated = 0
+  let skippedNoCompany = 0
+
+  for (const [region, types] of Object.entries(quoteData)) {
+    for (const [type, quotes] of Object.entries(types)) {
+      for (const quote of quotes) {
+        const [company] = await db
+          .select({ id: companies.id })
+          .from(companies)
+          .where(eq(companies.slug, quote.companySlug))
+          .limit(1)
+
+        if (!company) {
+          console.warn(`Geen maatschappij gevonden voor slug "${quote.companySlug}" (${region}/${type}) — overgeslagen.`)
+          skippedNoCompany++
+          continue
+        }
+
+        const [existing] = await db
+          .select({ id: premiums.id })
+          .from(premiums)
+          .where(
+            and(
+              eq(premiums.companyId, company.id),
+              eq(premiums.insuranceType, type as InsuranceType),
+            ),
+          )
+          .limit(1)
+
+        const values = {
+          monthlyPremium: quote.monthlyPremium,
+          currency: quote.currency,
+          deductible: quote.deductible,
+          rating: quote.rating,
+          coverage: quote.coverage,
+          badge: quote.badge ?? null,
+        }
+
+        if (existing) {
+          await db.update(premiums).set(values).where(eq(premiums.id, existing.id))
+          updated++
+        } else {
+          await db.insert(premiums).values({
+            companyId: company.id,
+            insuranceType: type as InsuranceType,
+            ...values,
+          })
+          created++
+        }
+      }
+    }
+  }
+
+  return { created, updated, skippedNoCompany }
 }

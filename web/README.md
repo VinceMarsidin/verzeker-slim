@@ -1,3 +1,45 @@
+# VerzekerSlim — Web App
+
+De hoofdapplicatie van VerzekerSlim: verzekeringen vergelijken, premies berekenen, reviews plaatsen, en een admin-dashboard om alles te beheren.
+
+## Tech Stack
+
+- [TanStack Start](https://tanstack.com/start) — full-stack React framework (SSR, server functions, file-based routing)
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Drizzle ORM](https://orm.drizzle.team/) + [PostgreSQL](https://www.postgresql.org/)
+- [Better Auth](https://www.better-auth.com/) — authenticatie en sessies
+- [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
+- [TanStack Query](https://tanstack.com/query)
+- [Zod](https://zod.dev/) — schema-validatie
+- [Biome](https://biomejs.dev/) — linting/formatting
+- [Vitest](https://vitest.dev/) — testen
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (LTS, 20 of hoger)
+- [pnpm](https://pnpm.io/installation)
+- [Docker](https://www.docker.com/) (voor een lokale PostgreSQL-database), of een bestaande `DATABASE_URL`
+
+## Installation
+
+```bash
+pnpm install
+cp .env.example .env.local
+# Vul DATABASE_URL en BETTER_AUTH_SECRET in .env.local in
+docker compose up -d
+pnpm db:push
+```
+
+## Usage
+
+```bash
+pnpm dev
+```
+
+Bereikbaar op `http://localhost:3000`.
+
+---
+
 Welcome to your new TanStack Start app! 
 
 # Getting Started
