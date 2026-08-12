@@ -7,8 +7,18 @@ import { Mail, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { contactSchema, type ContactInput } from '@/lib/validators/contact.schema'
 import { verstuurContactBericht } from '@/lib/server/contact'
+import { seo, seoLinks } from '@/lib/seo'
 
 export const Route = createFileRoute('/contact')({
+  head: () => ({
+    meta: seo({
+      title: 'Contact',
+      description:
+        'Vragen over verzekeringen of premies? Neem contact op met VerzekerSlim via e-mail, WhatsApp of social media.',
+      path: '/contact',
+    }),
+    links: seoLinks('/contact'),
+  }),
   component: ContactPage,
 })
 

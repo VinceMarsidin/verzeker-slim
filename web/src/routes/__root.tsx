@@ -10,12 +10,30 @@ import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
+import { seo, SITE_URL, SITE_NAME } from '@/lib/seo'
+
 
 import appCss from '../styles.css?url'
 import type { QueryClient } from '@tanstack/react-query'
 
 interface MyRouterContext {
   queryClient: QueryClient
+}
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  email: 'info@verzekerslim.sr',
+  sameAs: [
+    'https://facebook.com/verzekerslim',
+    'https://instagram.com/verzekerslim',
+    'https://x.com/verzekerslim',
+    'https://linkedin.com/company/verzekerslim',
+    'https://youtube.com/@verzekerslim',
+  ],
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -28,9 +46,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      {
-        title: 'VerzekerSlim',
-      },
+
+      ...seo({
+      title: 'VerzekerSlim',
+      description: 'Vergelijk verzekeringspremies van betrouwbare verzekeraars in Suriname en de regio. Snel, onafhankelijk en gratis.',
+      path : '/',
+    }),
     ],
 
     links: [
@@ -68,16 +89,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="nl">
       <head>
         <HeadContent />
+         <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+       />
       </head>
 
       <body>
-        {/* Dezelfde Navbar op alle pagina's, inclusief Dashboard */}
         <Navbar />
 
-        {/* Pagina inhoud */}
         {children}
 
-        {/* Dezelfde Footer op alle pagina's, inclusief Dashboard */}
         <Footer />
 
         <TanStackDevtools
@@ -98,3 +120,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     </html>
   )
 }
+
+
