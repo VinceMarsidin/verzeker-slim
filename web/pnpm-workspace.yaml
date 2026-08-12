@@ -1,2 +1,6 @@
-allowBuilds:
-  esbuild: false
+packages:
+  - "."
+
+onlyBuiltDependencies:
+  - esbuild
+  - lightningcss
