@@ -1,3 +1,39 @@
+# VerzekerSlim — Documentatie
+
+De documentatiesite van VerzekerSlim, gebouwd met Astro Starlight.
+
+## Tech Stack
+
+- [Astro](https://astro.build/) — statische site-generator
+- [Starlight](https://starlight.astro.build/) — documentatie-framework bovenop Astro
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (LTS, 20 of hoger)
+- [pnpm](https://pnpm.io/installation)
+
+## Installation
+
+```bash
+pnpm install
+```
+
+## Usage
+
+```bash
+pnpm dev
+```
+
+Bereikbaar op `http://localhost:4321`.
+
+Bouwen voor productie:
+
+```bash
+pnpm build
+```
+
+---
+
 # Starlight Starter Kit: Basics
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
@@ -37,12 +73,12 @@ All commands are run from the root of the project, from a terminal:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+| `pnpm install`            | Installs dependencies                            |
+| `pnpm dev`                | Starts local dev server at `localhost:4321`      |
+| `pnpm build`              | Build your production site to `./dist/`          |
+| `pnpm preview`            | Preview your build locally, before deploying     |
+| `pnpm astro ...`          | Run CLI commands like `astro add`, `astro check` |
+| `pnpm astro -- --help`    | Get help using the Astro CLI                     |
 
 ## 👀 Want to learn more?
 
