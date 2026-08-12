@@ -1,30 +1,59 @@
 ---
 title: Premie-calculator
-description: Bereken een indicatie van je verzekeringspremie.
+description: Bereken een indicatie van je verzekeringspremie, per categorie op basis van andere gegevens.
 ---
 
 ## Overzicht
 
-Met de premie-calculator krijg je snel een schatting van je jaarpremie, op basis van de categorie verzekering en de dagwaarde van het object of voertuig. Dit is een indicatie — voor een exacte premie vergelijk je aanbieders op de vergelijkingspagina.
+Met de premie-calculator krijg je snel een schatting van je jaarpremie. In tegenstelling tot een vroegere versie die overal dezelfde "dagwaarde" vroeg, gebruikt elke categorie nu **eigen, relevante velden** — een reisverzekering wordt bijvoorbeeld niet op dagwaarde berekend, maar op aantal dagen en personen.
 
-## Een premie berekenen
+Dit is een indicatie — voor een exacte premie vergelijk je aanbieders op de [vergelijkingspagina](/vergelijkingen).
 
-1. Kies een **categorie**:
-   - **Motor** — voor voertuigen
-   - **Reis** — voor reisverzekeringen
-   - **Woon** — voor woonverzekeringen
-   - **Leven** — voor levensverzekeringen
-2. Vul de **dagwaarde** in (in SRD) van het voertuig of object dat je wilt verzekeren.
-3. Klik op **Bereken nu**.
+## Velden per categorie
 
-## Resultaat
+1. Kies bovenaan een **categorie**: Motor, Reis, Woon of Leven. De rest van het formulier past zich hierop aan.
 
-Na het berekenen verschijnt de **geschatte jaarpremie** in SRD.
+**Motor**
+- Dagwaarde van het voertuig (SRD)
+- Voertuigtype (auto, elektrische auto, motorfiets, bromfiets, bus, pick-up/truck, zwaar materieel)
+- Bouwjaar
+- Gebruiksdoel (privégebruik, taxi, verhuur, lease, rijles)
+- Eigen risico (SRD 500 / 1.000 / 2.000 / 5.000) — een hoger eigen risico geeft korting op de premie
+- Optionele extra dekkingen: Mini Casco, Ongevallen inzittenden
+
+**Reis**
+- Aantal dagen
+- Aantal personen
+
+**Woon**
+- Woonoppervlakte (m²)
+
+**Leven**
+- Leeftijd
+- Looptijd (jaren)
+- Verzekerd bedrag
+
+## Live voorbeeld
+
+Zodra alle verplichte velden voor de gekozen categorie geldig zijn ingevuld, verschijnt automatisch een **live voorbeeld** van de premie — je hoeft niet eerst op "Bereken nu" te klikken. Dit voorbeeld wordt kort na je laatste toetsaanslag ververst (met een korte vertraging, zodat niet bij elke letter een nieuwe berekening wordt gestart).
+
+## Bereken nu
+
+Klik je op **"Bereken nu"**, dan verschijnt het definitieve resultaat met een **uitsplitsing**:
+
+- De basispremie
+- Eventuele korting voor het gekozen eigen risico (bij Motor)
+- Eventuele extra dekkingen (bij Motor)
+- Het totaal
 
 :::note
-Als de berekende premie lager uitvalt dan de minimumpremie voor die categorie, wordt automatisch de minimumpremie toegepast. Dit wordt dan expliciet aangegeven bij het resultaat.
+Als de berekende premie lager uitvalt dan de minimumpremie voor die categorie, wordt automatisch de minimumpremie toegepast. Dit wordt dan aangegeven in de toelichting onder het resultaat.
 :::
+
+## Doorklikken naar vergelijken
+
+Naast het resultaat staat een zijbalk met een korte tip passend bij de gekozen categorie, en een knop **"Vergelijk aanbieders"** die direct doorlinkt naar de [vergelijkingspagina](/vergelijkingen) voor die categorie.
 
 ## Foutmeldingen
 
-Als de ingevulde dagwaarde ongeldig is (bijv. leeg of niet-numeriek), verschijnt er een foutmelding onder het invoerveld en wordt de berekening niet uitgevoerd.
+Is een ingevuld veld ongeldig (bijv. leeg, niet-numeriek, of buiten het toegestane bereik), dan verschijnt een foutmelding direct onder dat veld, en wordt de berekening niet uitgevoerd.

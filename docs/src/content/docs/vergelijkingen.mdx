@@ -1,22 +1,35 @@
 ---
 title: Verzekeringen vergelijken
-description: Vergelijk premies van verschillende maatschappijen per verzekeringscategorie.
+description: Vergelijk premies van verschillende maatschappijen per verzekeringscategorie en regio.
 ---
 
 ## Overzicht
 
-Op deze pagina vergelijk je verzekeringspremies van verschillende maatschappijen, per categorie:
+Op `/vergelijkingen` vergelijk je verzekeringspremies van verschillende maatschappijen, per **regio** en per **categorie**:
 
-- **Motor** (`/vergelijkingen/motor`)
-- **Reis** (`/vergelijkingen/reis`)
-- **Woon** (`/vergelijkingen/woon`)
-- **Leven** (`/vergelijkingen/leven`)
+- **Motor**, **Reis**, **Woon**, **Leven**
+- Regio's: Suriname, Aruba, Curaçao, Bonaire, Trinidad & Tobago, Jamaica, Guyana, Frans-Guyana
 
-:::caution[In ontwikkeling]
-Deze pagina toont momenteel nog geen live data. Zodra de bijbehorende server-endpoint (`/api/vergelijking/{type}`) klaar is, wordt hier een vergelijkingstabel getoond met actuele premies per maatschappij. De onderstaande beschrijving geeft de bedoelde werking weer.
-:::
+De pagina haalt de data op via `getCompaniesFn` en `getQuotesFn`, die eerst kijken of er in de database (`companies`- en `premiums`-tabellen) daadwerkelijk premies staan voor de gekozen combinatie van regio en categorie. Is dat zo, dan komt de data live uit de database. Staan er nog geen premies voor die combinatie, dan valt het systeem automatisch terug op voorbeelddata, zodat de pagina nooit leeg is.
 
 ## Wat kun je hier doen?
 
-- **Een categorie kiezen** — via de URL (bijv. `/vergelijkingen/motor`) navigeer je naar de vergelijking voor die verzekeringssoort.
-- **Premies vergelijken** — zodra de koppeling actief is, zie je hier een tabel met premies per maatschappij voor de gekozen categorie.
+- **Regio en categorie kiezen** — via de filters bovenaan de pagina.
+- **Vergelijkingskaarten bekijken** — elke maatschappij die premies heeft voor de gekozen combinatie krijgt een eigen kaart, met:
+  - Logo (of een letter-badge als er geen logo is geüpload) en naam
+  - Een label als "beste prijs", "beste dekking" of "populair", indien van toepassing
+  - De **rating** — het gemiddelde van alle gebruikersreviews voor die maatschappij; heeft de maatschappij nog geen reviews, dan wordt een vaste standaardwaarde getoond
+  - Het eigen risico en de dekkingen (als badges)
+  - De premie per maand
+- **Doorklikken** — elke kaart heeft knoppen naar:
+  - **"Reviews"** — opent de maatschappij-pagina direct op het reviews-tabblad
+  - **"Bekijk opties"** — opent de maatschappij-pagina op het premies-tabblad, met de gekozen categorie alvast gemarkeerd
+  - **"Website"** — opent de officiële website van de maatschappij in een nieuw tabblad (alleen zichtbaar als er een website bekend is)
+
+:::note
+De rating die je hier ziet is dezelfde als op de [maatschappij-detailpagina](/maatschappijen) en in het [admin-dashboard](/admin/dashboard) — overal wordt hetzelfde gemiddelde van de reviews gebruikt, met dezelfde terugval-regel.
+:::
+
+## Vanuit de premie-calculator
+
+Vanuit de [premie-calculator](/premie-calculator) kun je na een berekening direct doorklikken naar deze pagina, met de bijbehorende categorie al voorgeselecteerd.

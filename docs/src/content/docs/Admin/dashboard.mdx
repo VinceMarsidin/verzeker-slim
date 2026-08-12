@@ -1,14 +1,15 @@
 ---
 title: Dashboard — Admin overzicht
-description: Het beheerdersdashboard voor premies, maatschappijen en contactberichten.
+description: Het beheerdersdashboard voor premies, maatschappijen, reviews en contactberichten.
 ---
 
 ## Overzicht
 
-Op `/dashboard` vinden beheerders (accounts met `role: 'admin'`) een overzicht met drie tabbladen:
+Op `/dashboard` vinden beheerders (accounts met `role: 'admin'`) een overzicht met **vier tabbladen**:
 
-- **Premies** — premies per maatschappij en verzekeringstype beheren
-- **Maatschappijen** — de lijst met verzekeringsmaatschappijen beheren
+- **Premies** — premies per maatschappij en verzekeringstype toevoegen, bewerken en verwijderen
+- **Maatschappijen** — de lijst met verzekeringsmaatschappijen toevoegen, bewerken en verwijderen
+- **Reviews** — alle reviews die gebruikers hebben geplaatst bekijken, filteren en modereren
 - **Contact** — inkomende berichten uit het [contactformulier](/admin/contact) bekijken
 
 ## Toegang
@@ -19,17 +20,52 @@ Deze pagina is **alleen toegankelijk voor beheerders**:
 - Ingelogd maar zonder adminrol (`role: 'user'`) → je ziet de melding **"Geen toegang: deze pagina is alleen beschikbaar voor beheerders."**
 - Ingelogd met adminrol → je krijgt toegang tot het dashboard.
 
-:::note
-Standaard krijgt elk nieuw account de rol `user`. Een account wordt admin door de kolom `role` in de `user`-tabel handmatig op `admin` te zetten (bijvoorbeeld via een SQL-query in pgAdmin). Er is momenteel geen zelfbedieningsfunctie in de UI om iemand admin te maken.
-:::
+Zie [Gebruikers en rollen](/admin/users) voor hoe je iemand admin maakt.
 
 ## Tabblad: Premies
 
-Toont de premies die per maatschappij en verzekeringscategorie (motor, reis, woon, leven) zijn ingesteld. Deze premies zijn de data die gebruikers zien op de [vergelijkingspagina](/vergelijkingen).
+Toont alle premies uit de `premiums`-tabel, gekoppeld aan een maatschappij en een verzekeringscategorie (motor, reis, woon, leven). Deze premies zijn de data die gebruikers zien op de [vergelijkingspagina](/vergelijkingen).
+
+Elke rij toont: maatschappij, categorie (met eventuele badge zoals "beste prijs"), premie per maand, eigen risico, rating, en de dekkingen.
+
+**Nieuwe premie toevoegen of bewerken:**
+
+1. Klik op **"Nieuwe premie"** (of het potlood-icoon bij een bestaande premie).
+2. Kies een maatschappij, categorie en badge (optioneel).
+3. Vul de premie per maand, valuta, eigen risico en een "standaard rating" in.
+4. Vul de dekkingen komma-gescheiden in, bijvoorbeeld `WA, Diefstal, Brand`.
+5. Klik op **"Premie opslaan"**.
+
+:::note
+De "standaard rating" die je hier invult is een **terugvalwaarde**. Zodra een maatschappij één of meer reviews heeft, wordt automatisch het gemiddelde van die reviews getoond in plaats van dit cijfer — op de vergelijkingspagina, de maatschappij-detailpagina, én hier in het dashboard. Het dashboard laat bij elke premie zien of het getoonde cijfer een echt review-gemiddelde is, of nog de terugvalwaarde.
+:::
+
+Verwijderen kan via het prullenbak-icoon, met een bevestigingsvraag.
 
 ## Tabblad: Maatschappijen
 
-Toont de verzekeringsmaatschappijen in het systeem, met naam, adres, e-mailadres en telefoonnummer.
+Toont de verzekeringsmaatschappijen uit de `companies`-tabel: logo, naam, regio, homepage-afbeelding, beschrijving, website, en het aantal gekoppelde premies en reviews.
+
+**Nieuwe maatschappij toevoegen of bewerken:**
+
+1. Klik op **"Nieuwe maatschappij"** (of het potlood-icoon bij een bestaande maatschappij).
+2. Vul naam, een unieke slug (url-vriendelijk, bijv. `mijn-verzekeraar`), regio, logo-letter (fallback), en website in.
+3. Upload optioneel een **logo** en een **homepage-afbeelding** — dit schrijft het bestand naar de server en vult automatisch de juiste URL in.
+4. Vul een beschrijving in.
+5. Klik op **"Opslaan"**.
+
+:::note
+Verwijderen van een maatschappij verwijdert automatisch ook **alle gekoppelde premies en reviews** (cascade-verwijdering). Het dashboard toont vooraf hoeveel premies en reviews dat precies raakt, voordat je bevestigt.
+:::
+
+## Tabblad: Reviews
+
+Toont alle reviews die gebruikers hebben geplaatst, over alle maatschappijen heen — met gebruikersnaam, maatschappij, sterren-rating, titel, berichttekst en datum.
+
+- **Zoeken** op maatschappij, gebruikersnaam of titel.
+- **Filteren** op een specifieke maatschappij via de dropdown.
+- Statistieken bovenaan: totaal aantal reviews, gemiddelde rating over alles, en het aantal maatschappijen dat minstens één review heeft.
+- **Verwijderen** van een review (bijvoorbeeld bij ongepaste inhoud) kan via het prullenbak-icoon per rij, met een bevestigingsvraag.
 
 ## Tabblad: Contact
 
