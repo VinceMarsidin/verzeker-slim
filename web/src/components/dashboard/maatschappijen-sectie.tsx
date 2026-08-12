@@ -146,6 +146,7 @@ export function MaatschappijenSectie() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState<Bedrijf | null>(null)
   const [zoekterm, setZoekterm] = useState('')
+  const [gekozenRegio, setGekozenRegio] = useState('')
   const [formError, setFormError] = useState<string | null>(null)
   const [slugVeld, setSlugVeld] = useState('')
   const [logoUrlVeld, setLogoUrlVeld] = useState('')
@@ -220,6 +221,8 @@ export function MaatschappijenSectie() {
   }
 
   const gefilterd = maatschappijen.filter((m) => {
+    if (gekozenRegio && m.region !== gekozenRegio) return false
+
     const q = zoekterm.trim().toLowerCase()
     if (!q) return true
     return (
@@ -256,11 +259,25 @@ export function MaatschappijenSectie() {
             onChange={setZoekterm}
             placeholder="Zoek op naam of regio..."
           />
-          {zoekterm && (
-            <span className="shrink-0 text-xs text-ink-soft">
-              {gefilterd.length} van {maatschappijen.length}
-            </span>
-          )}
+          <div className="flex shrink-0 items-center gap-3">
+            <select
+              value={gekozenRegio}
+              onChange={(e) => setGekozenRegio(e.target.value)}
+              className="rounded-[6px] border border-line bg-white px-3 py-1.5 text-sm capitalize text-ink outline-none focus:border-stamp-dark"
+            >
+              <option value="">Alle regio's</option>
+              {regioOpties.map((regio) => (
+                <option key={regio} value={regio} className="capitalize">
+                  {regio}
+                </option>
+              ))}
+            </select>
+            {(zoekterm || gekozenRegio) && (
+              <span className="text-xs text-ink-soft">
+                {gefilterd.length} van {maatschappijen.length}
+              </span>
+            )}
+          </div>
         </div>
 
         {isLoading ? (
@@ -268,7 +285,7 @@ export function MaatschappijenSectie() {
         ) : maatschappijen.length === 0 ? (
           <EmptyState label="Nog geen maatschappijen in de database. Draai tsx scripts/seed-companies.ts." />
         ) : gefilterd.length === 0 ? (
-          <EmptyState label={`Geen resultaten voor "${zoekterm}".`} />
+          <EmptyState label="Geen maatschappijen gevonden voor deze zoekopdracht/filter." />
         ) : (
           <table className="w-full border-collapse text-sm">
             <thead>
