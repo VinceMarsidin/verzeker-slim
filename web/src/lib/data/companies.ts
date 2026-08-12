@@ -19,7 +19,7 @@ export const companies: Company[] = [
     logoUrl: '/companies/self-reliance/logo.png',
     homepageImage: '/companies/self-reliance/homepage.jpg',
     region: 'suriname',
-    website: 'https://www.selfreliance.sr',
+    website: 'https://self-reliance.sr/',
     description: 'Self Reliance biedt betaalbare verzekeringen voor particulieren en bedrijven in Suriname.',
   },
   {
@@ -29,7 +29,7 @@ export const companies: Company[] = [
     logoUrl: '/companies/fatum-suriname/logo.png',
     homepageImage: '/companies/fatum-suriname/homepage.jpg',
     region: 'suriname',
-    website: 'https://www.fatum.com',
+    website: 'https://fatum-suriname.com/nl/particulier/',
     description: 'Fatum Verzekeringen dekt motor, woon, reis en leven met uitgebreide polissen.',
   },
   {
