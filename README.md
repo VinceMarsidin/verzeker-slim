@@ -2,10 +2,12 @@
 
 VerzekerSlim is een platform waarmee gebruikers in het Caribisch gebied verzekeringspremies van verschillende maatschappijen kunnen vergelijken, een premie-indicatie kunnen berekenen, en reviews kunnen plaatsen bij verzekeraars.
 
+## Components
+
 Dit is een monorepo met twee losse projecten:
 
-- **`web/`** — de hoofdapplicatie (TanStack Start)
-- **`docs/`** — de documentatiesite (Astro Starlight)
+- **[`web/`](./web)** — de hoofdapplicatie (TanStack Start): verzekeringen vergelijken, premies berekenen, reviews plaatsen, inloggen/registreren, en een admin-dashboard om maatschappijen, premies, reviews en contactberichten te beheren.
+- **[`docs/`](./docs)** — de documentatiesite (Astro Starlight): uitleg over hoe elk onderdeel van de applicatie werkt, bedoeld voor ontwikkelaars en beheerders.
 
 ## Tech Stack
 
