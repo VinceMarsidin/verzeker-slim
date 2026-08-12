@@ -1,4 +1,4 @@
-import { eq, and } from 'drizzle-orm'
+import { eq, and, avg } from 'drizzle-orm'
 import { db } from '@/db'
 import { companies, premiums, reviews } from '@/db/schema'
 import { companies as seedCompanies, getCompanyBySlug, getCompaniesByRegion } from '@/lib/data/companies'
@@ -69,6 +69,15 @@ export async function getCompany(slug: string) {
   }
 }
 
+async function getGemiddeldeRatings(): Promise<Map<number, number>> {
+  const rows = await db
+    .select({ companyId: reviews.companyId, avgRating: avg(reviews.rating) })
+    .from(reviews)
+    .groupBy(reviews.companyId)
+
+  return new Map(rows.map((r) => [r.companyId, Number(r.avgRating)]))
+}
+
 export async function fetchQuotes(region: Region, type: InsuranceType): Promise<Quote[]> {
   if (!(await useDatabase())) {
     return getQuotes(region, type)
@@ -76,6 +85,7 @@ export async function fetchQuotes(region: Region, type: InsuranceType): Promise<
 
   const rows = await db
     .select({
+      companyId: companies.id,
       slug: companies.slug,
       name: companies.name,
       logoInitial: companies.logoInitial,
@@ -94,6 +104,8 @@ export async function fetchQuotes(region: Region, type: InsuranceType): Promise<
     return getQuotes(region, type)
   }
 
+  const gemiddeldeRatings = await getGemiddeldeRatings()
+
   return rows.map((row) => ({
     companySlug: row.slug,
     insurer: row.name,
@@ -101,7 +113,7 @@ export async function fetchQuotes(region: Region, type: InsuranceType): Promise<
     monthlyPremium: row.monthlyPremium,
     currency: row.currency,
     deductible: row.deductible,
-    rating: row.rating,
+    rating: gemiddeldeRatings.get(row.companyId) ?? row.rating,
     coverage: row.coverage,
     badge: row.badge as Quote['badge'] | undefined,
   }))

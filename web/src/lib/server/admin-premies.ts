@@ -1,9 +1,9 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
-import { asc, eq } from 'drizzle-orm'
+import { asc, avg, eq } from 'drizzle-orm'
 
 import { db } from '@/db'
-import { companies, premiums } from '@/db/schema'
+import { companies, premiums, reviews } from '@/db/schema'
 import { auth } from '@/lib/auth'
 
 async function vereisAdmin() {
@@ -24,24 +24,44 @@ export const haalAllePremies = createServerFn({ method: 'GET' }).handler(
     async () => {
         await vereisAdmin()
 
-        const rows = await db
-            .select({
-                id: premiums.id,
-                companyName: companies.name,
-                companySlug: companies.slug,
-                region: companies.region,
-                insuranceType: premiums.insuranceType,
-                monthlyPremium: premiums.monthlyPremium,
-                currency: premiums.currency,
-                deductible: premiums.deductible,
-                rating: premiums.rating,
-                coverage: premiums.coverage,
-                badge: premiums.badge,
-            })
-            .from(premiums)
-            .innerJoin(companies, eq(premiums.companyId, companies.id))
-            .orderBy(asc(companies.name))
+        const [rows, gemiddeldeRatingsRows] = await Promise.all([
+            db
+                .select({
+                    id: premiums.id,
+                    companyId: companies.id,
+                    companyName: companies.name,
+                    companySlug: companies.slug,
+                    region: companies.region,
+                    insuranceType: premiums.insuranceType,
+                    monthlyPremium: premiums.monthlyPremium,
+                    currency: premiums.currency,
+                    deductible: premiums.deductible,
+                    rating: premiums.rating,
+                    coverage: premiums.coverage,
+                    badge: premiums.badge,
+                })
+                .from(premiums)
+                .innerJoin(companies, eq(premiums.companyId, companies.id))
+                .orderBy(asc(companies.name)),
 
-        return rows
+            // Los opgehaald, net als bij de maatschappijen-tellingen eerder —
+            // gemiddelde review-rating per maatschappij.
+            db
+                .select({ companyId: reviews.companyId, avgRating: avg(reviews.rating) })
+                .from(reviews)
+                .groupBy(reviews.companyId),
+        ])
+
+        const gemiddeldeRatings = new Map(
+            gemiddeldeRatingsRows.map((r) => [r.companyId, Number(r.avgRating)]),
+        )
+
+        // Terugval op de statische premiums.rating zolang een maatschappij nog
+        // geen reviews heeft — zelfde regel als op de maatschappij-detailpagina.
+        return rows.map((row) => ({
+            ...row,
+            rating: gemiddeldeRatings.get(row.companyId) ?? row.rating,
+            isReviewBased: gemiddeldeRatings.has(row.companyId),
+        }))
     },
 )

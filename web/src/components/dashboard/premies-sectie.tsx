@@ -123,6 +123,11 @@ export function PremiesSectie() {
                     <div className="flex items-center gap-1 text-ink-soft">
                       <Star className="h-3.5 w-3.5 fill-stamp-dark text-stamp-dark" />
                       {p.rating.toFixed(1)}
+                      {!p.isReviewBased && (
+                        <span className="ml-1 text-[10px] text-ink-soft/60" title="Nog geen reviews — dit is een standaardwaarde">
+                          (nog geen reviews)
+                        </span>
+                      )}
                     </div>
                   </td>
                   <td className="max-w-xs p-4 text-ink-soft">
