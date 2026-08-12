@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Privé-/functionele pagina's die niet in zoekresultaten moeten verschijnen
+Disallow: /dashboard
+Disallow: /login
+Disallow: /account/
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://verzekerslim.sr/sitemap.xml

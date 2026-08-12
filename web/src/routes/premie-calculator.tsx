@@ -15,6 +15,7 @@ import {
     type PremieCalculatorResult,
 } from '@/lib/validators/premie.schema'
 import { berekenPremie } from '@/lib/server/premie'
+import { seo, seoLinks } from '@/lib/seo'
 
 const voertuigTypeLabels: Record<(typeof voertuigTypes)[number], string> = {
     auto: 'Auto',
@@ -35,6 +36,15 @@ const gebruiksdoelLabels: Record<(typeof gebruiksdoelen)[number], string> = {
 }
 
 export const Route = createFileRoute('/premie-calculator')({
+    head: () => ({
+        meta: seo({
+            title: 'Premiecalculator',
+            description:
+                'Bereken direct een indicatie van je verzekeringspremie voor motor, reis, woon of leven. Gratis en zonder verplichtingen.',
+            path: '/premie-calculator',
+        }),
+        links: seoLinks('/premie-calculator'),
+    }),
     component: PremieCalculatorPage,
 })
 

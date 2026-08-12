@@ -11,12 +11,22 @@ import {
 import { HeroSlideshow } from '@/components/home/hero-slideshow'
 import { PremieLedger } from '@/components/home/premie-ledger'
 import { getCompaniesFn } from '@/lib/server/insurance'
+import { seo, seoLinks } from '@/lib/seo'
 
 export const Route = createFileRoute('/')({
   loader: async () => {
     const companies = await getCompaniesFn({ data: undefined })
     return { companies }
   },
+  head: () => ({
+    meta: seo({
+      title: 'Vergelijk verzekeringspremies in Suriname',
+      description:
+        'Vergelijk motor-, reis-, woon- en levensverzekeringen van erkende maatschappijen in Suriname en de regio. Bereken je premie en kies de beste dekking.',
+      path: '/',
+    }),
+    links: seoLinks('/'),
+  }),
   component: HomePage,
 })
 

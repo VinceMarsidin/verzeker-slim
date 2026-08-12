@@ -9,6 +9,7 @@ import { ReviewList } from '@/components/companies/review-list'
 import { ReviewForm } from '@/components/companies/review-form'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { seo, seoLinks } from '@/lib/seo'
 
 const searchSchema = z.object({
   tab: z.enum(['premiums', 'reviews']).optional().catch('premiums'),
@@ -18,6 +19,25 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/maatschappijen/$slug')({
   validateSearch: searchSchema,
   loader: async ({ params }) => getCompanyFn({ data: params.slug }),
+  // Dynamische, unieke meta per verzekeraar — belangrijk want dit zijn de
+  // pagina's waar de meeste long-tail zoekverkeer op landt (bv.
+  // "Assuria review" of "Self Reliance premies").
+  head: ({ loaderData, params }) => {
+    const company = loaderData?.company
+    const title = company ? company.name : 'Verzekeraar'
+    const description = company
+      ? `${company.description} Bekijk premies, dekking en klantreviews van ${company.name}.`
+      : 'Bekijk premies, dekking en klantreviews van deze verzekeraar op VerzekerSlim.'
+    return {
+      meta: seo({
+        title,
+        description,
+        path: `/maatschappijen/${params.slug}`,
+        image: company?.logoUrl,
+      }),
+      links: seoLinks(`/maatschappijen/${params.slug}`),
+    }
+  },
   component: CompanyDetailPage,
 })
 
